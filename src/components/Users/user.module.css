@@ -1,0 +1,41 @@
+.userContayner {
+    display: flex;
+    margin-top: 8px;
+    border-radius: 10px;
+    background-color: #01096b;
+    width: 100%;
+
+}
+.avatar{
+    box-shadow: 0 0 10px rgb(1, 253, 224);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #02fac1;
+    transition: all 0.5s linear;
+}
+.avatar:hover{
+    cursor: pointer;
+    border-color: red;
+    box-shadow: 0 0 10px rgb(255, 0, 54);
+}
+.name {
+    color: gainsboro;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.userContent{
+    color: #fafdfa;
+    border-radius: 10px;
+    padding-top: 50px;
+    background-color: #00072a;
+    position: relative;
+    width: 40vw;
+}
+.location{
+    color: grey;
+    position: absolute;
+    top: 0;
+    right: 0;
+}

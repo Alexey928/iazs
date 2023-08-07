@@ -1,0 +1,29 @@
+.header{
+    height: 35px;
+    color: azure;
+    position: fixed;
+    grid-column: 1/12;
+    margin-bottom: 4px;
+    font-size: 18px;
+    background-image:linear-gradient(90deg, rgba(14, 11, 234, 0.92), rgba(1, 93, 3, 0.7));
+    border-radius:20px;
+    width: 100%;
+    z-index: 10;
+}
+header img{
+    height: 25px;
+    margin-top: 2px;
+    margin-left: 20px;
+}
+.auth{
+    display: inline-block;
+    float: right;
+    margin-right: 20px;
+}
+.auth span:hover{
+    cursor: pointer;
+}
+
+
+
+

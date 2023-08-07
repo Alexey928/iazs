@@ -1,0 +1,30 @@
+.usersContayner{
+    margin-top: 70px;
+    height: calc(100vh - 70px);
+    overflow: scroll;
+    position: relative;
+}
+.usersContayner::-webkit-scrollbar {
+    width: 0;
+}
+
+.button{
+    border-radius: 50%;
+    background-color: #7cf508;
+    padding: 10px 5px;
+    z-index: 900;
+    display: none;
+    position: absolute;
+    top: 0;
+    right:5px;
+
+}
+@media (max-width: 500px) {
+    .usersContayner{
+        z-index: 2;
+        margin-left: -183px;
+    }
+    .usersContayner .button{
+        display: block;
+    }
+}
