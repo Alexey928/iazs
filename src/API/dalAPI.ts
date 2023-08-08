@@ -63,13 +63,6 @@ export const profileApi = {
     }
 }
 
-
-
-
-
-
-
-
 //this i try create self thunk
 export const usersUpdater = async (setUsersIsload:(flag:boolean)=>void,
                                    setUsers:(users:Array<userType>)=>void,
