@@ -1,9 +1,9 @@
 
 .navigationWrapper{
     margin-top: 50px;
-    width: 190px;
 }
 .navigation{
+    padding: 5px;
     background-image:linear-gradient(270deg, rgb(21, 208, 0), rgb(1, 2, 68));
     margin-right: 20px;
     border-radius: 15px;
@@ -25,21 +25,16 @@
 }
 
 .navigation a{
-    line-height: 40px;
+    padding:0 4px 0 4px;
+    line-height: 30px;
     text-decoration: none;
     color: #cbfffb;
     margin-left: 5px;
     transition: 0.7s all ;
     border-radius: 10px;
 }
-
-
-.navigation div:last-child{
-    margin-top: 20px;
-}
-
 .navigation .act {
-    color: #08e1f5;
+    color: #010728;
     background-image:linear-gradient(90deg, rgb(4, 0, 253), rgb(2, 255, 12));
     border-radius: 10px;
 

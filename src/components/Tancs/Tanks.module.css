@@ -45,7 +45,7 @@
 @media (max-width: 500px) {
     .content{
         z-index: 2;
-        margin-left: -190px;
+        margin-left: -149px;
     }
     .content .button{
         display: block;
