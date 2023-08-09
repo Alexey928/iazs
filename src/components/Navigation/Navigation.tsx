@@ -8,7 +8,7 @@ import {sestIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 
 
 const Navigation = ()=>{
-    const location  = useLocation()//<---- interesting object ))
+    //const location  = useLocation()//<---- interesting object ))
 
     const navigationState = useSelector<AppRootStateType,navigationStateType>(state => state.navigation);
     const dispatch = useAppDispatch();
@@ -17,10 +17,10 @@ const Navigation = ()=>{
        <div className={style.navigationWrapper}>
            <nav className={navigationState.shoveIt?`${style.navigation} ${style.navigationSelected}`:style.navigation}>
                <div>
-                   <NavLink onClick={()=>{dispatch(sestIsMenuActiveAC(false))}} to={"/Profile"} className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Profile</NavLink>
+                   <NavLink to={"/Carts"} onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Карты</NavLink>
                </div>
                <div>
-                   <NavLink to={"/DialogesPage"}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Messages</NavLink>
+                   <NavLink to={"/DialogesPage"}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>транзакции</NavLink>
                </div>
                <div>
                    <NavLink to={"/Users"} onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Users</NavLink>
@@ -29,10 +29,10 @@ const Navigation = ()=>{
                    <a href={"/Music"}>Music</a>
                </div>
                <div>
-                   <NavLink to={"/Tanks"} className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Tanks</NavLink>
+                   <NavLink to={"/Tanks"} className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Емкостя</NavLink>
                </div>
            </nav>
-           <div className={style.frendsCotayner}>Friends</div>
+
        </div>
     )
 }
