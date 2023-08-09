@@ -26,6 +26,7 @@ const TanksPage = () => {
         },
 
     ])
+    console.log(new Date())
 
 
 

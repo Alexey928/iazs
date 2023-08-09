@@ -26,7 +26,7 @@ export type AuthUserDataType = {
     email: string;
 };
 
-const axiosInstanse = axios.create({
+const axiosInstanseForSocialNetvork = axios.create({
     withCredentials:true,
     baseURL:"https://social-network.samuraijs.com/api/1.0/",
     headers:{
@@ -36,29 +36,29 @@ const axiosInstanse = axios.create({
 
 export const authUserAPI = {
     authMe(){
-        return axiosInstanse.get("auth/me").then((response:AxiosResponse)=>response.data)
+        return axiosInstanseForSocialNetvork.get("auth/me").then((response:AxiosResponse)=>response.data)
     },
     loginUser(email: string, password: string, rememberMe: boolean){
-        return axiosInstanse.post<LoginResponseType>("auth/login", {
+        return axiosInstanseForSocialNetvork.post<LoginResponseType>("auth/login", {
             email,
             password,
             rememberMe,
         });
     },
     logoutUser() {
-        return axiosInstanse.delete<AuthMeResponseType>("auth/login");
+        return axiosInstanseForSocialNetvork.delete<AuthMeResponseType>("auth/login");
     },
 }
 
 export const usersAPI = {
     getUsers(curentPage:number, pageSize:number){
-        return axiosInstanse.get(`users?page=${curentPage}&count=${pageSize}`).then((response:AxiosResponse)=>response.data)
+        return axiosInstanseForSocialNetvork.get(`users?page=${curentPage}&count=${pageSize}`).then((response:AxiosResponse)=>response.data)
     },
 }
 
 export const profileApi = {
     getUserProfile(id:number){
-        return axiosInstanse.get<profileDataType>(`https://social-network.samuraijs.com/api/1.0/profile/${id}`).
+        return axiosInstanseForSocialNetvork.get<profileDataType>(`https://social-network.samuraijs.com/api/1.0/profile/${id}`).
         then((response:AxiosResponse)=>response.data);
     }
 }
@@ -82,3 +82,7 @@ export const usersUpdater = async (setUsersIsload:(flag:boolean)=>void,
     }
     return count
 }
+
+
+
+
