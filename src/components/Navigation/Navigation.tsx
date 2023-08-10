@@ -16,21 +16,107 @@ const Navigation = ()=>{
     return (
        <div className={style.navigationWrapper}>
            <nav className={navigationState.shoveIt?`${style.navigation} ${style.navigationSelected}`:style.navigation}>
-               <div>
-                   <NavLink to={"/Carts"} onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Карты</NavLink>
-               </div>
-               <div>
-                   <NavLink to={"/DialogesPage"}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>транзакции</NavLink>
-               </div>
-               <div>
-                   <NavLink to={"/Users"} onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Users</NavLink>
-               </div>
-               <div>
-                   <a href={"/Music"}>Music</a>
-               </div>
-               <div>
-                   <NavLink to={"/Tanks"} className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Емкостя</NavLink>
-               </div>
+               <ul className={style.menu}>
+                   <li>
+                       <NavLink to={"/Carts"}   className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Карты</NavLink>
+                   </li>
+                   <li>
+                       <NavLink to={"/DialogesPage"}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Операции</NavLink>
+                   </li>
+                   <li >
+                       <NavLink to={"/Users"}
+                                onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}
+                                >Справочники
+                       </NavLink>
+                       <ul className={style.submenu}>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   to={"/Tanks"}
+                                   className={style.act}
+                                   >Организации
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   to={"/Tanks"}
+                                   className={style.act}
+                                   >Поставшики
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   to={"/Tanks"}
+                                   className={style.act}
+                               >Водители
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   to={"/Tanks"}
+                                   className={style.act}
+                               >Модели авто
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   to={"/Tanks"}
+                                   className={style.act}
+                               >Автомобили
+                               </NavLink>
+                           </li>
+                       </ul>
+                   </li>
+                   <li>
+                       <NavLink to={"/Music"}
+                                onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                className={({ isActive }) => (isActive ? `${style.act}` :'')}
+                                >Отчеты
+                       </NavLink>
+                   </li>
+                   <li >
+                       <NavLink to={"/Tanks"} className={({ isActive }) => (isActive ? `${style.act}` :'')}>Емкостя</NavLink>
+                       <ul className={style.submenu}>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   to={"/Tanks"}
+                                   className={style.act}
+                               >Состояние
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   to={"/Tanks"}
+                                   className={style.act}
+                               >Отгрузки
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   to={"/Tanks"}
+                                   className={style.act}
+                               >Прием топлива
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   to={"/Tanks"}
+                                   className={style.act}
+                               >Инвентаризация
+                               </NavLink>
+                           </li>
+                       </ul>
+                   </li>
+               </ul>
            </nav>
 
        </div>

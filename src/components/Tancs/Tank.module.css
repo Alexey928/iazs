@@ -91,5 +91,6 @@ position: relative;
 .tankDescription:hover{
     opacity: 95%;
     cursor: pointer;
+    z-index: 10;
 
 }

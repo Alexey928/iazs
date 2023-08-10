@@ -4,12 +4,11 @@ import {EditableSpan} from "../UIcomponets/editinebalSpan/EditableSpan";
 import {Field, InjectedFormProps,reduxForm,WrappedFieldProps} from "redux-form";
 import {maxLength, minLength, notSpaces, required} from "../../utils/validators";
 import {sestIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
-import {useDispatch} from "react-redux";
 import {loginTC} from "../../ActionCreators/authUserAC";
 import {useAppDispatch} from "../../State/reduxStore";
 
 type FormDataType = {
-    email?: string;
+    login?: string;
     password?: string;
     rememberMe?:boolean
 };
@@ -46,10 +45,10 @@ const ReduxLoginForm = reduxForm({
 const LoginPage = () => {
     const dispatch = useAppDispatch();
     const onSubmit = (formData:FormDataType)=>{
-        if(!maxLength(formData.email) && !required(formData.email) && !notSpaces(formData.email)) {
+        if(!maxLength(formData.login) && !required(formData.login) && !notSpaces(formData.login)) {
             if(!required(formData.password) && !minLength(formData.password) && !notSpaces(formData.password)){
-                if(formData.password && formData.email) {
-                    loginTC(formData.password,formData.email,formData.rememberMe?formData.rememberMe:false)
+                if(formData.password && formData.login) {
+                    loginTC(formData.password,formData.login,formData.rememberMe?formData.rememberMe:false)
                 }
             } else {alert("password is not corect")}
         }else{

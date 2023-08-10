@@ -19,9 +19,21 @@
     width: 100%;
 }
 .contentHeader span{
+    margin-right: 20px;
     background-image:linear-gradient(270deg, rgba(1, 255, 5, 0.91), rgba(0, 8, 112, 0.96));
     -webkit-background-clip:text;
     -webkit-text-fill-color: transparent;
+}
+.contentHeader button{
+    display: none;
+    float: right;
+    margin-right: 20px;
+    margin-top: 1px;
+    background-color: #01096b;
+    color: #d9f8ec;
+    border-radius: 50%;
+    padding: 5px;
+
 }
 .contentWrapper{
     background-color: #002041;
@@ -45,9 +57,9 @@
 @media (max-width: 500px) {
     .content{
         z-index: 2;
-        margin-left: -149px;
+        margin-left: -160px;
     }
-    .content .button{
+    .contentHeader button{
         display: block;
     }
 }

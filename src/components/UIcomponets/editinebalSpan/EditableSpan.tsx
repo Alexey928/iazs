@@ -36,7 +36,7 @@ export function EditableSpan(props: EditableSpanPropsType ){
     return editMode ?
         <props.input
                     validate={props.type==="text"?[required,maxLength,notSpaces]:[ required,minLength,notSpaces]}
-                    name={props.type==="text"?"login":"password"}
+                    name={props.type==="text"?"login":"password"}//  \/;)
                     component={RenderedField}// if we use width <input>? then reset this field
                     className={style.input}
                     type={props.type}
