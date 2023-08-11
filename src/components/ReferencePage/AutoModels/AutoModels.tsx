@@ -1,7 +1,7 @@
 import React from 'react';
 import {useAppDispatch} from "../../../State/reduxStore";
 import style from "../../Tancs/Tanks.module.css";
-import {sestIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
+import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
 
 const AutoModels = () => {
     const dispatch = useAppDispatch()
@@ -9,7 +9,7 @@ const AutoModels = () => {
         <div className={style.content} >
             <div className={style.contentHeader}>
                 <span>Модели Автомобилей</span>
-                <button  onClick={()=>dispatch(sestIsMenuActiveAC())}  >menu</button>
+                <button  onClick={()=>dispatch(setIsMenuActiveAC())}  >menu</button>
             </div>
         </div>
     );

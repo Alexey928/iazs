@@ -4,7 +4,7 @@ import {NavLink, useLocation} from "react-router-dom";
 import {AppRootStateType, useAppDispatch} from "../../State/reduxStore";
 import {useSelector} from "react-redux";
 import {navigationStateType} from "../../Resduscers/navigationMenuReduser";
-import {sestIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
+import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 
 
 const Navigation = ()=>{
@@ -27,7 +27,7 @@ const Navigation = ()=>{
                        <ul className={style.submenu}>
                            <li>
                                <NavLink
-                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                    to={"/ReferencePage"}
                                    className={style.act}
                                    >Организации
@@ -35,7 +35,7 @@ const Navigation = ()=>{
                            </li>
                            <li>
                                <NavLink
-                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                    to={"/ReferencePage/supplier/"}
                                    className={style.act}
                                    >Поставшики
@@ -43,7 +43,7 @@ const Navigation = ()=>{
                            </li>
                            <li>
                                <NavLink
-                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                    to={"/ReferencePage/drivers/"}
                                    className={style.act}
                                >Водители
@@ -51,7 +51,7 @@ const Navigation = ()=>{
                            </li>
                            <li>
                                <NavLink
-                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                    to={"/ReferencePage/AutoModels"}
                                    className={style.act}
                                >Модели авто
@@ -59,7 +59,7 @@ const Navigation = ()=>{
                            </li>
                            <li>
                                <NavLink
-                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                    to={"/ReferencePage/cars"}
                                    className={style.act}
                                >Автомобили
@@ -73,7 +73,7 @@ const Navigation = ()=>{
                    </li>
                    <li>
                        <NavLink to={"/Music"}
-                                onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                 className={({ isActive }) => (isActive ? `${style.act}` :'')}
                                 >Отчеты
                        </NavLink>
@@ -86,7 +86,7 @@ const Navigation = ()=>{
                        <ul className={style.submenu}>
                            <li>
                                <NavLink
-                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                    to={"/Tanks"}
                                    className={style.act}
                                >Состояние
@@ -94,7 +94,7 @@ const Navigation = ()=>{
                            </li>
                            <li>
                                <NavLink
-                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                    to={"/Tanks/sales"}
                                    className={style.act}
                                >Отгрузки
@@ -102,7 +102,7 @@ const Navigation = ()=>{
                            </li>
                            <li>
                                <NavLink
-                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                    to={"/Tanks/enteredFuel"}
                                    className={style.act}
                                >Прием топлива
@@ -110,7 +110,7 @@ const Navigation = ()=>{
                            </li>
                            <li>
                                <NavLink
-                                   onClick={()=>{dispatch(sestIsMenuActiveAC(false))}}
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                    to={"/Tanks"}
                                    className={style.act}
                                >Инвентаризация

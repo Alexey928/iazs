@@ -2,27 +2,20 @@ import React, {useEffect} from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import Navigation from "./components/Navigation/Navigation";
-
-
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-
 import {AppRootStateType, useAppDispatch} from "./State/reduxStore";
-
-import Users from "./components/ReferencePage/Reference";
 import {followUnfollowAC, setCurentPageAC,} from "./ActionCreators/usersAC";
-
-
 import LoginPage from "./components/Login/loginPage";
 import Preloader from "./components/UIcomponets/generalPreloader/Preloader";
 import {AppStateType, initializeAppTC} from "./ActionCreators/AppAC";
 import {useSelector} from "react-redux";
-
 import TanksPage from "./components/Tancs/TancsPage";
 import Reference from "./components/ReferencePage/Reference";
 import Supplier from "./components/ReferencePage/Supplier/Supplier";
 import Drivers from "./components/ReferencePage/Drivers/Drivers";
 import AutoModels from "./components/ReferencePage/AutoModels/AutoModels";
 import Cars from "./components/ReferencePage/Cars/Cars";
+import EnteredFuel from "./components/Tancs/EntertdFuel/EnteredFuel";
 
 const App = ()=>{
     const dispatch = useAppDispatch();
@@ -35,13 +28,7 @@ const App = ()=>{
    const followUnfolowUser = (usreID:string)=>{
         dispatch(followUnfollowAC(usreID))
    }
-
-
-
-    const setCurentPage = (pageNumber:number)=>{
-        dispatch(setCurentPageAC(pageNumber))
-    }
-    console.log("app is coled")
+   console.log("app is coled")
     if(!AppState.isInitialized){
         return(
             <div>
@@ -65,7 +52,7 @@ const App = ()=>{
                     <Route path = {"/ReferencePage/AutoModels/"} element={<AutoModels/>}/>
                     <Route path = {"/ReferencePage/cars/"} element={<Cars/>}/>
                     <Route path = {"/Tanks/*"} element={<TanksPage/>}/>
-                    <Route path = {"/Tanks/enteredFuel"} element={<TanksPage/>}/>
+                    <Route path = {"/Tanks/enteredFuel"} element={<EnteredFuel/>}/>
 
                 </Routes>
             </div>

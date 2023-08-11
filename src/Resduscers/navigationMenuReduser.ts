@@ -1,6 +1,6 @@
-import {sestIsMenuActiveAC,navigationStaete} from "../ActionCreators/navigationMenuAC";
+import {setIsMenuActiveAC,navigationStaete} from "../ActionCreators/navigationMenuAC";
 
-export  type navigationMenuActionType =  ReturnType <typeof sestIsMenuActiveAC>
+export  type navigationMenuActionType =  ReturnType <typeof setIsMenuActiveAC>
 
  export type navigationStateType = typeof navigationStaete
 

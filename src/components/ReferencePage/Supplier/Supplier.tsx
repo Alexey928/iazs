@@ -1,6 +1,6 @@
 import React from 'react';
 import style from "../../Tancs/Tanks.module.css";
-import {sestIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
+import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
 import {useAppDispatch} from "../../../State/reduxStore";
 
 const Supplier = () => {
@@ -9,7 +9,7 @@ const Supplier = () => {
         <div className={style.content} >
             <div className={style.contentHeader}>
                 <span>Поставщики</span>
-                <button  onClick={()=>dispatch(sestIsMenuActiveAC())}  >menu</button>
+                <button  onClick={()=>dispatch(setIsMenuActiveAC())}  >menu</button>
             </div>
         </div>
     );

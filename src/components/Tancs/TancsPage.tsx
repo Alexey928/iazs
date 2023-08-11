@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import style from "./Tanks.module.css"
 import Tank from "./Tank";
 import {useAppDispatch} from "../../State/reduxStore";
-import {sestIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
+import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 
 
 type TankStateType = {
@@ -20,7 +20,7 @@ const TanksPage = () => {
         <div className={style.content} >
             <div className={style.contentHeader}>
                 <span>Состояние Резервуаров</span>
-                <button  onClick={()=>dispatch(sestIsMenuActiveAC())}  >menu</button>
+                <button  onClick={()=>dispatch(setIsMenuActiveAC())}  >menu</button>
             </div>
             <div className={style.contentWrapper}>
                 <div className={style.flexWraper}>

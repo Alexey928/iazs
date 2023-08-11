@@ -3,7 +3,7 @@ import style from './login.module.css';
 import {EditableSpan} from "../UIcomponets/editinebalSpan/EditableSpan";
 import {Field, InjectedFormProps,reduxForm,WrappedFieldProps} from "redux-form";
 import {maxLength, minLength, notSpaces, required} from "../../utils/validators";
-import {sestIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
+import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {loginTC} from "../../ActionCreators/authUserAC";
 import {useAppDispatch} from "../../State/reduxStore";
 
@@ -57,7 +57,7 @@ const LoginPage = () => {
     }
     return (
         <div className={style.loginFormContayner}>
-            <button onClick={()=>dispatch(sestIsMenuActiveAC())} className={style.button}>menu</button>
+            <button onClick={()=>dispatch(setIsMenuActiveAC())} className={style.button}>menu</button>
             <ReduxLoginForm onSubmit = {onSubmit}/>
         </div>
     );
