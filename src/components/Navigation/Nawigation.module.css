@@ -11,7 +11,7 @@
     opacity: 1;
     position: relative;
     z-index: 5;
-    transition: all 0.5s linear;
+    transition: all 0.1s linear;
 }
 .navigationSelected.navigation{
     background-image:linear-gradient(270deg, rgba(0, 169, 39, 0.87), rgba(1, 2, 68, 0.84));
@@ -22,6 +22,7 @@
     z-index: 200;
 }
 .submenu{
+    z-index: -1;
     opacity: 0;
     margin: -1px;
     height: 1px;
@@ -66,11 +67,13 @@
     text-decoration: none;
     color: #cbfffb;
     margin-left: 1px;
-    transition: 0.7s all ;
+    transition: 0.1s all ;
     border-radius: 10px;
 }
-.menu{
-
+.menu  li > a:hover{
+color: #064900;
+background-image:linear-gradient(180deg, rgb(4, 0, 253), rgb(2, 255, 12));
+box-shadow: 0 0 10px rgb(4, 255, 198);
 }
 .menu > li{
     position: relative;

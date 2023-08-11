@@ -8,7 +8,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import {AppRootStateType, useAppDispatch} from "./State/reduxStore";
 
-import Users from "./components/Users/Users";
+import Users from "./components/ReferencePage/Reference";
 import {followUnfollowAC, setCurentPageAC,} from "./ActionCreators/usersAC";
 
 
@@ -18,6 +18,11 @@ import {AppStateType, initializeAppTC} from "./ActionCreators/AppAC";
 import {useSelector} from "react-redux";
 
 import TanksPage from "./components/Tancs/TancsPage";
+import Reference from "./components/ReferencePage/Reference";
+import Supplier from "./components/ReferencePage/Supplier/Supplier";
+import Drivers from "./components/ReferencePage/Drivers/Drivers";
+import AutoModels from "./components/ReferencePage/AutoModels/AutoModels";
+import Cars from "./components/ReferencePage/Cars/Cars";
 
 const App = ()=>{
     const dispatch = useAppDispatch();
@@ -50,14 +55,18 @@ const App = ()=>{
                 <Navigation/>
                 <Routes>
                     <Route path={"/Login/*"} element={<LoginPage/>}/>
-                    <Route  path = {"/"} element={<div>tttt</div>}/>
+                    <Route  path = {"/"} element={<div></div>}/>
                     <Route  path = {"/Carts/*"} element={<div>ttt</div>}/>
                     <Route path = {"/DialogesPage/*"} element={<div>dddd</div>}/>
-                    <Route path = {"/Users/*"} element={<Users
-                                                               followUnfollowUser={followUnfolowUser}
-                                                               setCurrentPage={setCurentPage}
-                    />}/>
+                    <Route path = {"/ReferencePage/"} element={<Reference/>}/>
+                    <Route path = {"/ReferencePage/supplier/"} element={<Supplier/>}/>
+                    <Route path = {"/ReferencePage/drivers/"} element={<Drivers/>}/>
+                    <Route path = {"/ReferencePage/AutoModels/"} element={<AutoModels/>}/>
+                    <Route path = {"/ReferencePage/AutoModels/"} element={<AutoModels/>}/>
+                    <Route path = {"/ReferencePage/cars/"} element={<Cars/>}/>
                     <Route path = {"/Tanks/*"} element={<TanksPage/>}/>
+                    <Route path = {"/Tanks/enteredFuel"} element={<TanksPage/>}/>
+
                 </Routes>
             </div>
         </Router>

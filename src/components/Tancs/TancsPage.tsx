@@ -19,7 +19,7 @@ const TanksPage = () => {
     return (
         <div className={style.content} >
             <div className={style.contentHeader}>
-                <span>Tank fuel level</span>
+                <span>Состояние Резервуаров</span>
                 <button  onClick={()=>dispatch(sestIsMenuActiveAC())}  >menu</button>
             </div>
             <div className={style.contentWrapper}>
