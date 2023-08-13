@@ -23,7 +23,7 @@
 }
 .submenu{
     z-index: -1;
-    opacity: 0;
+    opacity:0%;
     margin: -1px;
     height: 1px;
     width: 1px;
@@ -37,13 +37,13 @@
     display: flex;
     flex-direction: column;
     transition: all 0.3s linear;
-
 }
+
 .submenu > li >a:hover{
     color: #03f899;
 }
 .submenu:hover{
-    opacity: 1;
+    opacity: 100%;
     left: 100%;
     margin: 0;
     height: auto;
@@ -51,8 +51,12 @@
     clip: auto;
 
 }
+.menu{
+    list-style: none;
+    margin: 0;
+}
 .menu  li:hover ul{
-    opacity: 1;
+    opacity: 100%;
     left: 100%;
     margin: 0;
     height: auto;

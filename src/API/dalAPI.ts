@@ -2,6 +2,7 @@ import axios, {AxiosResponse} from "axios";
 import {usersStateType, userType} from "../ActionCreators/usersAC";
 import {profileDataType} from "../Resduscers/ProfileReducer";
 import {UserAuthStateType} from "../Resduscers/authUserReduser";
+import {log} from "util";
 
 export type LoginResponseType = {
     data: LoginDataType;
@@ -10,7 +11,8 @@ export type LoginResponseType = {
 };
 
 export type LoginDataType = {
-    userId: number;
+    _user: string,
+    _token:string
 };
 
 export type AuthMeResponseType = {
@@ -25,25 +27,19 @@ export type AuthUserDataType = {
     login: string;
     email: string;
 };
-
+const corsProxyUrl = 'http://localhost:3001/proxy/';
 const axiosInstanseForSocialNetvork = axios.create({
-    withCredentials:true,
-    baseURL:"https://social-network.samuraijs.com/api/1.0/",
-    headers:{
-        "API-KEY":"e5f7a28d-5af7-4c3f-9534-8b1e9889bba1"
-    }
+    baseURL:encodeURIComponent(corsProxyUrl+"http://demo.iazs.com.ua/index.php?r=api2/"),
 })
+
+
 
 export const authUserAPI = {
     authMe(){
         return axiosInstanseForSocialNetvork.get("auth/me").then((response:AxiosResponse)=>response.data)
     },
-    loginUser(email: string, password: string, rememberMe: boolean){
-        return axiosInstanseForSocialNetvork.post<LoginResponseType>("auth/login", {
-            email,
-            password,
-            rememberMe,
-        });
+    loginUser(login: string, password: string, rememberMe: boolean){// remember mi is not used yet
+        return axios.get<LoginResponseType>(corsProxyUrl+encodeURIComponent(`http://demo.iazs.com.ua/index.php?r=api2/login&_user=${login}&_password=${password}`)).then((res)=>{console.log( res,"eee");return res.data});
     },
     logoutUser() {
         return axiosInstanseForSocialNetvork.delete<AuthMeResponseType>("auth/login");

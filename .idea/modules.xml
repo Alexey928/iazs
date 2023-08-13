@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../../New/.idea/New.iml" filepath="$PROJECT_DIR$/../../../New/.idea/New.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../cors-proxi/.idea/cors-proxi.iml" filepath="$PROJECT_DIR$/../cors-proxi/.idea/cors-proxi.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/iazs.iml" filepath="$PROJECT_DIR$/.idea/iazs.iml" />
     </modules>
   </component>

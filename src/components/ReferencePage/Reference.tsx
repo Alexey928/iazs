@@ -2,8 +2,6 @@ import style from "../Tancs/Tanks.module.css"
 import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {useAppDispatch} from "../../State/reduxStore";
 
-
-
 const Reference:React.FC = () => {
     const dispatch = useAppDispatch()
 

@@ -16,6 +16,10 @@ import Drivers from "./components/ReferencePage/Drivers/Drivers";
 import AutoModels from "./components/ReferencePage/AutoModels/AutoModels";
 import Cars from "./components/ReferencePage/Cars/Cars";
 import EnteredFuel from "./components/Tancs/EntertdFuel/EnteredFuel";
+import Sales from "./components/Tancs/Sels/Sales";
+import Invitarization from "./components/Tancs/Invitarization/Invitarization";
+import Operation from "./components/Operation/Operation";
+import Carts from "./components/Carts/Carts";
 
 const App = ()=>{
     const dispatch = useAppDispatch();
@@ -43,8 +47,8 @@ const App = ()=>{
                 <Routes>
                     <Route path={"/Login/*"} element={<LoginPage/>}/>
                     <Route  path = {"/"} element={<div></div>}/>
-                    <Route  path = {"/Carts/*"} element={<div>ttt</div>}/>
-                    <Route path = {"/DialogesPage/*"} element={<div>dddd</div>}/>
+                    <Route  path = {"/Carts/*"} element={<Carts/>}/>
+                    <Route path = {"/Operation/*"} element={<Operation/>}/>
                     <Route path = {"/ReferencePage/"} element={<Reference/>}/>
                     <Route path = {"/ReferencePage/supplier/"} element={<Supplier/>}/>
                     <Route path = {"/ReferencePage/drivers/"} element={<Drivers/>}/>
@@ -53,7 +57,8 @@ const App = ()=>{
                     <Route path = {"/ReferencePage/cars/"} element={<Cars/>}/>
                     <Route path = {"/Tanks/*"} element={<TanksPage/>}/>
                     <Route path = {"/Tanks/enteredFuel"} element={<EnteredFuel/>}/>
-
+                    <Route path = {"/Tanks/Sales"} element={<Sales/>}/>
+                    <Route path = {"/Tanks/Invitarization"} element={<Invitarization/>}/>
                 </Routes>
             </div>
         </Router>

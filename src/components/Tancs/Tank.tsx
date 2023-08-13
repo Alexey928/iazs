@@ -29,6 +29,7 @@ const Tank = (props:TankPropsType) => {
                     <div><span>Level</span><span>1200mm</span></div>
                     <div><span>Level</span><span>1200mm</span></div>
                     <div><span>Level</span><span>1200mm</span></div>
+                    <button>{"<--"}</button>
                 </div>
                 <div className={style.liquidPetrol} style={{top:props.level}}></div>
             </div>

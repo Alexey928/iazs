@@ -9,7 +9,6 @@ import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 
 const Navigation = ()=>{
     //const location  = useLocation()//<---- interesting object ))
-
     const navigationState = useSelector<AppRootStateType,navigationStateType>(state => state.navigation);
     const dispatch = useAppDispatch();
 
@@ -21,7 +20,7 @@ const Navigation = ()=>{
                        <NavLink to={"/Carts"}   className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Карты</NavLink>
                    </li>
                    <li>
-                       <NavLink to={"/DialogesPage"}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Операции</NavLink>
+                       <NavLink to={"/Operation"}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Операции</NavLink>
                    </li>
                    <li >
                        <ul className={style.submenu}>
@@ -95,7 +94,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/Tanks/sales"}
+                                   to={"/Tanks/Sales"}
                                    className={style.act}
                                >Отгрузки
                                </NavLink>
@@ -111,7 +110,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/Tanks"}
+                                   to={"/Tanks/Invitarization"}
                                    className={style.act}
                                >Инвентаризация
                                </NavLink>

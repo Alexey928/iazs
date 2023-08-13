@@ -28,6 +28,39 @@ const TanksPage = () => {
                     <Tank level={120}/>
                     <Tank level={100}/>
                     <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
+                    <Tank level={150}/>
                 </div>
 
             </div>

@@ -5,27 +5,21 @@ import { AxiosError } from "axios";
 
 export const UserAuthState = {// auto types constant --> typeof constType =
    data:{
-       id: null as number | null,
-       email: null as string | null,
-       login: null as string | null,
-       isAuth: false,
+       _token: null as string | null,
    },
     isLading:false
 };
 
 export const setAuthUserDataAC = (//auto types function --> type actionType = typeof setAuthUserDataAC,
-    id: number | null,
     login: string | null,
-    email: string | null,
-    isAuth: boolean
+    _token: string | null,
+
 ) =>
     ({
      type: "AUTH/SET-AUTH-USER-DATA",
      payload: {
-      id,
-      login,
-      email,
-      isAuth,
+       login,
+      _token,
      },
     } as const);
 
@@ -38,9 +32,9 @@ export const authMeTC = ():AppThunkType  => async (dispatch:DispatchType) => {
     try {
         const response = await authUserAPI.authMe();
         if (response.resultCode === 0) {
-            const { id, login, email} = response.data;
-            dispatch(setAuthUserDataAC(id, login, email, true));
-            const res = await profileApi.getUserProfile(id);
+            const { id, login,_token} = response.data;
+            dispatch(setAuthUserDataAC( login,_token));
+
             // const res = await profileAPI.getUserProfile(response.data.data.id);
             // dispatch(setAuthedUserProfileAC(res.data));
         }
@@ -57,11 +51,11 @@ export const loginTC =
             dispatch(setIsRequestProcessingStatusAC(true));
             try {
                 const response = await authUserAPI.loginUser(email, password, rememberMe);
-                if (response.data.resultCode === 0) {
-                    dispatch(authMeTC());
+                console.log(response);
+
                     //dispatch(setLoginErrorAC(null));
                     //dispatch(setCaptchaUrlAC(null));
-                }
+
                 // if (response.data.resultCode === 1) {
                 //     dispatch(setLoginErrorAC(response.data.messages[0]));
                 // }
@@ -69,6 +63,7 @@ export const loginTC =
                 //     dispatch(getCaptchaUrlTC());
                 // }
             } catch (e) {
+                console.log("eeeeeerrrrrooooorrrrr")
                 //handleError(e, dispatch);
             } finally {
                 dispatch(setIsRequestProcessingStatusAC(false));
@@ -80,7 +75,7 @@ export const logoutTC = (): AppThunkType => async (dispatch) => {
     try {
         const response = await authUserAPI.logoutUser();
         if (response.data.resultCode === 0) {
-            dispatch(setAuthUserDataAC(null, null, null, false));
+            dispatch(setAuthUserDataAC(null, null));
             //dispatch(setAuthedUserProfileAC(null));
         }
     } catch (e) {
