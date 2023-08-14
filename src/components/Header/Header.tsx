@@ -29,7 +29,7 @@ const Header = ()=>{
             <img src={logo} alt={"img"}/>
             <div className={style.auth}>
                 <span onClick={!auth.data._token?navigateTologin:logAut}>{!auth.data._token?"login":"log-aut"}</span>
-                <img src={auth.Autoriset?isAuthed:notAused} alt={"img"}/>
+                <img src={auth.isAuth?isAuthed:notAused} alt={"img"}/>
             </div>
          </header>
     )

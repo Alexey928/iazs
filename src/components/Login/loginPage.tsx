@@ -48,7 +48,7 @@ const ReduxLoginForm = reduxForm({
 const LoginPage = () => {
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth)
     const navigate = useNavigate();
-    if(auth.Autoriset) { navigate("/Tanks/")};
+    if(auth.isAuth) { navigate("/Tanks/")};
     const dispatch = useAppDispatch();
     const onSubmit = (formData:FormDataType)=>{
         if(!maxLength(formData.login) && !required(formData.login) && !notSpaces(formData.login)) {

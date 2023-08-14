@@ -20,17 +20,17 @@ const Navigation = ()=>{
            <nav className={navigationState.shoveIt?`${style.navigation} ${style.navigationSelected}`:style.navigation}>
                <ul className={style.menu}>
                    <li>
-                       <NavLink to={auth.Autoriset?"/Carts":"/"}   className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Карты</NavLink>
+                       <NavLink to={auth.isAuth?"/Carts":"/"} className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Карты</NavLink>
                    </li>
                    <li>
-                       <NavLink to={auth.Autoriset?"/Operation":"/"}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Операции</NavLink>
+                       <NavLink to={auth.isAuth?"/Operation":"/"} className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Операции</NavLink>
                    </li>
                    <li >
                        <ul className={style.submenu}>
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={auth.Autoriset?"/ReferencePage":"/"}
+                                   to={auth.isAuth?"/ReferencePage":"/"}
                                    className={style.act}
                                    >Организации
                                </NavLink>
@@ -38,7 +38,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={auth.Autoriset?"/ReferencePage/supplier/":"/"}
+                                   to={auth.isAuth?"/ReferencePage/supplier/":"/"}
                                    className={style.act}
                                    >Поставшики
                                </NavLink>
@@ -46,7 +46,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={auth.Autoriset?"/ReferencePage/drivers/":"/"}
+                                   to={auth.isAuth?"/ReferencePage/drivers/":"/"}
                                    className={style.act}
                                >Водители
                                </NavLink>
@@ -54,7 +54,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={auth.Autoriset?"/ReferencePage/AutoModels":"/"}
+                                   to={auth.isAuth?"/ReferencePage/AutoModels":"/"}
                                    className={style.act}
                                >Модели авто
                                </NavLink>
@@ -62,26 +62,26 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={auth.Autoriset?"/ReferencePage/cars":"/"}
+                                   to={auth.isAuth?"/ReferencePage/cars":"/"}
                                    className={style.act}
                                >Автомобили
                                </NavLink>
                            </li>
                        </ul>
-                       <NavLink to={auth.Autoriset?"/ReferencePage":"/"}
+                       <NavLink to={auth.isAuth?"/ReferencePage":"/"}
                                 className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}
                        >Справочники
                        </NavLink>
                    </li>
                    <li>
-                       <NavLink to={"/Music"}
+                       <NavLink to={auth.isAuth?"/Music":"/"}
                                 onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                 className={({ isActive }) => (isActive ? `${style.act}` :'')}
                                 >Отчеты
                        </NavLink>
                    </li>
                    <li >
-                       <NavLink to={auth.Autoriset?"/Tanks":"/"}
+                       <NavLink to={auth.isAuth?"/Tanks":"/"}
                                 className={({ isActive }) => (isActive ? `${style.act}` :'')}
                                 >Емкостя
                        </NavLink>
@@ -89,7 +89,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={auth.Autoriset?"/Tanks":"/"}
+                                   to={auth.isAuth?"/Tanks":"/"}
                                    className={style.act}
                                >Состояние
                                </NavLink>
@@ -97,7 +97,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={auth.Autoriset?"/Tanks/Sales":"/"}
+                                   to={auth.isAuth?"/Tanks/Sales":"/"}
                                    className={style.act}
                                >Отгрузки
                                </NavLink>
@@ -105,7 +105,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/Tanks/enteredFuel"}
+                                   to={auth.isAuth?"/Tanks/enteredFuel":"/"}
                                    className={style.act}
                                >Прием топлива
                                </NavLink>
@@ -113,7 +113,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/Tanks/Invitarization"}
+                                   to={auth.isAuth?"/Tanks/Invitarization":"/"}
                                    className={style.act}
                                >Инвентаризация
                                </NavLink>

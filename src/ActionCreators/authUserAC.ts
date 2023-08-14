@@ -3,12 +3,12 @@ import {authUserAPI, profileApi} from "../API/dalAPI";
 import { AxiosError } from "axios";
 
 
-export const UserAuthState = {// auto types constant --> typeof constType =
+export const UserAuthState = {
    data:{
        _token: null as string | null,
    },
-    isLading:true,
-    Autoriset:false
+    isLading:false as boolean,
+    isAuth:false as boolean,
 };
 
 export const setAuthUserDataAC = (//auto types function --> type actionType = typeof setAuthUserDataAC,
@@ -49,11 +49,8 @@ export const loginTC = (email: string, password: string, rememberMe: boolean ): 
             try {
                 const response = await authUserAPI.loginUser(email, password, rememberMe);
                 console.log(response);
-
-
             } catch (e) {
-                console.log("eeeeeerrrrrooooorrrrr")
-                //handleError(e, dispatch);
+                console.log("Some error from login")
             } finally {
                 dispatch(setIsRequestProcessingStatusAC(false));
             }
@@ -69,7 +66,6 @@ export const logoutTC = (): AppThunkType => async (dispatch) => {
         }
     } catch (e) {
         alert(e);
-       // handleError(e, dispatch);
     } finally {
         dispatch(setIsRequestProcessingStatusAC(false));
     }

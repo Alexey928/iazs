@@ -25,7 +25,7 @@ const TanksPage = () => {
 
 
     useEffect(()=>{
-        if(!auth.Autoriset) {
+        if(!auth.isAuth) {
             navigate("/");
         }
     },[]);
