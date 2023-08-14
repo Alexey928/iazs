@@ -20,19 +20,18 @@ import Sales from "./components/Tancs/Sels/Sales";
 import Invitarization from "./components/Tancs/Invitarization/Invitarization";
 import Operation from "./components/Operation/Operation";
 import Carts from "./components/Carts/Carts";
+import {UserAuthStateType} from "./Resduscers/authUserReduser";
 
 const App = ()=>{
     const dispatch = useAppDispatch();
     const AppState = useSelector<AppRootStateType,AppStateType>((state:AppRootStateType)=>state.App)
+    const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth)
 
     useEffect(()=>{
         dispatch(initializeAppTC())
     },[dispatch])
 
-   const followUnfolowUser = (usreID:string)=>{
-        dispatch(followUnfollowAC(usreID))
-   }
-   console.log("app is coled")
+    console.log("app is coled")
     if(!AppState.isInitialized){
         return(
             <div>
@@ -45,8 +44,7 @@ const App = ()=>{
                 <Header />
                 <Navigation/>
                 <Routes>
-                    <Route path={"/Login/*"} element={<LoginPage/>}/>
-                    <Route  path = {"/"} element={<div></div>}/>
+                    <Route  path = {"/"} element={<LoginPage/>}/>
                     <Route  path = {"/Carts/*"} element={<Carts/>}/>
                     <Route path = {"/Operation/*"} element={<Operation/>}/>
                     <Route path = {"/ReferencePage/"} element={<Reference/>}/>

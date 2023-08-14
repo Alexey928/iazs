@@ -5,29 +5,32 @@ import {AppRootStateType, useAppDispatch} from "../../State/reduxStore";
 import {useSelector} from "react-redux";
 import {navigationStateType} from "../../Resduscers/navigationMenuReduser";
 import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
+import {UserAuthStateType} from "../../Resduscers/authUserReduser";
 
 
 const Navigation = ()=>{
     //const location  = useLocation()//<---- interesting object ))
     const navigationState = useSelector<AppRootStateType,navigationStateType>(state => state.navigation);
+    const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth)
     const dispatch = useAppDispatch();
+
 
     return (
        <div className={style.navigationWrapper}>
            <nav className={navigationState.shoveIt?`${style.navigation} ${style.navigationSelected}`:style.navigation}>
                <ul className={style.menu}>
                    <li>
-                       <NavLink to={"/Carts"}   className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Карты</NavLink>
+                       <NavLink to={auth.Autoriset?"/Carts":"/"}   className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Карты</NavLink>
                    </li>
                    <li>
-                       <NavLink to={"/Operation"}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Операции</NavLink>
+                       <NavLink to={auth.Autoriset?"/Operation":"/"}  className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}>Операции</NavLink>
                    </li>
                    <li >
                        <ul className={style.submenu}>
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/ReferencePage"}
+                                   to={auth.Autoriset?"/ReferencePage":"/"}
                                    className={style.act}
                                    >Организации
                                </NavLink>
@@ -35,7 +38,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/ReferencePage/supplier/"}
+                                   to={auth.Autoriset?"/ReferencePage/supplier/":"/"}
                                    className={style.act}
                                    >Поставшики
                                </NavLink>
@@ -43,7 +46,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/ReferencePage/drivers/"}
+                                   to={auth.Autoriset?"/ReferencePage/drivers/":"/"}
                                    className={style.act}
                                >Водители
                                </NavLink>
@@ -51,7 +54,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/ReferencePage/AutoModels"}
+                                   to={auth.Autoriset?"/ReferencePage/AutoModels":"/"}
                                    className={style.act}
                                >Модели авто
                                </NavLink>
@@ -59,13 +62,13 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/ReferencePage/cars"}
+                                   to={auth.Autoriset?"/ReferencePage/cars":"/"}
                                    className={style.act}
                                >Автомобили
                                </NavLink>
                            </li>
                        </ul>
-                       <NavLink to={"/ReferencePage"}
+                       <NavLink to={auth.Autoriset?"/ReferencePage":"/"}
                                 className={({ isActive }) => (isActive ? `${style.active} ${style.act}` :'')}
                        >Справочники
                        </NavLink>
@@ -78,7 +81,7 @@ const Navigation = ()=>{
                        </NavLink>
                    </li>
                    <li >
-                       <NavLink to={"/Tanks"}
+                       <NavLink to={auth.Autoriset?"/Tanks":"/"}
                                 className={({ isActive }) => (isActive ? `${style.act}` :'')}
                                 >Емкостя
                        </NavLink>
@@ -86,7 +89,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/Tanks"}
+                                   to={auth.Autoriset?"/Tanks":"/"}
                                    className={style.act}
                                >Состояние
                                </NavLink>
@@ -94,7 +97,7 @@ const Navigation = ()=>{
                            <li>
                                <NavLink
                                    onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
-                                   to={"/Tanks/Sales"}
+                                   to={auth.Autoriset?"/Tanks/Sales":"/"}
                                    className={style.act}
                                >Отгрузки
                                </NavLink>

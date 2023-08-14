@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from "./Tanks.module.css"
 import Tank from "./Tank";
-import {useAppDispatch} from "../../State/reduxStore";
+import {AppRootStateType, useAppDispatch} from "../../State/reduxStore";
 import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
+import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {UserAuthStateType} from "../../Resduscers/authUserReduser";
 
 
 type TankStateType = {
@@ -16,6 +19,19 @@ type TankStateType = {
 const TanksPage = () => {
     const dispatch = useAppDispatch()
     console.log(new Date())
+    const navigate = useNavigate();
+
+    const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
+
+
+    useEffect(()=>{
+        if(!auth.Autoriset) {
+            navigate("/");
+        }
+    },[]);
+
+
+
     return (
         <div className={style.content} >
             <div className={style.contentHeader}>

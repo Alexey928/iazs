@@ -31,6 +31,7 @@ const corsProxyUrl = 'http://localhost:3001/proxy/';
 const axiosInstanseForSocialNetvork = axios.create({
     baseURL:encodeURIComponent(corsProxyUrl+"http://demo.iazs.com.ua/index.php?r=api2/"),
 })
+const baseUrl = "http://demo.iazs.com.ua/index.php?r=api2/";
 
 
 
@@ -39,7 +40,10 @@ export const authUserAPI = {
         return axiosInstanseForSocialNetvork.get("auth/me").then((response:AxiosResponse)=>response.data)
     },
     loginUser(login: string, password: string, rememberMe: boolean){// remember mi is not used yet
-        return axios.get<LoginResponseType>(corsProxyUrl+encodeURIComponent(`http://demo.iazs.com.ua/index.php?r=api2/login&_user=${login}&_password=${password}`)).then((res)=>{console.log( res,"eee");return res.data});
+        return axios.
+        get<LoginResponseType>(corsProxyUrl +
+            encodeURIComponent(`${baseUrl}login&_user=${login}&_password=${password}`)).
+            then((res)=> res.data);
     },
     logoutUser() {
         return axiosInstanseForSocialNetvork.delete<AuthMeResponseType>("auth/login");

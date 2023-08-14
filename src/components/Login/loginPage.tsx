@@ -5,7 +5,10 @@ import {Field, InjectedFormProps,reduxForm,WrappedFieldProps} from "redux-form";
 import {maxLength, minLength, notSpaces, required} from "../../utils/validators";
 import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {loginTC} from "../../ActionCreators/authUserAC";
-import {useAppDispatch} from "../../State/reduxStore";
+import {AppRootStateType, useAppDispatch} from "../../State/reduxStore";
+import {useSelector} from "react-redux";
+import {UserAuthStateType} from "../../Resduscers/authUserReduser";
+import {useNavigate} from "react-router-dom";
 
 type FormDataType = {
     login?: string;
@@ -43,6 +46,9 @@ const ReduxLoginForm = reduxForm({
 })(LoginForm)
 
 const LoginPage = () => {
+    const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth)
+    const navigate = useNavigate();
+    if(auth.Autoriset) { navigate("/Tanks/")};
     const dispatch = useAppDispatch();
     const onSubmit = (formData:FormDataType)=>{
         if(!maxLength(formData.login) && !required(formData.login) && !notSpaces(formData.login)) {
@@ -50,9 +56,9 @@ const LoginPage = () => {
                 if(formData.password && formData.login) {
                     dispatch(loginTC(formData.password,formData.login,formData.rememberMe?formData.rememberMe:false))
                 }
-            } else {alert("password is not corect")}
+            } else {alert("password is not corect")};
         }else{
-            alert("login is not corect")
+            alert("login is not corect");
         }
     }
     return (

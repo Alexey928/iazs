@@ -12,7 +12,6 @@ export function authUserReduser( state=UserAuthState,action:AuthActionsType,):Us
         case "AUTH/SET-AUTH-USER-DATA":
             return {...state,data:action.payload,}
         case "SET-REQUST-PROCESSING-STATUS":
-
             return {...state,isLading: action.flag}
         default:
             return state
