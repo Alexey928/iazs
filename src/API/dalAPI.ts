@@ -41,7 +41,7 @@ export const authUserAPI = {
     },
     loginUser(login: string, password: string, rememberMe: boolean){// remember mi is not used yet
         return axios.
-        get<LoginResponseType>(corsProxyUrl +
+        get<LoginDataType>(corsProxyUrl +
             encodeURIComponent(`${baseUrl}login&_user=${login}&_password=${password}`)).
             then((res)=> res.data);
     },

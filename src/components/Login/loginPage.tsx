@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import style from './login.module.css';
 import {EditableSpan} from "../UIcomponets/editinebalSpan/EditableSpan";
 import {Field, InjectedFormProps,reduxForm,WrappedFieldProps} from "redux-form";
@@ -48,7 +48,9 @@ const ReduxLoginForm = reduxForm({
 const LoginPage = () => {
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth)
     const navigate = useNavigate();
-    if(auth.isAuth) { navigate("/Tanks/")};
+    useEffect(()=>{
+        if(auth.isAuth) { navigate("/Tanks/")};
+    })
     const dispatch = useAppDispatch();
     const onSubmit = (formData:FormDataType)=>{
         if(!maxLength(formData.login) && !required(formData.login) && !notSpaces(formData.login)) {

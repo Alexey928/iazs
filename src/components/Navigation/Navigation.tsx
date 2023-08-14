@@ -79,6 +79,40 @@ const Navigation = ()=>{
                                 className={({ isActive }) => (isActive ? `${style.act}` :'')}
                                 >Отчеты
                        </NavLink>
+                       <ul className={style.submenu}>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
+                                   to={auth.isAuth?"/Tanks":"/"}
+                                   className={style.act}
+                               >Состояние
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
+                                   to={auth.isAuth?"/Tanks/Sales":"/"}
+                                   className={style.act}
+                               >Отгрузки
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
+                                   to={auth.isAuth?"/Tanks/enteredFuel":"/"}
+                                   className={style.act}
+                               >Прием топлива
+                               </NavLink>
+                           </li>
+                           <li>
+                               <NavLink
+                                   onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
+                                   to={auth.isAuth?"/Tanks/Invitarization":"/"}
+                                   className={style.act}
+                               >Инвентаризация
+                               </NavLink>
+                           </li>
+                       </ul>
                    </li>
                    <li >
                        <NavLink to={auth.isAuth?"/Tanks":"/"}

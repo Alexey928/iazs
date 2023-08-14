@@ -10,7 +10,7 @@ export type UserAuthStateType = typeof UserAuthState
 export function authUserReduser( state=UserAuthState,action:AuthActionsType,):UserAuthStateType{
     switch (action.type) {
         case "AUTH/SET-AUTH-USER-DATA":
-            return {...state,data:action.payload,}
+            return {...state,data:action.payload,isAuth: true}
         case "SET-REQUST-PROCESSING-STATUS":
             return {...state,isLading: action.flag}
         default:
