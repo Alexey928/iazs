@@ -1,8 +1,11 @@
 
 //_____________initial Data _________________________________________________________
+import {AppThunkType} from "../State/reduxStore";
+
 const initDate:Date = new Date()
 
 export const initialTankPageState:TanksPageStateType = {
+    stations:[],
     tanks:[],
     tanksDescriptions:{},
     startDate:`${initDate.getFullYear()}-${initDate.getMonth()}-${initDate.getDate()}
@@ -36,18 +39,32 @@ const initialTankDescriptions = {
     _fuelVolume15: null as string|null,
     _fuelMass: null as string|null,
 }
+
+export const initialStationDescription = {
+    _id:null as number|null,
+    _name:null as string|null,
+    _firm:null as string|null,
+    _egrpou:null as number|null,
+    _inn: null as string|null,
+    _person_name: null as string|null,
+    _person_inn: null as string|null,
+    _person_post: null as string|null,
+}
 //_________________________________________________________________________________
 
 //______________________Types for Data of Tanks Page_______________________________
 export type TanksPageStateType = {
+    stations:Array<any>,
     tanks:Array<TankType>,
     tanksDescriptions:TanksDescriptionsTypes,
     startDate:string
     endDate:string
 }
+
+
 export type TankType = typeof InitialTank
 export type TankDescriptionType = typeof initialTankDescriptions
-
+export type StationsType = typeof initialStationDescription
 type tanksType = Array<TankType>
 
 type TanksDescriptionsTypes = {
@@ -59,6 +76,10 @@ type TanksDescriptionsTypes = {
 type setTanksActionType = {
     type:"SET-TANKS-STATE",
     payload:tanksType,
+}
+type setStationsActionType = {
+    type:"SET-STATIONS-STATE"
+    payload:Array<StationsType>
 }
 
 type setTanksDescriptionActionType = {
@@ -81,16 +102,27 @@ export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
 export const setDescriptionAC = (tanksDescription:Array<TankDescriptionType>):setTanksDescriptionActionType=>{
     return {type:"SET-TANK-DESCRIPTIONS-STATE",payload:tanksDescription}
 }
+export const setStations = (stations:Array<StationsType>):setStationsActionType=>{
+    return {type:"SET-STATIONS-STATE",payload:stations}
+}
 export const setStartDate = (date:string):setStartDateActionType=>{
     return {type:"SET-START-DATE",date}
 }
 export const setEndDate = (date:string):setEndDateActionType=>{
     return {type:"SET-END-DATE",date}
 }
+
+export type tanksPageActionsType =  setTanksActionType|
+                                    setEndDateActionType|
+                                    setTanksDescriptionActionType|
+                                    setStartDateActionType;
+
+
+
 // ____________________Thanks as Redux Thunks Concept_________________________________________
 
-export const setTankPageData  = (_token:string,startDate:string|null,endDate:string|null)=>{
-    return async ()=>{
+export const setTankPageData  = (_token:string,startDate:string|null = null, endDate:string|null = null):AppThunkType=>{
+    return async (dispatch)=>{
 
     }
 
