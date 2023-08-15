@@ -5,7 +5,7 @@ import {AppRootStateType, useAppDispatch} from "../../State/reduxStore";
 import {UserAuthStateType} from "../../Resduscers/authUserReduser";
 import isAuthed from "../../asets/free-icon-approved-1478873.png"
 import notAused from "../../asets/free-icon-x-button-458594.png"
-import logo from "../../asets/—Pngtree—hand-painted japanese samurai knife_4236036 (1).png"
+import logo from "../../asets/logotype.png"
 import {useNavigate} from "react-router-dom";
 import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {logoutTC} from "../../ActionCreators/authUserAC";

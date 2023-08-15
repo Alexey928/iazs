@@ -89,7 +89,10 @@ export const setEndDate = (date:string):setEndDateActionType=>{
 }
 // ____________________Thanks as Redux Thunks Concept_________________________________________
 
-export const setTankPageData  = ()=>{
+export const setTankPageData  = (_token:string,startDate:string|null,endDate:string|null)=>{
+    return async ()=>{
+
+    }
 
 }
 

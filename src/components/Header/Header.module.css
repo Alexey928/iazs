@@ -5,25 +5,45 @@
     grid-column: 1/12;
     margin-bottom: 4px;
     font-size: 18px;
-    background-image:linear-gradient(90deg, rgba(14, 11, 234, 0.92), rgba(1, 93, 3, 0.7));
+    background-image:linear-gradient(90deg, rgb(1, 0, 117), rgb(0, 220, 2));
     border-radius:20px;
     width: 100%;
     z-index: 10;
+    /*transition: all 0.5s linear;*/
+    /*animation: anim 2s linear infinite;*/
 }
 header img{
-    height: 25px;
-    margin-top: 2px;
-    margin-left: 20px;
+    height: 35px;
+    transition: all 0.25s linear;
+    border-radius: 15px;
 }
+header> img:hover{
+    box-shadow: 0 0 10px rgb(4, 255, 198);
+    border-radius: 50px;
+    height: 100px;
+    z-index: 10;
+    position: relative;
+}
+
 .auth{
-    display: inline-block;
+    width: 110px;
+    justify-content: space-between;
+    display: flex;
     float: right;
     margin-right: 20px;
+    flex-direction: row;
 }
 .auth span:hover{
     cursor: pointer;
 }
 
+/*@keyframes anim {*/
+/*    0%{background-image:linear-gradient(90deg, rgb(1, 0, 117), rgb(0, 220, 2));}*/
+/*    25%{background-image:linear-gradient(180deg, rgb(1, 0, 117), rgb(0, 220, 2));}*/
+/*    50%{background-image:linear-gradient(270deg, rgb(1, 0, 117), rgb(0, 220, 2));}*/
+/*    100%{background-image:linear-gradient(360deg, rgb(1, 0, 117), rgb(0, 220, 2));}*/
+
+/*}*/
 
 
 

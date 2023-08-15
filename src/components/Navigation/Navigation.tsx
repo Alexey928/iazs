@@ -75,7 +75,6 @@ const Navigation = ()=>{
                    </li>
                    <li>
                        <NavLink to={auth.isAuth?"/Music":"/"}
-                                onClick={()=>{dispatch(setIsMenuActiveAC(false))}}
                                 className={({ isActive }) => (isActive ? `${style.act}` :'')}
                                 >Отчеты
                        </NavLink>
