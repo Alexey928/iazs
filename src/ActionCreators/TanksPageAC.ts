@@ -84,7 +84,7 @@ type setStationsActionType = {
 
 type setTanksDescriptionActionType = {
     type:"SET-TANK-DESCRIPTIONS-STATE",
-    payload:Array<TankDescriptionType>,
+    payload:TanksDescriptionsTypes,
 }
 type setStartDateActionType = {
     type:"SET-START-DATE"
@@ -99,7 +99,7 @@ type setEndDateActionType = {
 export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
     return {type:"SET-TANKS-STATE",payload:tanks}
 }
-export const setDescriptionAC = (tanksDescription:Array<TankDescriptionType>):setTanksDescriptionActionType=>{
+export const setDescriptionAC = (tanksDescription:TanksDescriptionsTypes):setTanksDescriptionActionType=>{
     return {type:"SET-TANK-DESCRIPTIONS-STATE",payload:tanksDescription}
 }
 export const setStations = (stations:Array<StationsType>):setStationsActionType=>{
@@ -115,7 +115,8 @@ export const setEndDate = (date:string):setEndDateActionType=>{
 export type tanksPageActionsType =  setTanksActionType|
                                     setEndDateActionType|
                                     setTanksDescriptionActionType|
-                                    setStartDateActionType;
+                                    setStartDateActionType|
+                                    setStationsActionType;
 
 
 
