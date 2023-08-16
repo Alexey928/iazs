@@ -1,7 +1,7 @@
-import {tanksPageActionsType, TanksPageStateType} from "../ActionCreators/TanksPageAC";
+import {initialTankPageState, tanksPageActionsType, TanksPageStateType} from "../ActionCreators/TanksPageAC";
 
 
-export const TanksPageReduser =( state:TanksPageStateType, action:tanksPageActionsType):TanksPageStateType=>{
+export const TanksPageReduser =( state:TanksPageStateType = initialTankPageState, action:tanksPageActionsType):TanksPageStateType=>{
   switch (action.type) {
    case "SET-TANKS-STATE":
     return {...state,tanks:action.payload};
