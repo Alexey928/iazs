@@ -6,9 +6,10 @@ import { AxiosError } from "axios";
 export const UserAuthState = {
    data:{
        _token: null as string | null,
+       _user: null as string|null,
    },
     isLading:false as boolean,
-    isAuth:false as boolean,
+    isAuth:true as boolean,
 };
 
 export const setAuthUserDataAC = (//auto types function --> type actionType = typeof setAuthUserDataAC,

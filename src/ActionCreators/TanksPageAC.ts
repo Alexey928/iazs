@@ -1,6 +1,9 @@
 
 //_____________initial Data _________________________________________________________
 import {AppThunkType} from "../State/reduxStore";
+import {setIsRequestProcessingStatusAC} from "./authUserAC";
+import {TanksPageAPI} from "../API/dalAPI";
+import {AxiosError} from "axios";
 
 const initDate:Date = new Date()
 
@@ -108,12 +111,9 @@ export const setStations = (stations:Array<StationsType>):setStationsActionType=
 export const setStartDate = (date:string):setStartDateActionType=>{
     return {type:"SET-START-DATE",date}
 }
-export const setEndDate = (date:string):setEndDateActionType=>{
-    return {type:"SET-END-DATE",date}
-}
+
 
 export type tanksPageActionsType =  setTanksActionType|
-                                    setEndDateActionType|
                                     setTanksDescriptionActionType|
                                     setStartDateActionType|
                                     setStationsActionType;
@@ -122,8 +122,25 @@ export type tanksPageActionsType =  setTanksActionType|
 
 // ____________________Thanks as Redux Thunks Concept_________________________________________
 
-export const setTankPageData  = (_token:string,startDate:string|null = null, endDate:string|null = null):AppThunkType=>{
+export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
     return async (dispatch)=>{
+        dispatch(setIsRequestProcessingStatusAC(true));
+        try {
+            const station = await TanksPageAPI.getStations(_token);
+            const tanks = await TanksPageAPI.getTanks(_token);
+            const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"1000");
+            const tempTanksDescription:TanksDescriptionsTypes = {}
+            tanks.forEach((item,i)=>{
+                tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
+            });
+            debugger;
+            dispatch(setTanksAC(tanks));
+            dispatch(setStations(station))
+        }catch (e){
+            console.log(e);
+        }finally {
+            dispatch(setIsRequestProcessingStatusAC(true));
+        }
 
     }
 

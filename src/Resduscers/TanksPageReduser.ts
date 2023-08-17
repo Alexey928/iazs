@@ -12,4 +12,4 @@ export const TanksPageReduser =( state:TanksPageStateType = initialTankPageState
    default:
     return state
   }
-}
+};

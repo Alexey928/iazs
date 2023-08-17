@@ -36,11 +36,12 @@
 
 }
 .contentWrapper{
+    width: 100%;
     background-color: #002041;
     height: calc(100% - 30px);
     overflow: scroll;
     background-size: cover;
-    padding: 30px;
+    padding: 20px;
 
 
 }

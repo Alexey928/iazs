@@ -6,6 +6,7 @@ import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../Resduscers/authUserReduser";
+import {TanksPageStateType} from "../../ActionCreators/TanksPageAC";
 
 
 type TankStateType = {
@@ -22,6 +23,7 @@ const TanksPage = () => {
     const navigate = useNavigate();
 
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
+    const tankPageState = useSelector<AppRootStateType, TanksPageStateType>(state => state.tanksPage)
 
 
     useEffect(()=>{
@@ -29,6 +31,10 @@ const TanksPage = () => {
             navigate("/");
         }
     },[]);
+
+    useEffect(()=>{
+
+    },[])
 
 
 
@@ -39,45 +45,13 @@ const TanksPage = () => {
                 <button  onClick={()=>dispatch(setIsMenuActiveAC())}  >menu</button>
             </div>
             <div className={style.contentWrapper}>
-                <div className={style.flexWraper}>
-                    <Tank level={180}/>
-                    <Tank level={120}/>
-                    <Tank level={100}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
-                    <Tank level={150}/>
+                <div>
+                    <div>HEDER</div>
+                    <div className={style.flexWraper}>
+                        <Tank level={180}/>
+                    </div>
                 </div>
+
 
             </div>
         </div>

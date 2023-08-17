@@ -12,8 +12,8 @@ body {
     max-width: 2000px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 9fr;
-    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 9fr;
+    grid-template-rows: 70px 1fr;
 }
 
 a,li,span,div {/* убирает браузерную подсветку при табе*/
