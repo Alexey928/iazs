@@ -6,7 +6,7 @@ import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../Resduscers/authUserReduser";
-import {TanksPageStateType} from "../../ActionCreators/TanksPageAC";
+import {setTankPageData, TanksPageStateType} from "../../ActionCreators/TanksPageAC";
 
 
 type TankStateType = {
@@ -26,6 +26,7 @@ const TanksPage = () => {
     const tankPageState = useSelector<AppRootStateType, TanksPageStateType>(state => state.tanksPage)
 
 
+
     useEffect(()=>{
         if(!auth.isAuth) {
             navigate("/");
@@ -33,6 +34,7 @@ const TanksPage = () => {
     },[]);
 
     useEffect(()=>{
+        dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"))
 
     },[])
 
@@ -42,17 +44,15 @@ const TanksPage = () => {
         <div className={style.content} >
             <div className={style.contentHeader}>
                 <span>Состояние Резервуаров</span>
-                <button  onClick={()=>dispatch(setIsMenuActiveAC())}  >menu</button>
+                <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
             </div>
             <div className={style.contentWrapper}>
                 <div>
-                    <div>HEDER</div>
+                    <div className={style.station}>Заправочная станция №{"1"}</div>
                     <div className={style.flexWraper}>
-                        <Tank level={180}/>
+
                     </div>
                 </div>
-
-
             </div>
         </div>
     );

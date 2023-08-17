@@ -41,14 +41,23 @@
     height: calc(100% - 30px);
     overflow: scroll;
     background-size: cover;
-    padding: 20px;
+    padding: 5px;
 
 
+}
+.station{
+    color: #010934;
+    background-color: #04dc26;;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    height: 30px;
 }
 .flexWraper{
     display: flex;
     flex-wrap:wrap;
     gap: 15px;
+    border: 5px double forestgreen;
+    padding: 8px;
 }
 .contentWrapper::-webkit-scrollbar {
     width: 0;

@@ -1,5 +1,6 @@
 import React from 'react';
 import style from "./Tank.module.css"
+import {TankDescriptionType} from "../../ActionCreators/TanksPageAC";
 
 
 
@@ -7,12 +8,8 @@ import style from "./Tank.module.css"
 
 type TankPropsType = {
     level:number
-    tankNumber?:number
-    fuelType?:"дт"|"бн"
-    fuelBrand?:string
-    V?:string
-    T?:string
-
+    tankId:number|null
+    description:Array<TankDescriptionType>
 }
 
 const Tank = (props:TankPropsType) => {

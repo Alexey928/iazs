@@ -3,7 +3,7 @@
 import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
 import {TanksPageAPI} from "../API/dalAPI";
-import {AxiosError} from "axios";
+
 
 const initDate:Date = new Date()
 
@@ -70,7 +70,7 @@ export type TankDescriptionType = typeof initialTankDescriptions
 export type StationsType = typeof initialStationDescription
 type tanksType = Array<TankType>
 
-type TanksDescriptionsTypes = {
+export type TanksDescriptionsTypes = {
     [_tank_id:string]:Array<TankDescriptionType>
 }
 //_________________________________________________________________________________
@@ -127,8 +127,11 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
         dispatch(setIsRequestProcessingStatusAC(true));
         try {
             const station = await TanksPageAPI.getStations(_token);
+            debugger
             const tanks = await TanksPageAPI.getTanks(_token);
+            debugger
             const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"1000");
+            debugger
             const tempTanksDescription:TanksDescriptionsTypes = {}
             tanks.forEach((item,i)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
