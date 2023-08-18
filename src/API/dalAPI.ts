@@ -1,8 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {usersStateType, userType} from "../ActionCreators/usersAC";
 import {profileDataType} from "../Resduscers/ProfileReducer";
-import {UserAuthStateType} from "../Resduscers/authUserReduser";
-import {log} from "util";
 import {StationsType, TankDescriptionType, TankType} from "../ActionCreators/TanksPageAC";
 
 export type LoginResponseType = {

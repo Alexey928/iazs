@@ -11,15 +11,15 @@ type stationStateType = {
 
 const Stations:React.FC<stationStateType> = ({tanks,stationId,tanksDescription}) => {
     return (
-        <div className={style.contentWrapper}>
+
             <div>
                 <div className={style.station}>Заправочная станция №{"1"}</div>
                 <div className={style.flexWraper}>
                     {stationId && tanks.map((tank=>tank._id &&
-                        <Tank description={tanksDescription[tank._id]} tankId={tank._id} level={44}/>))}
+                        <Tank description={tanksDescription[tank._id]} tankId={tank._id} key={tank._id} height={tank._height}/>))}
                 </div>
             </div>
-        </div>
+
     );
 };
 

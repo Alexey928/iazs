@@ -57,7 +57,7 @@ export const initialStationDescription = {
 
 //______________________Types for Data of Tanks Page_______________________________
 export type TanksPageStateType = {
-    stations:Array<any>,
+    stations:Array<StationsType>,
     tanks:Array<TankType>,
     tanksDescriptions:TanksDescriptionsTypes,
     startDate:string
@@ -127,22 +127,22 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
         dispatch(setIsRequestProcessingStatusAC(true));
         try {
             const station = await TanksPageAPI.getStations(_token);
-            debugger
             const tanks = await TanksPageAPI.getTanks(_token);
-            debugger
             const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"1000");
-            debugger
+
             const tempTanksDescription:TanksDescriptionsTypes = {}
             tanks.forEach((item,i)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
             });
-            debugger;
+
             dispatch(setTanksAC(tanks));
-            dispatch(setStations(station))
+            dispatch(setStations(station));
+            dispatch(setDescriptionAC(tempTanksDescription))
+
         }catch (e){
             console.log(e);
         }finally {
-            dispatch(setIsRequestProcessingStatusAC(true));
+            dispatch(setIsRequestProcessingStatusAC(false));
         }
 
     }
