@@ -37,6 +37,12 @@ position: relative;
 .inner{
 
 }
+.descriptionControleButton{
+    width: 25px;
+    background-color: #00072a;
+    color: #d9f8ec;
+    border-radius: 5px;
+}
 .liquidPetrol{
     position: absolute;
     top:20px;

@@ -49,6 +49,7 @@ const TanksPage = () => {
             </div>
             <div className={style.contentWrapper}>
                 {auth.isLading?<Preloader/>:tankPageState.stations&&tankPageState.stations.map((station=><Stations
+                        name={station._name}
                         key={station._id}
                         tanks={tankPageState.tanks.filter((t)=>t._azs_id===station._id)}
                         stationId={station._id}

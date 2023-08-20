@@ -11,30 +11,55 @@ type TankPropsType = {
 const Tank = (props:TankPropsType) => {
     const [currentDescriptionPos, setCurrentDescriptionPos] = useState(0);
 
+    const tankViewLevel = (height:number,overHeight:number):number=>{
+        const percent = (height*100)/overHeight;
+        const level = (175*percent)/100;
+        return level<25?25:~~level;
+    }
+    const handleIncrement = () => {
+        setCurrentDescriptionPos(currentDescriptionPos + 1);
+    };
+    const handleDecrement = ()=>{
+        setCurrentDescriptionPos(currentDescriptionPos + 1);
+    }
 
-const tankVieuLevel = (height:number,overHeight:number):number=>{
-    const prcent = (height*100)/overHeight;
-    const level = (175*prcent)/100;
-    return level<25?25:~~level;
-}
+    const handleDecMouseDown = () => {
+
+    };
+    const handleIncMouseDown = ()=>{
+
+    }
+
+    const description = props.description[currentDescriptionPos]
 
     return (
         <div className={style.glass}>
             <div className={style.inner}>
                 <label className={style.fuelName}>№1 A95</label>
                 <div className={style.tankDescription}>
-                    <div><span>Обем</span><span>1200mm</span></div>
-                    <div><span>Уровеь</span><span>1200mm</span></div>
-                    <div><span>Т</span><span>1200mm</span></div>
-                    <div><span>Вода</span><span>1200mm</span></div>
-                    <div><span>Level</span><span>1200mm</span></div>
-                    <div><span>Level</span><span>1200mm</span></div>
-                    <div><span>Level</span><span>1200mm</span></div>
-                    <div><span>Level</span><span>1200mm</span></div>
-                    <button>{"<--"}</button>
+                    <div><span>Объем(л)</span><span>{description._fuelVolume}</span></div>
+                    <div><span>Уровеь(мм)</span><span>{description._fuelLevel}</span></div>
+                    <div><span>Т( С )</span><span>{description._temperature}</span></div>
+                    <div><span>Вода(мм)</span><span>{description._waterLevel}</span></div>
+                    <div><span>Плотн(кг/м)</span><span>{description._density}</span></div>
+                    <div><span>Масса</span><span>{description._fuelMass}</span></div>
+                    <div><span>h-рез</span><span>{props.height}</span></div>
+                    <div><span style={{color:"#7cf508"}}>{description._date}</span></div>
+                    <div>
+                        <button onClick={()=>setCurrentDescriptionPos(p=>p-1)}
+                                disabled={currentDescriptionPos===0}
+                                className={style.descriptionControleButton}>{"<"}
+                        </button>
+                        <button onKeyPress={()=>setCurrentDescriptionPos(p=>p+1)}
+                            onClick={()=>setCurrentDescriptionPos(p=>p+1)}
+                                disabled={currentDescriptionPos===(props.description.length-1)}
+                                className={style.descriptionControleButton}>{">"}
+                        </button>
+                    </div>
                 </div>
                 <div className={style.liquidPetrol}
-                     style={{top:tankVieuLevel(Number(props.description[currentDescriptionPos]._fuelLevel),Number(props.height))}}>
+                     style={{top:tankViewLevel(Number(props.description[currentDescriptionPos]._fuelLevel),
+                                 Number(props.height))}}>
 
                 </div>
             </div>
