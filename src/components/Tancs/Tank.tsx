@@ -18,9 +18,7 @@ const Tank = (props:TankPropsType) => {
     useEffect(()=>{
         if(isSwithed){
             setTimeout(()=>{
-                if(currentDescriptionPos===0 && swithVector==="dec"){return} else
-                    if(currentDescriptionPos===props.description.length-1){setCurrentDescriptionPos(0)}else{
-                        swithPosition(swithVector)}
+                swithPosition(swithVector)
             },170);
         }
     },[swithVector,isSwithed,currentDescriptionPos]);
@@ -30,9 +28,17 @@ const Tank = (props:TankPropsType) => {
         const level = (175*percent)/100;
         return level<25?25:~~level;
     }
-    const swithPosition = (swithVector:string) => {
-        swithVector==="inc"?isSwithed && setCurrentDescriptionPos(prew=>prew+1):
-                            isSwithed && setCurrentDescriptionPos(prew=>prew-1);
+    const validatePositionOfDescriptions =  (pos:number,swithVector:swithVectorType):number => {
+    if(pos===0&&swithVector==="dec"){
+        return 0
+    }else if(pos===props.description.length-1&&swithVector==="inc"){
+        return props.description.length-1
+    }
+     return swithVector==="inc"?pos+1:pos-1
+    }
+
+    const swithPosition = (swithVector:swithVectorType) => {
+        setCurrentDescriptionPos(prev=>validatePositionOfDescriptions(prev,swithVector))
     };
 
     const handleDecMouseDown = (vector:swithVectorType,) => {
