@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from "./Tank.module.css"
 import {TankDescriptionType} from "../../ActionCreators/TanksPageAC";
 
@@ -7,27 +7,42 @@ type TankPropsType = {
     tankId:number|null
     description:Array<TankDescriptionType>
 }
+type swithVectorType = ""|"inc"|"dec"
 
 const Tank = (props:TankPropsType) => {
     const [currentDescriptionPos, setCurrentDescriptionPos] = useState(0);
+    const [isSwithed, setIsSwithed] = useState(false)
+    const [swithVector,setSwithVector] = useState<swithVectorType>("")
+    const [deviseType, setDeviseType] = useState("")
+
+    useEffect(()=>{
+        if(isSwithed){
+            setTimeout(()=>{
+                console.log("timeaut")
+                swithPosition(swithVector)
+            },150);
+        }
+    },[swithVector,isSwithed,currentDescriptionPos])
 
     const tankViewLevel = (height:number,overHeight:number):number=>{
         const percent = (height*100)/overHeight;
         const level = (175*percent)/100;
         return level<25?25:~~level;
     }
-    const handleIncrement = () => {
-        setCurrentDescriptionPos(currentDescriptionPos + 1);
+    const swithPosition = (swithVector:string) => {
+        console.log("clik")
+        swithVector==="inc"?isSwithed && setCurrentDescriptionPos(prew=>prew+1):
+                            isSwithed && setCurrentDescriptionPos(prew=>prew-1);
     };
-    const handleDecrement = ()=>{
-        setCurrentDescriptionPos(currentDescriptionPos + 1);
-    }
 
-    const handleDecMouseDown = () => {
-
+    const handleDecMouseDown = (vector:swithVectorType,) => {
+        console.log("down")
+        setIsSwithed(true);
+        setSwithVector(vector);
     };
-    const handleIncMouseDown = ()=>{
-
+    const handleIncMouseUp = () => {
+        console.log("up")
+        setIsSwithed(false)
     }
 
     const description = props.description[currentDescriptionPos]
@@ -46,21 +61,31 @@ const Tank = (props:TankPropsType) => {
                     <div><span>h-рез</span><span>{props.height}</span></div>
                     <div><span style={{color:"#7cf508"}}>{description._date}</span></div>
                     <div>
-                        <button onClick={()=>setCurrentDescriptionPos(p=>p-1)}
+                        <button onTouchStart={()=>{
+                            console.log("t start")
+                            handleDecMouseDown("dec")}}
+                                onTouchEnd={handleIncMouseUp}
+                                onMouseDown={()=>{handleDecMouseDown("dec")}}
+                                onMouseUp={handleIncMouseUp}
+                                onClick={()=>swithPosition("dec")}
                                 disabled={currentDescriptionPos===0}
-                                className={style.descriptionControleButton}>{"<"}
+                                className={style.descriptionControleButton}> {"<"}
                         </button>
-                        <button onKeyPress={()=>setCurrentDescriptionPos(p=>p+1)}
-                            onClick={()=>setCurrentDescriptionPos(p=>p+1)}
+                        <button onTouchStart={()=>{
+                            console.log("t start")
+                            handleDecMouseDown("inc")}}
+                                onTouchEnd={handleIncMouseUp}
+                                onMouseDown={()=>handleDecMouseDown("inc")}
+                                onMouseUp={handleIncMouseUp}
+                                onClick={()=>swithPosition("inc")}
                                 disabled={currentDescriptionPos===(props.description.length-1)}
-                                className={style.descriptionControleButton}>{">"}
+                                className={style.descriptionControleButton}> {">"}
                         </button>
                     </div>
                 </div>
                 <div className={style.liquidPetrol}
                      style={{top:tankViewLevel(Number(props.description[currentDescriptionPos]._fuelLevel),
                                  Number(props.height))}}>
-
                 </div>
             </div>
             

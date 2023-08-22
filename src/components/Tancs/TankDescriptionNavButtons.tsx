@@ -5,7 +5,11 @@ type TankDescriptionNavButtonsType = {
     lengthOfCounting:number
 }
 
-const TankDescriptionNavButtons:React.FC<TankDescriptionNavButtonsType> = ({currentDescriptionPos,lengthOfCounting}) => {
+const TankDescriptionNavButtons:React.FC<TankDescriptionNavButtonsType> = ({
+   currentDescriptionPos,
+   lengthOfCounting,
+
+}) => {
     return (
         <div>
             <button onClick={()=>{}}
