@@ -7,20 +7,24 @@ type TankPropsType = {
     tankId:number|null
     description:Array<TankDescriptionType>
 }
-type swithVectorType = ""|"inc"|"dec"
+type swithVectorType = ""|"inc"|"dec";
 
 const Tank = (props:TankPropsType) => {
     const [currentDescriptionPos, setCurrentDescriptionPos] = useState(0);
     const [isSwithed, setIsSwithed] = useState(false)
     const [swithVector,setSwithVector] = useState<swithVectorType>("")
     const [deviseType, setDeviseType] = useState("")
+
     useEffect(()=>{
         if(isSwithed){
             setTimeout(()=>{
-                swithPosition(swithVector)
-            },150);
+                if(currentDescriptionPos===0 && swithVector==="dec"){return} else
+                    if(currentDescriptionPos===props.description.length-1){setCurrentDescriptionPos(0)}else{
+                        swithPosition(swithVector)}
+            },170);
         }
-    },[swithVector,isSwithed,currentDescriptionPos])
+    },[swithVector,isSwithed,currentDescriptionPos]);
+
     const tankViewLevel = (height:number,overHeight:number):number=>{
         const percent = (height*100)/overHeight;
         const level = (175*percent)/100;
@@ -58,7 +62,7 @@ const Tank = (props:TankPropsType) => {
                             setDeviseType("mob")
                             handleDecMouseDown("dec")}}
                                 onTouchEnd={handleIncMouseUp}
-                                onMouseDown={deviseType!=="mob"?()=>handleDecMouseDown("inc"):undefined}
+                                onMouseDown={deviseType!=="mob"?()=>handleDecMouseDown("dec"):undefined}
                                 onMouseUp={handleIncMouseUp}
                                 disabled={currentDescriptionPos===0}
                                 className={style.descriptionControleButton}> {"<"}
