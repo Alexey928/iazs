@@ -14,37 +14,30 @@ const Tank = (props:TankPropsType) => {
     const [isSwithed, setIsSwithed] = useState(false)
     const [swithVector,setSwithVector] = useState<swithVectorType>("")
     const [deviseType, setDeviseType] = useState("")
-
     useEffect(()=>{
         if(isSwithed){
             setTimeout(()=>{
-                console.log("timeaut")
                 swithPosition(swithVector)
             },150);
         }
     },[swithVector,isSwithed,currentDescriptionPos])
-
     const tankViewLevel = (height:number,overHeight:number):number=>{
         const percent = (height*100)/overHeight;
         const level = (175*percent)/100;
         return level<25?25:~~level;
     }
     const swithPosition = (swithVector:string) => {
-        console.log("clik")
         swithVector==="inc"?isSwithed && setCurrentDescriptionPos(prew=>prew+1):
                             isSwithed && setCurrentDescriptionPos(prew=>prew-1);
     };
 
     const handleDecMouseDown = (vector:swithVectorType,) => {
-        console.log("down")
         setIsSwithed(true);
         setSwithVector(vector);
     };
     const handleIncMouseUp = () => {
-        console.log("up")
         setIsSwithed(false)
     }
-
     const description = props.description[currentDescriptionPos]
 
     return (
@@ -62,22 +55,20 @@ const Tank = (props:TankPropsType) => {
                     <div><span style={{color:"#7cf508"}}>{description._date}</span></div>
                     <div>
                         <button onTouchStart={()=>{
-                            console.log("t start")
+                            setDeviseType("mob")
                             handleDecMouseDown("dec")}}
                                 onTouchEnd={handleIncMouseUp}
-                                onMouseDown={()=>{handleDecMouseDown("dec")}}
+                                onMouseDown={deviseType!=="mob"?()=>handleDecMouseDown("inc"):undefined}
                                 onMouseUp={handleIncMouseUp}
-                                onClick={()=>swithPosition("dec")}
                                 disabled={currentDescriptionPos===0}
                                 className={style.descriptionControleButton}> {"<"}
                         </button>
                         <button onTouchStart={()=>{
-                            console.log("t start")
+                            setDeviseType("mob")
                             handleDecMouseDown("inc")}}
                                 onTouchEnd={handleIncMouseUp}
-                                onMouseDown={()=>handleDecMouseDown("inc")}
+                                onMouseDown={deviseType!=="mob"?()=>handleDecMouseDown("inc"):undefined}
                                 onMouseUp={handleIncMouseUp}
-                                onClick={()=>swithPosition("inc")}
                                 disabled={currentDescriptionPos===(props.description.length-1)}
                                 className={style.descriptionControleButton}> {">"}
                         </button>
