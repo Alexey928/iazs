@@ -21,6 +21,7 @@ import Invitarization from "./components/Tancs/Invitarization/Invitarization";
 import Operation from "./components/Operation/Operation";
 import Carts from "./components/Carts/Carts";
 import {UserAuthStateType} from "./Resduscers/authUserReduser";
+import TankChartPage from "./components/TankChartPage/TankChartPage";
 
 const App = ()=>{
     const dispatch = useAppDispatch();
@@ -45,6 +46,7 @@ const App = ()=>{
                 <Navigation/>
                 <Routes>
                     <Route  path = {"/"} element={<LoginPage/>}/>
+                    <Route  path = {"/TankChartPage/*"} element={<TankChartPage/>}/>
                     <Route  path = {"/Carts/*"} element={<Carts/>}/>
                     <Route path = {"/Operation/*"} element={<Operation/>}/>
                     <Route path = {"/ReferencePage/"} element={<Reference/>}/>

@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import style from "./Tank.module.css"
 import {TankDescriptionType} from "../../ActionCreators/TanksPageAC";
+import {useNavigate} from "react-router-dom";
+import chartIcom from "../../asets/chartIcon.png"
 
 type TankPropsType = {
     height:string|null
@@ -14,6 +16,7 @@ const Tank = (props:TankPropsType) => {
     const [isSwithed, setIsSwithed] = useState(false)
     const [swithVector,setSwithVector] = useState<swithVectorType>("")
     const [deviseType, setDeviseType] = useState("")
+    const navigate = useNavigate();
 
     useEffect(()=>{
         if(isSwithed){
@@ -48,6 +51,9 @@ const Tank = (props:TankPropsType) => {
     const handleIncMouseUp = () => {
         setIsSwithed(false)
     }
+    const nav = ()=>{
+        navigate(`/TankChartPage/${props.tankId}`)
+    }
     const description = props.description[currentDescriptionPos]
 
     return (
@@ -62,7 +68,10 @@ const Tank = (props:TankPropsType) => {
                     <div><span>Плотн(кг/м)</span><span>{description._density}</span></div>
                     <div><span>Масса</span><span>{description._fuelMass}</span></div>
                     <div><span>h-рез</span><span>{props.height}</span></div>
+                    <img src={chartIcom} onClick={nav}/>
                     <div><span style={{color:"#7cf508"}}>{description._date}</span></div>
+
+
                     <div>
                         <button onTouchStart={()=>{
                             setDeviseType("mob")
