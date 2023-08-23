@@ -40,6 +40,18 @@ export const options = {
             display: true,
             text: 'Температура / Уровень',
         },
+        scales: {
+            y: {
+                beginAtZero: true, // Настройки первой шкалы
+                position: 'left',
+                id: 'y-axis-1',
+            },
+            y2: {
+                beginAtZero: true, // Настройки второй шкалы
+                position: 'right',
+                id: 'y-axis-2',
+            },
+        },
     },
 };
 
@@ -53,17 +65,19 @@ const TankChartPage = () => {
         labels,
         datasets: [
             {
-                disabled:true,
+                yAxisID: 'y-axis-1',
                 label: 'Level',
                 data: tankPageState.tanksDescriptions[tankId?tankId:"1"].map(el=>el._fuelLevel),
-                borderColor: 'rgb(11,110,0)',
-                backgroundColor: 'rgba(35,232,4,0.5)',
+                borderColor: 'rgb(23,229,0)',
+                backgroundColor: 'rgba(35,232,4,0.69)',
             },
             {
+                yAxisID: 'y-axis-2',
                 label: 'Temperature',
                 data: tankPageState.tanksDescriptions[tankId?tankId:"1"].map(el=>el._temperature),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                hidden: true,
             },
         ],
     };

@@ -7,7 +7,6 @@ import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../Resduscers/authUserReduser";
 import {setTankPageData, TanksPageStateType} from "../../ActionCreators/TanksPageAC";
 import Stations from "./Stations";
-import {AppStateType} from "../../ActionCreators/AppAC";
 import Preloader from "../UIcomponets/generalPreloader/Preloader";
 
 const TanksPage = () => {
@@ -44,7 +43,6 @@ const TanksPage = () => {
                         tanksDescription={tankPageState.tanksDescriptions}
                     />))}
             </div>
-
         </div>
     );
 };

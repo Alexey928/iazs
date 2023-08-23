@@ -79,15 +79,17 @@ position: relative;
 
 }
 .tankDescription>img{
+    background-color: rgba(1, 9, 91, 0.8);
     bottom:0px;
     left: 45px;
     width: 25px;
     position: absolute;
     transition: all 0.3s linear;
+    border-radius: 5px;
 }
 .tankDescription>img:hover{
     box-shadow: 0 0 10px rgb(4, 255, 198);
-    border-radius: 5px;
+    border-radius: 25px;
 }
 .fuelName{
     right: -4px;

@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import chartIcom from "../../asets/chartIcon.png"
 
 type TankPropsType = {
+    name:string|null
     height:string|null
     tankId:number|null
     description:Array<TankDescriptionType>
@@ -59,7 +60,7 @@ const Tank = (props:TankPropsType) => {
     return (
         <div className={style.glass}>
             <div className={style.inner}>
-                <label className={style.fuelName}>{`№${props.tankId}`}</label>
+                <label className={style.fuelName}>{props.name}</label>
                 <div className={style.tankDescription}>
                     <div><span>Объем(л)</span><span>{description._fuelVolume}</span></div>
                     <div><span>Уровеь(мм)</span><span>{description._fuelLevel}</span></div>
@@ -70,8 +71,6 @@ const Tank = (props:TankPropsType) => {
                     <div><span>h-рез</span><span>{props.height}</span></div>
                     <img src={chartIcom} onClick={nav}/>
                     <div><span style={{color:"#7cf508"}}>{description._date}</span></div>
-
-
                     <div>
                         <button onTouchStart={()=>{
                             setDeviseType("mob")
