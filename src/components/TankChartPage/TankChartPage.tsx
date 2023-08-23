@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import style from "../Tancs/Tanks.module.css";
 import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {AppRootStateType, useAppDispatch} from "../../State/reduxStore";
@@ -61,6 +61,30 @@ const TankChartPage = () => {
     const tankPageState = useSelector<AppRootStateType,TanksPageStateType>(state => state.tanksPage);
     const labels = tankPageState.tanksDescriptions[tankId?tankId:"1"].map((el)=>el._date)
     const dispatch = useAppDispatch();
+    const [wiueWidth, setWiueWidth] = useState(0);
+    const [flag,setFlag] = useState(true);
+
+    console.log(wiueWidth)
+
+    useEffect(() => {
+        const handleOrientationChange = () => {
+
+            setWiueWidth(window.innerWidth);
+        };
+        window.addEventListener('resize', handleOrientationChange);
+        return () => {
+            window.removeEventListener('resize', handleOrientationChange);
+        };
+    }, []);
+
+    useEffect(()=>{
+        wiueWidth!==0 && setFlag(false)
+    },[wiueWidth]);
+
+    useEffect(()=>{
+        !flag && setFlag(true)
+    },[flag])
+
     const data = {
         labels,
         datasets: [
@@ -68,8 +92,9 @@ const TankChartPage = () => {
                 yAxisID: 'y-axis-1',
                 label: 'Level',
                 data: tankPageState.tanksDescriptions[tankId?tankId:"1"].map(el=>el._fuelLevel),
-                borderColor: 'rgb(23,229,0)',
+                borderColor: 'rgb(20,185,1)',
                 backgroundColor: 'rgba(35,232,4,0.69)',
+                pointHoverBackgroundColor: 'rgb(255, 0, 0)',
             },
             {
                 yAxisID: 'y-axis-2',
@@ -77,6 +102,7 @@ const TankChartPage = () => {
                 data: tankPageState.tanksDescriptions[tankId?tankId:"1"].map(el=>el._temperature),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                pointHoverBackgroundColor: 'rgb(255, 0, 0)',
                 hidden: true,
             },
         ],
@@ -89,7 +115,7 @@ const TankChartPage = () => {
             </div>
             <div className={style.contentWrapper}>
                 <div style={{width:"100%",backgroundColor:'rgb(50,255,0)',textAlign:"center"}}>{`Емкость №${tankId}`}</div>
-                <Line options={options} data={data} />
+                {flag && <Line options={options} data={data} />}
             </div>
         </div>
     );
