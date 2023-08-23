@@ -59,7 +59,7 @@ const Tank = (props:TankPropsType) => {
     return (
         <div className={style.glass}>
             <div className={style.inner}>
-                <label className={style.fuelName}>№1 A95</label>
+                <label className={style.fuelName}>{`№${props.tankId}`}</label>
                 <div className={style.tankDescription}>
                     <div><span>Объем(л)</span><span>{description._fuelVolume}</span></div>
                     <div><span>Уровеь(мм)</span><span>{description._fuelLevel}</span></div>
