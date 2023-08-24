@@ -8,6 +8,7 @@ import {TanksPageAPI} from "../API/dalAPI";
 const initDate:Date = new Date()
 
 export const initialTankPageState:TanksPageStateType = {
+    fuelList:[],
     stations:[],
     tanks:[],
     tanksDescriptions:{},
@@ -16,6 +17,13 @@ export const initialTankPageState:TanksPageStateType = {
     endDate:`${initDate.getFullYear()}-${initDate.getMonth()}-${initDate.getDate()}
                ${initDate.getHours()}:${initDate.getMinutes()}:${initDate.getSeconds()}`,
 }
+
+export type fuelListType = Array<{
+    _id: number,
+    _code:number,
+    _name: string,
+    _note:null|string,
+}>
 
 const InitialTank = {
     _id:null as number|null,
@@ -60,6 +68,7 @@ export type TanksPageStateType = {
     stations:Array<StationsType>,
     tanks:Array<TankType>,
     tanksDescriptions:TanksDescriptionsTypes,
+    fuelList:fuelListType
     startDate:string
     endDate:string
 }
@@ -68,6 +77,7 @@ export type TanksPageStateType = {
 export type TankType = typeof InitialTank
 export type TankDescriptionType = typeof initialTankDescriptions
 export type StationsType = typeof initialStationDescription
+
 type tanksType = Array<TankType>
 
 export type TanksDescriptionsTypes = {
@@ -97,6 +107,11 @@ type setEndDateActionType = {
     type:"SET-END-DATE"
     date:string
 }
+type setFuelListActionType = {
+    type:"SET-FUEL-LIST",
+    fuelList:fuelListType
+
+}
 //_______________ActionCreators_________________________________________
 
 export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
@@ -105,18 +120,21 @@ export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
 export const setDescriptionAC = (tanksDescription:TanksDescriptionsTypes):setTanksDescriptionActionType=>{
     return {type:"SET-TANK-DESCRIPTIONS-STATE",payload:tanksDescription}
 }
-export const setStations = (stations:Array<StationsType>):setStationsActionType=>{
+export const setStationsAC = (stations:Array<StationsType>):setStationsActionType=>{
     return {type:"SET-STATIONS-STATE",payload:stations}
 }
 export const setStartDate = (date:string):setStartDateActionType=>{
     return {type:"SET-START-DATE",date}
 }
-
+export const setFuelList =(fuelList:fuelListType):setFuelListActionType=>{
+    return{type:"SET-FUEL-LIST",fuelList}
+}
 
 export type tanksPageActionsType =  setTanksActionType|
                                     setTanksDescriptionActionType|
                                     setStartDateActionType|
-                                    setStationsActionType;
+                                    setStationsActionType|
+                                    setFuelListActionType;
 
 
 
@@ -136,7 +154,7 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             });
 
             dispatch(setTanksAC(tanks));
-            dispatch(setStations(station));
+            dispatch(setStationsAC(station));
             dispatch(setDescriptionAC(tempTanksDescription))
 
         }catch (e){
@@ -146,7 +164,6 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
         }
 
     }
-
 }
 
 

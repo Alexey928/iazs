@@ -53,7 +53,6 @@ export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelecto
 
 
 // @ts-ignore
-//  чтобы можно было в консоли браузера обращаться к store в любой момент, тс игнор чтоб игнорировать типизацию )
 window.store = store;
 
 

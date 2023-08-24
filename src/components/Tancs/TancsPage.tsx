@@ -14,7 +14,7 @@ const TanksPage = () => {
     console.log(new Date())
     const navigate = useNavigate();
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
-    const tankPageState = useSelector<AppRootStateType,TanksPageStateType>(state => state.tanksPage)
+    const tankPageState = useSelector<AppRootStateType,TanksPageStateType>(state => state.tanksPage);
 
     useEffect(()=>{
         if(!auth.isAuth) {
@@ -23,13 +23,13 @@ const TanksPage = () => {
     },[]);
 
     useEffect(()=>{
-        dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"))
+        dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
     },[])
 
 
 
     return (
-        <div className={style.content} >
+        <div className={style.content}>
             <div className={style.contentHeader}>
                 <span>Состояние Резервуаров</span>
                 <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
