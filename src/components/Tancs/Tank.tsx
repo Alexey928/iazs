@@ -73,8 +73,9 @@ const Tank = (props:TankPropsType) => {
                     <div><span style={{color:"#7cf508"}}>{description._date}</span></div>
                     <div>
                         <button onTouchStart={()=>{
-                            setDeviseType("mob")
-                            handleDecMouseDown("dec")}}
+                                                setDeviseType("mob")
+                                                handleDecMouseDown("dec")
+                        }}
                                 onTouchEnd={handleIncMouseUp}
                                 onMouseDown={deviseType!=="mob"?()=>handleDecMouseDown("dec"):undefined}
                                 onMouseUp={handleIncMouseUp}
@@ -82,8 +83,9 @@ const Tank = (props:TankPropsType) => {
                                 className={style.descriptionControleButton}> {"<"}
                         </button>
                         <button onTouchStart={()=>{
-                            setDeviseType("mob")
-                            handleDecMouseDown("inc")}}
+                                                    setDeviseType("mob")
+                                                    handleDecMouseDown("inc")
+                        }}
                                 onTouchEnd={handleIncMouseUp}
                                 onMouseDown={deviseType!=="mob"?()=>handleDecMouseDown("inc"):undefined}
                                 onMouseUp={handleIncMouseUp}

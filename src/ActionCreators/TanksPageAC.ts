@@ -78,7 +78,7 @@ export type TankType = typeof InitialTank
 export type TankDescriptionType = typeof initialTankDescriptions
 export type StationsType = typeof initialStationDescription
 
-type tanksType = Array<TankType>
+ export type tanksType = Array<TankType>
 
 export type TanksDescriptionsTypes = {
     [_tank_id:string]:Array<TankDescriptionType>
@@ -136,8 +136,6 @@ export type tanksPageActionsType =  setTanksActionType|
                                     setStationsActionType|
                                     setFuelListActionType;
 
-
-
 // ____________________Thanks as Redux Thunks Concept_________________________________________
 
 export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
@@ -147,8 +145,10 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             const station = await TanksPageAPI.getStations(_token);
             const tanks = await TanksPageAPI.getTanks(_token);
             const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"1000");
+            const fuelList = await TanksPageAPI.getFuelList(_token)
 
             const tempTanksDescription:TanksDescriptionsTypes = {}
+
             tanks.forEach((item,i)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
             });
@@ -156,7 +156,7 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             dispatch(setTanksAC(tanks));
             dispatch(setStationsAC(station));
             dispatch(setDescriptionAC(tempTanksDescription))
-
+            dispatch(setFuelList(fuelList))
         }catch (e){
             console.log(e);
         }finally {
