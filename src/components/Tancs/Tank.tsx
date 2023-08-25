@@ -1,23 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import style from "./Tank.module.css"
-import {TankDescriptionType} from "../../ActionCreators/TanksPageAC";
+import {TankDescriptionType, TanksDescriptionsTypes, TankType} from "../../ActionCreators/TanksPageAC";
 import {useNavigate} from "react-router-dom";
 import chartIcom from "../../asets/chartIcon.png"
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../State/reduxStore";
 
 type TankPropsType = {
     name:string|null
     height:string|null
     tankId:number|null
-    description:Array<TankDescriptionType>
+
 }
 type swithVectorType = ""|"inc"|"dec";
 
 const Tank = (props:TankPropsType) => {
+    const descriptions = useSelector<AppRootStateType, TanksDescriptionsTypes>(state => state.tanksPage.tanksDescriptions)
+    const currentDescriptions = descriptions[props.tankId?props.tankId:"1"]//<---!!!!
     const [currentDescriptionPos, setCurrentDescriptionPos] = useState(0);
     const [isSwithed, setIsSwithed] = useState(false)
     const [swithVector,setSwithVector] = useState<swithVectorType>("")
     const [deviseType, setDeviseType] = useState("")
     const navigate = useNavigate();
+
 
     useEffect(()=>{
         if(isSwithed){
@@ -35,8 +40,8 @@ const Tank = (props:TankPropsType) => {
     const validatePositionOfDescriptions =  (pos:number,swithVector:swithVectorType):number => {
     if(pos===0&&swithVector==="dec"){
         return 0
-    }else if(pos===props.description.length-1&&swithVector==="inc"){
-        return props.description.length-1
+    }else if(pos===currentDescriptions.length-1&&swithVector==="inc"){
+        return currentDescriptions.length-1
     }
      return swithVector==="inc"?pos+1:pos-1
     }
@@ -55,7 +60,7 @@ const Tank = (props:TankPropsType) => {
     const nav = ()=>{
         navigate(`/TankChartPage/${props.tankId}`)
     }
-    const description = props.description[currentDescriptionPos]
+    const description = currentDescriptions[currentDescriptionPos]
 
     return (
         <div className={style.glass}>
@@ -89,13 +94,13 @@ const Tank = (props:TankPropsType) => {
                                 onTouchEnd={handleIncMouseUp}
                                 onMouseDown={deviseType!=="mob"?()=>handleDecMouseDown("inc"):undefined}
                                 onMouseUp={handleIncMouseUp}
-                                disabled={currentDescriptionPos===(props.description.length-1)}
+                                disabled={currentDescriptionPos===(currentDescriptions.length-1)}
                                 className={style.descriptionControleButton}> {">"}
                         </button>
                     </div>
                 </div>
                 <div className={style.liquidPetrol}
-                     style={{top:tankViewLevel(Number(props.description[currentDescriptionPos]._fuelLevel),
+                     style={{top:tankViewLevel(Number(currentDescriptions[currentDescriptionPos]._fuelLevel),
                                  Number(props.height))}}>
                 </div>
             </div>

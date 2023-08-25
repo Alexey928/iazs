@@ -5,7 +5,7 @@ import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../Resduscers/authUserReduser";
-import {setTankPageData, TanksPageStateType} from "../../ActionCreators/TanksPageAC";
+import {setTankPageData, StationsType, TanksPageStateType} from "../../ActionCreators/TanksPageAC";
 import Stations from "./Stations";
 import Preloader from "../UIcomponets/generalPreloader/Preloader";
 
@@ -14,7 +14,7 @@ const TanksPage = () => {
     console.log(new Date())
     const navigate = useNavigate();
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
-    const tankPageState = useSelector<AppRootStateType,TanksPageStateType>(state => state.tanksPage);
+    const tankPageStations = useSelector<AppRootStateType,Array<StationsType>>(state => state.tanksPage.stations);
 
     useEffect(()=>{
         if(!auth.isAuth) {
@@ -26,8 +26,6 @@ const TanksPage = () => {
         dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
     },[])
 
-
-
     return (
         <div className={style.content}>
             <div className={style.contentHeader}>
@@ -35,12 +33,12 @@ const TanksPage = () => {
                 <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
             </div>
             <div className={style.contentWrapper}>
-                {auth.isLading?<Preloader/>:tankPageState.stations && tankPageState.stations.map((station=><Stations
+                {auth.isLading?<Preloader/>:tankPageStations && tankPageStations.map((station=><Stations
                         name={station._name}
                         key={station._id}
-                        tanks={tankPageState.tanks.filter((t)=>t._azs_id===station._id)}
+                        //tanks={tankPageState.tanks.filter((t)=>t._azs_id===station._id)}
                         stationId={station._id}
-                        tanksDescription={tankPageState.tanksDescriptions}
+
                     />))}
             </div>
         </div>

@@ -54,7 +54,8 @@ export const loginTC = (email: string, password: string, rememberMe: boolean ): 
                 console.log(_user,_token);
                 dispatch(setAuthUserDataAC( _user,_token,true));
             } catch (e) {
-                console.log("Some error from login")
+                console.log("Some error from login");
+                alert("errrr")
             } finally {
                 dispatch(setIsRequestProcessingStatusAC(false));
             }

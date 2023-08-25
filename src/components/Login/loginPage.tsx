@@ -47,6 +47,7 @@ const ReduxLoginForm = reduxForm({
 
 const LoginPage = () => {
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth)
+    console.log(auth.isLading)
     const navigate = useNavigate();
     useEffect(()=>{
         if(auth.isAuth) { navigate("/Tanks/")};
@@ -56,7 +57,7 @@ const LoginPage = () => {
         if(!maxLength(formData.login) && !required(formData.login) && !notSpaces(formData.login)) {
             if(!required(formData.password) && !minLength(formData.password) && !notSpaces(formData.password)){
                 if(formData.password && formData.login) {
-                    dispatch(loginTC(formData.password,formData.login,formData.rememberMe?formData.rememberMe:false))
+                   !auth.isLading && dispatch(loginTC(formData.password,formData.login,formData.rememberMe?formData.rememberMe:false))
                 }
             } else {alert("password is not corect")};
         }else{
@@ -65,7 +66,7 @@ const LoginPage = () => {
     }
     return (
         <div className={style.loginFormContayner}>
-            <button onClick={()=>dispatch(setIsMenuActiveAC())} className={style.button}>menu</button>
+            <button  onClick={()=>dispatch(setIsMenuActiveAC())} className={style.button}>menu</button>
             <ReduxLoginForm onSubmit = {onSubmit}/>
         </div>
     );

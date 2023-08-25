@@ -152,13 +152,14 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             tanks.forEach((item,i)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
             });
-
             dispatch(setTanksAC(tanks));
             dispatch(setStationsAC(station));
-            dispatch(setDescriptionAC(tempTanksDescription))
-            dispatch(setFuelList(fuelList))
+            dispatch(setDescriptionAC(tempTanksDescription));
+            dispatch(setFuelList(fuelList));
+
         }catch (e){
             console.log(e);
+
         }finally {
             dispatch(setIsRequestProcessingStatusAC(false));
         }
