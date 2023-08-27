@@ -2,6 +2,7 @@ import React from 'react';
 import {useAppDispatch} from "../../../State/reduxStore";
 import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
+import Table from "../../UIcomponets/Tabels/SimpleTAble";
 
 const Sales = () => {
     const dispatch = useAppDispatch()
@@ -10,7 +11,10 @@ const Sales = () => {
         <div className={style.content} >
             <div className={style.contentHeader}>
                 <span>Выдача топлива</span>
-                <button  onClick={()=>dispatch(setIsMenuActiveAC())}  >menu</button>
+                <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
+            </div>
+            <div className={style.contentWrapper}>
+                <Table/>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import style from "./Tank.module.css"
-import {TankDescriptionType, TanksDescriptionsTypes, TankType} from "../../ActionCreators/TanksPageAC";
+import {fuelListType, TankDescriptionType, TanksDescriptionsTypes, TankType} from "../../ActionCreators/TanksPageAC";
 import {useNavigate} from "react-router-dom";
 import chartIcom from "../../asets/chartIcon.png"
 import {useSelector} from "react-redux";
@@ -10,13 +10,18 @@ type TankPropsType = {
     name:string|null
     height:string|null
     tankId:number|null
+    fuelId:number|null
 
 }
 type swithVectorType = ""|"inc"|"dec";
 
 const Tank = (props:TankPropsType) => {
-    const descriptions = useSelector<AppRootStateType, TanksDescriptionsTypes>(state => state.tanksPage.tanksDescriptions)
-    const currentDescriptions = descriptions[props.tankId?props.tankId:"1"]//<---!!!!
+    const currentDescriptions = useSelector<AppRootStateType, Array<TankDescriptionType>>(state => (
+        state.tanksPage.tanksDescriptions[props.tankId?props.tankId:"1"]));
+    const fuelList = useSelector<AppRootStateType,fuelListType>(state => state.tanksPage.fuelList);
+    const findCurrentFuel = fuelList.find(item=>item._id===props.fuelId);
+    const currentFuelName = findCurrentFuel ? findCurrentFuel._name : "";
+
     const [currentDescriptionPos, setCurrentDescriptionPos] = useState(0);
     const [isSwithed, setIsSwithed] = useState(false)
     const [swithVector,setSwithVector] = useState<swithVectorType>("")
@@ -38,12 +43,12 @@ const Tank = (props:TankPropsType) => {
         return level<25?25:~~level;
     }
     const validatePositionOfDescriptions =  (pos:number,swithVector:swithVectorType):number => {
-    if(pos===0&&swithVector==="dec"){
-        return 0
-    }else if(pos===currentDescriptions.length-1&&swithVector==="inc"){
-        return currentDescriptions.length-1
-    }
-     return swithVector==="inc"?pos+1:pos-1
+        if(pos===0&&swithVector==="dec"){
+            return 0
+        }else if(pos===currentDescriptions.length-1&&swithVector==="inc"){
+            return currentDescriptions.length-1
+        }
+         return swithVector==="inc"?pos+1:pos-1
     }
 
     const swithPosition = (swithVector:swithVectorType) => {
@@ -57,6 +62,14 @@ const Tank = (props:TankPropsType) => {
     const handleIncMouseUp = () => {
         setIsSwithed(false)
     }
+    const synchroneWidthTankColor = ()=>{
+        switch (currentFuelName) {
+            case "ДТ":
+                return
+
+
+        }
+    }
     const nav = ()=>{
         navigate(`/TankChartPage/${props.tankId}`)
     }
@@ -65,7 +78,7 @@ const Tank = (props:TankPropsType) => {
     return (
         <div className={style.glass}>
             <div className={style.inner}>
-                <label className={style.fuelName}>{props.name}</label>
+                <label className={style.fuelName}>{props.name+" "+currentFuelName}</label>
                 <div className={style.tankDescription}>
                     <div><span>Объем(л)</span><span>{description._fuelVolume}</span></div>
                     <div><span>Уровеь(мм)</span><span>{description._fuelLevel}</span></div>
@@ -104,7 +117,6 @@ const Tank = (props:TankPropsType) => {
                                  Number(props.height))}}>
                 </div>
             </div>
-            
         </div>
     );
 };

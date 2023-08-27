@@ -16,6 +16,7 @@ import { Line } from 'react-chartjs-2';
 import {useSelector} from "react-redux";
 import {TanksPageStateType} from "../../ActionCreators/TanksPageAC";
 import {useParams} from "react-router-dom";
+import {siftingArray} from "../../AuxiliaryLogic/SomeLogicForRenderedData";
 
 
 ChartJS.register(
@@ -60,16 +61,13 @@ const TankChartPage = () => {
     const id  = useParams<'*'>();
     const tankId = id["*"] ;
     const tankPageState = useSelector<AppRootStateType,TanksPageStateType>(state => state.tanksPage);
-    const labels = tankPageState.tanksDescriptions[tankId?tankId:"1"].map((el)=>el._date)
+    const labels = siftingArray(tankPageState.tanksDescriptions[tankId?tankId:"1"].map((el)=>el._date));
     const dispatch = useAppDispatch();
     const [wiueWidth, setWiueWidth] = useState(0);
     const [flag,setFlag] = useState(true);
-
-    console.log(wiueWidth)
-
+        //__________Logic for adaptation Chart ______________________________________
     useEffect(() => {
         const handleOrientationChange = () => {
-
             setWiueWidth(window.innerWidth);
         };
         window.addEventListener('resize', handleOrientationChange);
@@ -85,14 +83,14 @@ const TankChartPage = () => {
     useEffect(()=>{
         !flag && setFlag(true)
     },[flag])
-
+//________________________________________________________________________________________
     const data = {
         labels,
         datasets: [
             {
                 yAxisID: 'y-axis-1',
                 label: 'Level',
-                data: tankPageState.tanksDescriptions[tankId?tankId:"1"].map(el=>el._fuelLevel),
+                data:siftingArray(tankPageState.tanksDescriptions[tankId?tankId:"1"].map(el=>el._fuelLevel)),
                 borderColor: 'rgb(20,185,1)',
                 backgroundColor: 'rgba(35,232,4,0.69)',
                 pointHoverBackgroundColor: 'rgb(255, 0, 0)',
@@ -100,7 +98,7 @@ const TankChartPage = () => {
             {
                 yAxisID: 'y-axis-2',
                 label: 'Temperature',
-                data: tankPageState.tanksDescriptions[tankId?tankId:"1"].map(el=>el._temperature),
+                data: siftingArray(tankPageState.tanksDescriptions[tankId?tankId:"1"].map(el=>el._temperature)),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
                 pointHoverBackgroundColor: 'rgb(255, 0, 0)',

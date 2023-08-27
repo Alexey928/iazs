@@ -5,7 +5,7 @@ import {
     setProfileDataActionType
 } from "../ActionCreators/profilePageAC"
 import {v1} from "uuid";
-import {urlRandomiser} from "../AuxiliaryLogic/tempImgUrlGenerator";
+import {urlRandomiser} from "../AuxiliaryLogic/SomeLogicForRenderedData";
 
 export type PostsItemType = {
     id:string

@@ -144,7 +144,7 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
         try {
             const station = await TanksPageAPI.getStations(_token);
             const tanks = await TanksPageAPI.getTanks(_token);
-            const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"1000");
+            const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"10000");
             const fuelList = await TanksPageAPI.getFuelList(_token)
 
             const tempTanksDescription:TanksDescriptionsTypes = {}

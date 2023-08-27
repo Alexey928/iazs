@@ -7,16 +7,12 @@ import {AppRootStateType} from "../../State/reduxStore";
 
 type stationStateType = {
     name:string|null
-   // tanks:Array<TankType>
     stationId:number|null
-
 }
 
 const Stations:React.FC<stationStateType> = ({stationId, name}) => {
-
     const tanksList = useSelector<AppRootStateType,tanksType>(state => state.tanksPage.tanks);
     const filteredTanks = tanksList.filter((t)=>t._azs_id===stationId);
-
     return (
         <div>
             <div className={style.station}>{name}</div>
@@ -24,6 +20,7 @@ const Stations:React.FC<stationStateType> = ({stationId, name}) => {
                 {stationId && filteredTanks.map((tank => tank._id &&
                     <Tank
                           tankId={tank._id}
+                          fuelId={tank._fuel_id}
                           key={tank._id}
                           height={tank._height}
                           name={tank._name}

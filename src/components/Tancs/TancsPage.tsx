@@ -23,7 +23,7 @@ const TanksPage = () => {
     },[]);
 
     useEffect(()=>{
-        dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
+       !tankPageStations && dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
     },[])
 
     return (
@@ -36,10 +36,8 @@ const TanksPage = () => {
                 {auth.isLading?<Preloader/>:tankPageStations && tankPageStations.map((station=><Stations
                         name={station._name}
                         key={station._id}
-                        //tanks={tankPageState.tanks.filter((t)=>t._azs_id===station._id)}
                         stationId={station._id}
-
-                    />))}
+                />))}
             </div>
         </div>
     );
