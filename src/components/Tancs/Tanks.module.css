@@ -8,6 +8,7 @@
 
 }
 .content .contentHeader {
+    position: relative;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     font-style: italic;
@@ -36,15 +37,13 @@
 
 }
 .contentWrapper{
-    width: 100%;
+    width: calc(100vw - 180px);
     background-color: #002041;
     height: calc(100% - 30px);
     overflow-x: scroll;
-   overflow-y: scroll;
+    overflow-y: scroll;
     background-size: cover;
     padding: 5px;
-
-
 }
 .station{
     color: #010934;
@@ -69,6 +68,9 @@
 }
 
 @media (max-width: 500px) {
+    .contentWrapper{
+     width: 100vw;
+    }
     .content{
         z-index: 2;
         margin-left: -160px;

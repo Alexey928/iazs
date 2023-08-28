@@ -1,4 +1,5 @@
 import React from 'react';
+import style from "./Tables.module.css"
 // Подключите ваш файл стилей для таблицы
 
 interface TableRowProps {
@@ -7,13 +8,14 @@ interface TableRowProps {
 
 const TableRow: React.FC<TableRowProps> = ({ rowData }) => {
     return (
-        <tr tabIndex={0}>
+        <tr className={style.row} tabIndex={0}>
             {rowData.map((cellData, index) => (
-                <td key={index}>{cellData}</td>
+                <td className={style.cell} key={index}>{cellData}</td>
             ))}
         </tr>
     );
 };
+
 
 const Table: React.FC = () => {
     const generateData = () => {
@@ -29,24 +31,39 @@ const Table: React.FC = () => {
     };
 
     return (
-        <table>
-            <thead>
-            <tr>
-                <th>Заголовок 1</th>
-                <th>Заголовок 2</th>
-                <th>Заголовок 3</th>
-                <th>Заголовок 4</th>
-                <th>Заголовок 5</th>
-                <th>Заголовок 6</th>
-                <th>Заголовок 7</th>
-                <th>Заголовок 8</th>
-                <th>Заголовок 9</th>
-            </tr>
+        <table className={style.table}>
+            <thead >
+            <th colSpan={10} style={{height:5,backgroundColor:"rgba(3, 248, 211, 0.99)"}}>
+
+            </th>
+                <tr >
+                    <th>Заголовок 1</th>
+                    <th>Заголовок 2</th>
+                    <th>Заголовок 3</th>
+                    <th>Заголовок 4</th>
+                    <th>Заголовок 5</th>
+                    <th>Заголовок 6</th>
+                    <th>Заголовок 7</th>
+                    <th>Заголовок 8</th>
+                    <th>Заголовок 9</th>
+                </tr>
+                <tr style={{backgroundColor:"red"}}>
+                    <th>Заголовок 1</th>
+                    <th>Заголовок 2</th>
+                    <th>Заголовок 3</th>
+                    <th>Заголовок 4</th>
+                    <th>Заголовок 5</th>
+                    <th>Заголовок 6</th>
+                    <th>Заголовок 7</th>
+
+                </tr>
+
+
             </thead>
             <tbody>
-            {generateData().map((rowData, index) => (
-                <TableRow key={index} rowData={rowData} />
-            ))}
+                {generateData().map((rowData, index) => (
+                    <TableRow key={index} rowData={rowData} />
+                ))}
             </tbody>
         </table>
     );

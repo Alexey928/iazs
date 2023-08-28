@@ -66,23 +66,23 @@ const TankChartPage = () => {
     const [wiueWidth, setWiueWidth] = useState(0);
     const [flag,setFlag] = useState(true);
         //__________Logic for adaptation Chart ______________________________________
-    useEffect(() => {
-        const handleOrientationChange = () => {
-            setWiueWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', handleOrientationChange);
-        return () => {
-            window.removeEventListener('resize', handleOrientationChange);
-        };
-    }, []);
-
-    useEffect(()=>{
-        wiueWidth!==0 && setFlag(false)
-    },[wiueWidth]);
-
-    useEffect(()=>{
-        !flag && setFlag(true)
-    },[flag])
+    // useEffect(() => {
+    //     const handleOrientationChange = () => {
+    //         setWiueWidth(window.innerWidth);
+    //     };
+    //     window.addEventListener('resize', handleOrientationChange);
+    //     return () => {
+    //         window.removeEventListener('resize', handleOrientationChange);
+    //     };
+    // }, []);
+    //
+    // useEffect(()=>{
+    //     wiueWidth!==0 && setFlag(false)
+    // },[wiueWidth]);
+    //
+    // useEffect(()=>{
+    //     !flag && setFlag(true)
+    // },[flag])
 //________________________________________________________________________________________
     const data = {
         labels,

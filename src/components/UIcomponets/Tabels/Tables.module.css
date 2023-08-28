@@ -1,0 +1,29 @@
+.table{
+  margin-top: 20px;
+  color: #d9f8ec;
+  min-width: 100%;
+  border-collapse: collapse;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(2, 14, 250, 0.51);
+  white-space: nowrap;
+
+}
+.row {
+  transition: background-color 0.2s ease-in-out;
+}
+.row:focus-within {
+  background-color: rgba(89, 253, 2, 0.66);
+  outline: none;
+}
+.cell {
+  padding: 5px;
+  border-bottom: 1px solid rgba(3, 248, 211, 0.99);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.header-cell {
+  background-color: #f5f5f5;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: 500;
+}
