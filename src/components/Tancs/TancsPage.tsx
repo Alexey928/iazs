@@ -23,7 +23,7 @@ const TanksPage = () => {
     },[]);
 
     useEffect(()=>{
-       !tankPageStations && dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
+       dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
     },[])
 
     return (

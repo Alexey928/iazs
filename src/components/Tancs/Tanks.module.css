@@ -19,7 +19,7 @@
     text-align: center;
     width: 100%;
 }
-.contentHeader span{
+.contentHeader >span{
     margin-right: 20px;
     background-image:linear-gradient(270deg, rgba(1, 255, 5, 0.91), rgba(0, 8, 112, 0.96));
     -webkit-background-clip:text;
@@ -37,7 +37,7 @@
 
 }
 .contentWrapper{
-    width: calc(100vw - 180px);
+    width: calc(100vw - 160px);
     background-color: #002041;
     height: calc(100% - 30px);
     overflow-x: scroll;

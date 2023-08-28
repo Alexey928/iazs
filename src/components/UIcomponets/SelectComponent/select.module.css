@@ -1,0 +1,48 @@
+
+.select{
+    position: relative;
+    min-width: 80px;
+
+}
+.selectHeader{
+    display: flex;
+    gap: 15px;
+    background-color: #08e1f5;
+}
+.selectHeader:hover{
+    cursor:pointer;
+}
+
+.selectBodyActive{
+    color: #000b2f;
+    list-style: none;
+    position: absolute;
+    background-color: #d9f8ec;
+    width: 100%;
+    padding: 0 5px 0 5px;
+    transition: all 0.1s linear;
+    opacity: 1;
+}
+.selectBody{
+    list-style: none;
+    position: absolute;
+    width:0;
+    height: 0;
+    opacity: 0;
+    clip: rect(0 0 0 0);
+    transition: all 1s linear;
+}
+
+.selectItem{
+    font-style: normal;
+    padding: 0 3px 0 3px;
+    background-color: #bdbdbd;
+    text-align: initial;
+    font-size: 16px;
+    margin-top:5px ;
+
+}
+.selectItem:hover{
+    background-color: #00072a;
+    color: #d9f8ec;
+}

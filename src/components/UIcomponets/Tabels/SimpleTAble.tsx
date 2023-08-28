@@ -1,5 +1,7 @@
 import React from 'react';
 import style from "./Tables.module.css"
+import {EditableSpan} from "../editinebalSpan/EditableSpan";
+import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
 // Подключите ваш файл стилей для таблицы
 
 interface TableRowProps {
@@ -33,30 +35,19 @@ const Table: React.FC = () => {
     return (
         <table className={style.table}>
             <thead >
-            <th colSpan={10} style={{height:5,backgroundColor:"rgba(3, 248, 211, 0.99)"}}>
-
-            </th>
-                <tr >
+            <th colSpan={10} style={{height:5,backgroundColor:"rgba(3, 248, 211, 0.99)"}}></th>
+                <tr style={{height:40}} >
                     <th>Заголовок 1</th>
-                    <th>Заголовок 2</th>
-                    <th>Заголовок 3</th>
-                    <th>Заголовок 4</th>
-                    <th>Заголовок 5</th>
+                    <th><RegularEditableSpan mutable={false} title={"Загоовок 2"} type={"text"}/></th>
+                    <th><RegularEditableSpan mutable={false} title={"Загоовок 3"} type={"text"}/></th>
+                    <th><RegularEditableSpan mutable={false} title={"Загоовок 4"} type={"text"}/></th>
+                    <th><RegularEditableSpan mutable={false} title={"Загоовок 5"} type={"text"}/></th>
                     <th>Заголовок 6</th>
                     <th>Заголовок 7</th>
                     <th>Заголовок 8</th>
                     <th>Заголовок 9</th>
                 </tr>
-                <tr style={{backgroundColor:"red"}}>
-                    <th>Заголовок 1</th>
-                    <th>Заголовок 2</th>
-                    <th>Заголовок 3</th>
-                    <th>Заголовок 4</th>
-                    <th>Заголовок 5</th>
-                    <th>Заголовок 6</th>
-                    <th>Заголовок 7</th>
 
-                </tr>
 
 
             </thead>

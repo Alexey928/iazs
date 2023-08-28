@@ -12,5 +12,8 @@
     <orderEntry type="module" module-name="New" />
     <orderEntry type="module" module-name="social-network-main" />
     <orderEntry type="module" module-name="social-networck" />
+    <orderEntry type="module" module-name="cloc-width-wether" />
+    <orderEntry type="module" module-name="client_app" />
+    <orderEntry type="module" module-name="editinebalSpan" />
   </component>
 </module>
