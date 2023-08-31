@@ -35,7 +35,7 @@ const Table: React.FC = () => {
     return (
         <table className={style.table}>
             <thead >
-            <th colSpan={10} style={{height:5,backgroundColor:"rgba(3, 248, 211, 0.99)"}}></th>
+
                 <tr style={{height:40}} >
                     <th>Заголовок 1</th>
                     <th><RegularEditableSpan mutable={false} title={"Загоовок 2"} type={"text"}/></th>

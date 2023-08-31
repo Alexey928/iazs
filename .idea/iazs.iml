@@ -15,5 +15,6 @@
     <orderEntry type="module" module-name="cloc-width-wether" />
     <orderEntry type="module" module-name="client_app" />
     <orderEntry type="module" module-name="editinebalSpan" />
+    <orderEntry type="module" module-name="paterns_on_js" />
   </component>
 </module>

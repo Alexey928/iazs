@@ -1,25 +1,28 @@
 
 .select{
     position: relative;
-    min-width: 80px;
-
+    min-width: 125px;
 }
 .selectHeader{
+    color: #d9f8ec;
     display: flex;
-    gap: 15px;
-    background-color: #08e1f5;
+    font-size: 18px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0, 15, 35, 0.99);
+    padding: 0 5px;
+    border-radius: 5px;
 }
 .selectHeader:hover{
     cursor:pointer;
 }
-
 .selectBodyActive{
     color: #000b2f;
     list-style: none;
     position: absolute;
-    background-color: #d9f8ec;
+    background-color: rgba(170, 241, 235, 0.8);
     width: 100%;
-    padding: 0 5px 0 5px;
+    padding: 5px;
     transition: all 0.1s linear;
     opacity: 1;
 }
@@ -32,17 +35,29 @@
     clip: rect(0 0 0 0);
     transition: all 1s linear;
 }
-
+.selectIcon{
+transition: all 0.2s linear;
+}
 .selectItem{
+    color: #d9f8ec;
     font-style: normal;
     padding: 0 3px 0 3px;
-    background-color: #bdbdbd;
+    background-color: #010933;
     text-align: initial;
     font-size: 16px;
     margin-top:5px ;
-
+}
+.selectItemActive{
+    color: #000128;
+    font-style: normal;
+    padding: 0 3px 0 3px;
+    background-color: #e6e7ef;
+    text-align: initial;
+    font-size: 16px;
+    margin-top:5px ;
 }
 .selectItem:hover{
-    background-color: #00072a;
-    color: #d9f8ec;
+    cursor: pointer;
+    background-color: #d2d6ec;
+    color: #00082c;
 }
