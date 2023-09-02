@@ -35,8 +35,7 @@ const Table: React.FC = () => {
     return (
         <table className={style.table}>
             <thead >
-
-                <tr style={{height:40}} >
+            <tr style={{height:40}} >
                     <th>Заголовок 1</th>
                     <th><RegularEditableSpan mutable={false} title={"Загоовок 2"} type={"text"}/></th>
                     <th><RegularEditableSpan mutable={false} title={"Загоовок 3"} type={"text"}/></th>
@@ -47,9 +46,6 @@ const Table: React.FC = () => {
                     <th>Заголовок 8</th>
                     <th>Заголовок 9</th>
                 </tr>
-
-
-
             </thead>
             <tbody>
                 {generateData().map((rowData, index) => (

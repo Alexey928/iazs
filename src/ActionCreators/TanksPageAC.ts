@@ -95,7 +95,7 @@ type setStationsActionType = {
     payload:Array<StationsType>
 }
 
-type setTanksDescriptionActionType = {
+type setTanksDescriptionsActionType = {
     type:"SET-TANK-DESCRIPTIONS-STATE",
     payload:TanksDescriptionsTypes,
 }
@@ -110,18 +110,24 @@ type setEndDateActionType = {
 type setFuelListActionType = {
     type:"SET-FUEL-LIST",
     fuelList:fuelListType
-
+}
+type setTankDescriptionActionType = {
+    type:"SET-TANK-DESCRIPTION-SATE"
+    payload:Array<TankDescriptionType>
 }
 //_______________ActionCreators_________________________________________
 
 export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
     return {type:"SET-TANKS-STATE",payload:tanks}
 }
-export const setDescriptionAC = (tanksDescription:TanksDescriptionsTypes):setTanksDescriptionActionType=>{
+export const setDescriptionsForTanksAC = (tanksDescription:TanksDescriptionsTypes):setTanksDescriptionsActionType=>{
     return {type:"SET-TANK-DESCRIPTIONS-STATE",payload:tanksDescription}
 }
 export const setStationsAC = (stations:Array<StationsType>):setStationsActionType=>{
     return {type:"SET-STATIONS-STATE",payload:stations}
+}
+export const setDescriptionForTank = (description:Array<TankDescriptionType>):setTankDescriptionActionType=>{
+    return {type:"SET-TANK-DESCRIPTION-SATE",payload:description}
 }
 export const setStartDate = (date:string):setStartDateActionType=>{
     return {type:"SET-START-DATE",date}
@@ -131,7 +137,7 @@ export const setFuelList =(fuelList:fuelListType):setFuelListActionType=>{
 }
 
 export type tanksPageActionsType =  setTanksActionType|
-                                    setTanksDescriptionActionType|
+                                    setTanksDescriptionsActionType|
                                     setStartDateActionType|
                                     setStationsActionType|
                                     setFuelListActionType;
@@ -154,7 +160,7 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             });
             dispatch(setTanksAC(tanks));
             dispatch(setStationsAC(station));
-            dispatch(setDescriptionAC(tempTanksDescription));
+            dispatch(setDescriptionsForTanksAC(tempTanksDescription));
             dispatch(setFuelList(fuelList));
 
         }catch (e){
