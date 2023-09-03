@@ -1,6 +1,5 @@
 import React from 'react';
 import style from "./Tables.module.css"
-import {EditableSpan} from "../editinebalSpan/EditableSpan";
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
 // Подключите ваш файл стилей для таблицы
 
@@ -35,21 +34,21 @@ const Table: React.FC = () => {
     return (
         <table className={style.table}>
             <thead >
-            <tr style={{height:40}} >
-                    <th>Заголовок 1</th>
-                    <th><RegularEditableSpan mutable={false} title={"Загоовок 2"} type={"text"}/></th>
-                    <th><RegularEditableSpan mutable={false} title={"Загоовок 3"} type={"text"}/></th>
-                    <th><RegularEditableSpan mutable={false} title={"Загоовок 4"} type={"text"}/></th>
-                    <th><RegularEditableSpan mutable={false} title={"Загоовок 5"} type={"text"}/></th>
-                    <th>Заголовок 6</th>
-                    <th>Заголовок 7</th>
-                    <th>Заголовок 8</th>
-                    <th>Заголовок 9</th>
-                </tr>
+                <tr style={{height:40}} >
+                        <th>Заголовок 1</th>
+                        <th><RegularEditableSpan mutable={false} title={"Загоовок 2"} type={"text"}/></th>
+                        <th><RegularEditableSpan mutable={false} title={"Загоовок 3"} type={"text"}/></th>
+                        <th><RegularEditableSpan mutable={false} title={"Загоовок 4"} type={"text"}/></th>
+                        <th><RegularEditableSpan mutable={false} title={"Загоовок 5"} type={"text"}/></th>
+                        <th>Заголовок 6</th>
+                        <th>Заголовок 7</th>
+                        <th>Заголовок 8</th>
+                        <th>Заголовок 9</th>
+                    </tr>
             </thead>
             <tbody>
                 {generateData().map((rowData, index) => (
-                    <TableRow key={index} rowData={rowData} />
+                    <TableRow key={index} rowData={rowData}/>
                 ))}
             </tbody>
         </table>
