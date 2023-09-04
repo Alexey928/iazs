@@ -29,7 +29,7 @@ const SelectComponent: React.FC<SelectProps> = ({ options, onSelect, name }) => 
         // Добавляем обработчик события клика на документ
         const handleClickOutside = (event: MouseEvent) => {
             if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
-                console.log("aut side")//но есть одна проблема обработчиков на событие будет столько, сколько селектов отрендорим
+                //но есть одна проблема обработчиков на событие будет столько, сколько селектов отрендорим
                 setActive(false); // Закрываем тело селекта, если клик был за его пределами
             }
         };

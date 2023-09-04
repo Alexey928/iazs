@@ -19,6 +19,8 @@ const TableRow: React.FC<TableRowProps> = ({ rowData }) => {
 
 
 const Table: React.FC = () => {
+
+
     const generateData = () => {
         const data: string[][] = [];
         for (let i = 0; i < 100; i++) {
