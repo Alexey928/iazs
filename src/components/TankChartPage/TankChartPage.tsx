@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import style from "../Tancs/Tanks.module.css";
 import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {AppRootStateType, useAppDispatch} from "../../State/reduxStore";

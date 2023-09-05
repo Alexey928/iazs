@@ -73,6 +73,23 @@ export const TanksPageAPI = {
     }
 }
 
+
+const  FuelReleasePageApi = {
+    getTransactionList:( _token: string, _datefrom:string, limit:string )=>{
+        return axios.
+        get<Array<TankDescriptionType>>(corsProxyUrl +
+            encodeURIComponent(`${baseUrl}transaction_list&_token=${_token}&_limit=${limit}&_datefrom${_datefrom}`)).
+        then((res)=> res.data);
+    },
+    getDriversList:( _token: string, limit:string)=> {
+        return axios.
+        get<Array<TankDescriptionType>>(corsProxyUrl +
+            encodeURIComponent(`${baseUrl}driver_list&_token=${_token}&_limit=${limit}`)).
+        then((res)=> res.data);
+    }
+}
+
+
 export const usersAPI = {
     getUsers(curentPage:number, pageSize:number){
         return axiosInstanseForSocialNetvork.get(`users?page=${curentPage}&count=${pageSize}`).then((response:AxiosResponse)=>response.data)
