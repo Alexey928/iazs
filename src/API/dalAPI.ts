@@ -74,7 +74,7 @@ export const TanksPageAPI = {
 }
 
 
-const  FuelReleasePageApi = {
+ export const  FuelReleasePageApi = {
     getTransactionList:( _token: string, _datefrom:string, limit:string )=>{
         return axios.
         get<Array<TankDescriptionType>>(corsProxyUrl +

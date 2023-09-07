@@ -1,13 +1,14 @@
 import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
+import {FuelReleasePageApi} from "../API/dalAPI";
 
-export const salePageInitialState:salePageInitialPageType = {
+export const salePageInitialState:salePageInitialStateType = {
     transaction: [],
     drivers: [],
 }
 
 
-type salePageInitialPageType = {
+ export type salePageInitialStateType = {
     transaction:Array<TransactionType>
     drivers:Array<DriverType>
 }
@@ -40,10 +41,7 @@ type DriverType = {
 }
 //___________________________________________________________________________________
 
-
-
 // Actions type ____________________________________________________________________
-
 type setTransactionActionType = {
     type:"SET-TRANSACTION"
     payload:Array<TransactionType>
@@ -52,8 +50,6 @@ type setDriverActionType = {
     type:"SET-DRIVER"
     payload:Array<DriverType>
 }
-
-
 //___________________________________________________________________________________
 
 export type salePageActionType = setTransactionActionType | setDriverActionType
@@ -70,5 +66,14 @@ const setDriverActionAC = (drivers:Array<DriverType>):setDriverActionType=>{
 
 const setsalesPagedata = (token:string,date:string):AppThunkType => async (dispatch)=>{
     dispatch(setIsRequestProcessingStatusAC(true));
+    try {
+        const tronsaction = await FuelReleasePageApi.getTransactionList(token, date ,"1000");
+        const drivers = await FuelReleasePageApi.getDriversList(token,"1000");
 
+
+    } catch (e) {
+
+    } finally {
+
+    }
 }

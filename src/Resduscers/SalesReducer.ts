@@ -1,9 +1,16 @@
+import {salePageActionType, salePageInitialState, salePageInitialStateType} from "../ActionCreators/SalePageAC";
 
 
-export const Salesreduser = (state:any, action:any)=>{
+export const SalesPageReducer = (state:salePageInitialStateType = salePageInitialState, action:salePageActionType):salePageInitialStateType=>{
     switch (action.type){
-
+        case "SET-TRANSACTION":
+            return {...state,transaction:action.payload}
+        case "SET-DRIVER":
+            return {...state,drivers:action.payload}
+        default:
+            return state
     }
-
 }
+
+
 

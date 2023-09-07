@@ -15,6 +15,7 @@ import {reducer as formReducer} from "redux-form";
 import {tanksPageActionsType} from "../ActionCreators/TanksPageAC";
 import {TanksPageReduser} from "../Resduscers/TanksPageReduser";
 import {salePageActionType} from "../ActionCreators/SalePageAC";
+import {SalesPageReducer} from "../Resduscers/SalesReducer";
 
 export const rootReducer = combineReducers({
     profilePage:profileReducer,
@@ -23,6 +24,7 @@ export const rootReducer = combineReducers({
     userAuth:authUserReduser,
     navigation:navigationMenuReduser,
     tanksPage:TanksPageReduser,
+    salesPage:SalesPageReducer,
     App:appReducer,
     form:formReducer
 }
