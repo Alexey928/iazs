@@ -1,7 +1,15 @@
+import {AppThunkType} from "../State/reduxStore";
+import {setIsRequestProcessingStatusAC} from "./authUserAC";
 
-export const salePageInitialState = {
+export const salePageInitialState:salePageInitialPageType = {
+    transaction: [],
+    drivers: [],
+}
 
 
+type salePageInitialPageType = {
+    transaction:Array<TransactionType>
+    drivers:Array<DriverType>
 }
 
 //______________________Types for Data of Sales Page_______________________________
@@ -48,7 +56,19 @@ type setDriverActionType = {
 
 //___________________________________________________________________________________
 
+export type salePageActionType = setTransactionActionType | setDriverActionType
+
 
 //______________Action Creators_____________________________________________________
-
+const setTransactionActionAC = (transactions:Array<TransactionType>):setTransactionActionType=>{
+    return {type:"SET-TRANSACTION",payload:transactions}
+}
+const setDriverActionAC = (drivers:Array<DriverType>):setDriverActionType=>{
+    return {type:"SET-DRIVER",payload:drivers}
+}
 //__________________________________________________________________________________
+
+const setsalesPagedata = (token:string,date:string):AppThunkType => async (dispatch)=>{
+    dispatch(setIsRequestProcessingStatusAC(true));
+
+}

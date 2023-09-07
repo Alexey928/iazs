@@ -14,6 +14,7 @@ import {appReducer} from "../Resduscers/AppReducer";
 import {reducer as formReducer} from "redux-form";
 import {tanksPageActionsType} from "../ActionCreators/TanksPageAC";
 import {TanksPageReduser} from "../Resduscers/TanksPageReduser";
+import {salePageActionType} from "../ActionCreators/SalePageAC";
 
 export const rootReducer = combineReducers({
     profilePage:profileReducer,
@@ -37,7 +38,8 @@ export type AppRootActionsType = dialogsActionType|
                                 AuthActionsType|
                                 navigationMenuActionType|
                                 AppActionsType|
-                                tanksPageActionsType;
+                                tanksPageActionsType|
+                                salePageActionType;
 export type AppThunkType<ReturnType = void> = ThunkAction<
     ReturnType,
     AppRootStateType,
