@@ -25,7 +25,7 @@ type TransactionType = {
     _mass: string
 }
 
-type DriverList = {
+type DriverType = {
     _id: number|null
     _name: string|null
     _note: string | null
@@ -35,6 +35,15 @@ type DriverList = {
 
 
 // Actions type ____________________________________________________________________
+
+type setTransactionActionType = {
+    type:"SET-TRANSACTION"
+    payload:Array<TransactionType>
+}
+type setDriverActionType = {
+    type:"SET-DRIVER"
+    payload:Array<DriverType>
+}
 
 
 //___________________________________________________________________________________
