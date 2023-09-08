@@ -70,7 +70,7 @@ const setTransactionActionAC = (transactions:Array<TransactionType>):setTransact
 const setDriversActionAC = (drivers:Array<DriverType>):setDriverActionType=>{
     return {type:"SET-DRIVER",payload:drivers}
 }
-const setDriversHashAC  = (hash:driverHash)=>{
+const setDriversHashAC  = (hash:driverHash):setDriverHashActionType=>{
     return{type:"SET-DRIVER-HASH",payload:hash}
 }
 
@@ -87,9 +87,9 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
             driverMap[`${d._id}`] = d;
         });
 
-        driverMap["uknown"] = {_id:"podonok",_name:"podonok",_note:"podonok"}
-        
+        driverMap["uknown"] = {_id:"podonok",_name:"podonok",_note:"podonok"};
 
+        dispatch(setDriversHashAC(driverMap))
         dispatch(setTransactionActionAC(tronsaction));
         dispatch(setDriversActionAC(drivers));
 
