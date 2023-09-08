@@ -4,7 +4,7 @@ import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
 import Table from "../../UIcomponets/Tabels/SimpleTAble";
 import SelectComponent from "../../UIcomponets/SelectComponent/Select";
-import {setsalesPagedata} from "../../../ActionCreators/SalePageAC";
+import {driverHash, setsalesPagedata, TransactionType} from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
 
@@ -24,10 +24,14 @@ const options1 = [
 
 const Sales = () => {
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
+    const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
+    const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
     const dispatch = useAppDispatch();
     useEffect(()=>{
         dispatch(setsalesPagedata(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
-    },[])
+    },[]);
+
+
     return (
         <div className={style.content} >
             <div className={style.contentHeader}>
@@ -45,7 +49,7 @@ const Sales = () => {
             </div>
 
             <div className={style.contentWrapper}>
-                <Table/>
+                <Table formativeData={transaction} hashForForigenKey={{driverHash:driversHash,}}/>
             </div>
         </div>
     );

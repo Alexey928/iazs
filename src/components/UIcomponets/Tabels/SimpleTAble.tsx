@@ -3,35 +3,43 @@ import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
 import {AppRootStateType} from "../../../State/reduxStore";
 import {useSelector} from "react-redux";
-import {driverHash, TransactionType} from "../../../ActionCreators/SalePageAC";
+import {driverHash, DriverType, TransactionType} from "../../../ActionCreators/SalePageAC";
 // Подключите ваш файл стилей для таблицы
 
 interface TableRowProps {
     rowData: TransactionType;
+    driver:DriverType
 }
 
-const TableRow: React.FC<TableRowProps> = ({ rowData }) => {
+const TableRow: React.FC<TableRowProps> = ({ rowData,driver }) => {
 
     return (
         <tr className={style.row} tabIndex={0}>
             <td className={style.cell}>{rowData._date??"не задано"}</td>
-            <td className={style.cell}>{rowData._volume15??""}</td>
-            <td className={style.cell}>{rowData._volume15??""}</td>
-            <td className={style.cell}>{rowData._volume15??""}</td>
-            <td className={style.cell}>{rowData._volume15??""}</td>
-            <td className={style.cell}>{rowData._volume15??""}</td>
-            <td className={style.cell}>{rowData._volume15??""}</td>
+            <td className={style.cell}>{"не задано"}</td>
+            <td className={style.cell}>{rowData._organization_id??"не задано"}</td>
+            <td className={style.cell}>{driver._name??"не задано"}</td>
+            <td className={style.cell}>{rowData._auto_id??"не задано"}</td>
+            <td className={style.cell}>{rowData._azs_id??"не задано"}</td>
+            <td className={style.cell}>{rowData._tank_id??"не задано"}</td>
+            <td className={style.cell}>{rowData._fuel_id??"не задано"}</td>
+            <td className={style.cell}>{rowData._tank_id??"не задано"}</td>
         </tr>
     );
 };
 
+type TableProps<T,H> = {
+    formativeData: Array<H>;
+    hashForForigenKey: { [key: string]: T };
+};
 
-const Table: React.FC = () => {
+
+const Table: React.FC<TableProps<driverHash,TransactionType>> = ({hashForForigenKey}) => {
+
    const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
    const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
 
    console.log(transaction,driversHash)
-
 
     return (
         <table className={style.table}>
@@ -50,7 +58,7 @@ const Table: React.FC = () => {
             </thead>
             <tbody>
                 {transaction.map((rowData, index) => (
-                    <TableRow key={index} rowData={rowData} />
+                    <TableRow key={index} rowData={rowData} driver={driversHash[`${rowData._driver_id??"uknown"}`]}/>
                 ))}
             </tbody>
         </table>

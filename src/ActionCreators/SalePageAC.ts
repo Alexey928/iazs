@@ -46,15 +46,15 @@ export type driverHash = {
 //___________________________________________________________________________________
 
 // Actions type ____________________________________________________________________
-type setTransactionActionType = {
+ type setTransactionActionType = {
     type:"SET-TRANSACTION"
     payload:Array<TransactionType>
 }
-type setDriverActionType = {
+ type setDriverActionType = {
     type:"SET-DRIVER"
     payload:Array<DriverType>
 }
-type setDriverHashActionType = {
+ type setDriverHashActionType = {
     type:"SET-DRIVER-HASH"
     payload:driverHash
 }

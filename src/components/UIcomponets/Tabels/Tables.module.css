@@ -1,17 +1,26 @@
 .table{
+  table-layout: fixed;
   margin-top: 65px;
   color: #d9f8ec;
-  min-width: 100%;
+  width: auto;
   border-collapse: collapse;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(2, 14, 250, 0.51);
   white-space: nowrap;
 
 }
-.row {
+.table thead th{
+  min-width: 120px;
+  max-width: 120px;
+}
+.row > td {
   transition: background-color 0.2s ease-in-out;
 }
-.row:focus-within {
+.row > td{
+  text-align: center;
+  background-color: #01638d;
+}
+.row:focus-within td {
   background-color: rgba(89, 253, 2, 0.66);
   outline: none;
 }
