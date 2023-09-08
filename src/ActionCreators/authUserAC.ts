@@ -9,7 +9,7 @@ export const UserAuthState = {
        _user: null as string|null,
    },
     isLading:false as boolean,
-    isAuth:true as boolean,
+    isAuth:false as boolean,
 };
 
 export const setAuthUserDataAC = (//auto types function --> type actionType = typeof setAuthUserDataAC,

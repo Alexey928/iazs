@@ -7,6 +7,9 @@ export const SalesPageReducer = (state:salePageInitialStateType = salePageInitia
             return {...state,transaction:action.payload}
         case "SET-DRIVER":
             return {...state,drivers:action.payload}
+        case "SET-DRIVER-HASH":
+            return  {...state,driversHash:action.payload}
+
         default:
             return state
     }

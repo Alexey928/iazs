@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
+import {AppRootStateType, useAppDispatch} from "../../../State/reduxStore";
+import {useSelector} from "react-redux";
+import {DriverType, salePageInitialStateType, TransactionType} from "../../../ActionCreators/SalePageAC";
 // Подключите ваш файл стилей для таблицы
 
 interface TableRowProps {
@@ -19,6 +22,20 @@ const TableRow: React.FC<TableRowProps> = ({ rowData }) => {
 
 
 const Table: React.FC = () => {
+   const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
+
+   console.log(transaction)
+    // const [tr,setTr] = useState(transaction);
+    // console.log(tr)
+    // const t =tr.map(t=>({...t,_auto_id:1}))
+    // console.log(t);
+
+
+
+
+
+
+
     const generateData = () => {
         const data: string[][] = [];
         for (let i = 0; i < 100; i++) {

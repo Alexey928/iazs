@@ -26,13 +26,13 @@ import TankChartPage from "./components/TankChartPage/TankChartPage";
 const App = ()=>{
     const dispatch = useAppDispatch();
     const AppState = useSelector<AppRootStateType,AppStateType>((state:AppRootStateType)=>state.App)
-    const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth)
 
     useEffect(()=>{
         dispatch(initializeAppTC())
     },[dispatch])
 
-    console.log("app is coled")
+    console.log("app is coled");
+
     if(!AppState.isInitialized){
         return(
             <div>

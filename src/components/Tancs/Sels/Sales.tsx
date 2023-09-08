@@ -1,9 +1,12 @@
-import React from 'react';
-import {useAppDispatch} from "../../../State/reduxStore";
+import React, {useEffect} from 'react';
+import {AppRootStateType, useAppDispatch} from "../../../State/reduxStore";
 import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
 import Table from "../../UIcomponets/Tabels/SimpleTAble";
 import SelectComponent from "../../UIcomponets/SelectComponent/Select";
+import {setsalesPagedata} from "../../../ActionCreators/SalePageAC";
+import {useSelector} from "react-redux";
+import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
 
 const options = [
     { value: 'Дт'},
@@ -20,7 +23,11 @@ const options1 = [
 
 
 const Sales = () => {
+    const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
     const dispatch = useAppDispatch();
+    useEffect(()=>{
+        dispatch(setsalesPagedata(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
+    },[])
     return (
         <div className={style.content} >
             <div className={style.contentHeader}>
