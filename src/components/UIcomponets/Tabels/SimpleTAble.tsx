@@ -4,7 +4,10 @@ import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/Regula
 import {AppRootStateType} from "../../../State/reduxStore";
 import {useSelector} from "react-redux";
 import {driverHash, DriverType, TransactionType} from "../../../ActionCreators/SalePageAC";
-// Подключите ваш файл стилей для таблицы
+import {stationHashType, tankHashType} from "../../../ActionCreators/TanksPageAC";
+
+
+
 
 interface TableRowProps {
     rowData: TransactionType;
@@ -23,23 +26,30 @@ const TableRow: React.FC<TableRowProps> = ({ rowData,driver }) => {
             <td className={style.cell}>{rowData._azs_id??"не задано"}</td>
             <td className={style.cell}>{rowData._tank_id??"не задано"}</td>
             <td className={style.cell}>{rowData._fuel_id??"не задано"}</td>
-            <td className={style.cell}>{rowData._tank_id??"не задано"}</td>
+            <td className={style.cell}>{rowData._volume??"не задано"}</td>
         </tr>
+
     );
 };
 
-type TableProps<T,H> = {
-    formativeData: Array<H>;
-    hashForForigenKey: { [key: string]: T };
+type TableProps = {
+    formativeData: Array<formativeDataType>;
+    hashForForigenKey: { [key: string]:hashType };
+    bindingHashInterfase:{ [key:string]:{idForHash:string}|Array<any>}
 };
 
+type hashType = driverHash|//
+                tankHashType|
+                stationHashType;
 
-const Table: React.FC<TableProps<driverHash,TransactionType>> = ({hashForForigenKey}) => {
+type formativeDataType = TransactionType
+
+
+const Table: React.FC<TableProps> = ({hashForForigenKey}) => {
 
    const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
    const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
-
-   console.log(transaction,driversHash)
+   console.log(transaction,driversHash);
 
     return (
         <table className={style.table}>

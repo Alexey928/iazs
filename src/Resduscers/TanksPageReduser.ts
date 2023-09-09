@@ -11,6 +11,8 @@ export const TanksPageReduser =( state:TanksPageStateType = initialTankPageState
     return {...state,tanksDescriptions:action.payload}
       case "SET-FUEL-LIST":
     return {...state,fuelList:action.fuelList}
+      case "SET-HASH-FOR-SATION":
+      return {...state,stationHash:action.payload}
    default:
     return state
   }

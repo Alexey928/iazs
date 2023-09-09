@@ -8,6 +8,8 @@ import {TanksPageAPI} from "../API/dalAPI";
 const initDate:Date = new Date()
 
 export const initialTankPageState:TanksPageStateType = {
+    tanksHash:{},
+    stationHash:{},
     fuelList:[],
     stations:[],
     tanks:[],
@@ -65,6 +67,8 @@ export const initialStationDescription = {
 
 //______________________Types for Data of Tanks Page_______________________________
 export type TanksPageStateType = {
+    tanksHash:{[key:string]:TankType}
+    stationHash:{[key:string]:StationsType}
     stations:Array<StationsType>,
     tanks:Array<TankType>,
     tanksDescriptions:TanksDescriptionsTypes,
@@ -72,13 +76,14 @@ export type TanksPageStateType = {
     startDate:string
     endDate:string
 }
-
+export type tankHashType = { [key:string]:TankType}
+export type stationHashType = {[key:string]:StationsType}
 
 export type TankType = typeof InitialTank
 export type TankDescriptionType = typeof initialTankDescriptions
 export type StationsType = typeof initialStationDescription
 
- export type tanksType = Array<TankType>
+export type tanksType = Array<TankType>
 
 export type TanksDescriptionsTypes = {
     [_tank_id:string]:Array<TankDescriptionType>
@@ -86,6 +91,14 @@ export type TanksDescriptionsTypes = {
 //_________________________________________________________________________________
 
 //___________________________________ ActionTypes__________________________________
+type setHashStationActionType = {
+    type:"SET-HASH-FOR-SATION",
+    payload:{[key:string]:StationsType}
+}
+type setHashTanksActionType = {
+    type:"SET-HASH-FOR-TANKS"
+    payload:{[key:string]:TankType}
+}
 type setTanksActionType = {
     type:"SET-TANKS-STATE",
     payload:tanksType,
@@ -126,6 +139,10 @@ export const setDescriptionsForTanksAC = (tanksDescription:TanksDescriptionsType
 export const setStationsAC = (stations:Array<StationsType>):setStationsActionType=>{
     return {type:"SET-STATIONS-STATE",payload:stations}
 }
+export const setStationHashdata = (station:{[key:string]:StationsType}):setHashStationActionType=>{
+    return {type:"SET-HASH-FOR-SATION",payload:station}
+}
+
 export const setDescriptionForTank = (description:Array<TankDescriptionType>):setTankDescriptionActionType=>{
     return {type:"SET-TANK-DESCRIPTION-SATE",payload:description}
 }
@@ -140,7 +157,9 @@ export type tanksPageActionsType =  setTanksActionType|
                                     setTanksDescriptionsActionType|
                                     setStartDateActionType|
                                     setStationsActionType|
-                                    setFuelListActionType;
+                                    setFuelListActionType|
+                                    setHashTanksActionType|
+                                    setHashStationActionType;
 
 // ____________________Thanks as Redux Thunks Concept_________________________________________
 

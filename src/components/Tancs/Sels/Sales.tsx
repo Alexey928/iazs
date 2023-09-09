@@ -20,17 +20,41 @@ const options1 = [
     { value: 'АЗС-3'},
     { value: 'АЗС-4'},
 ];
+const bindingInterfase  = {
+    driverHash:{
+        idForHash:"_driverId",
+    },
 
+
+    headers:[
+        {
+            name:"Name",
+            hash:"driverHash",
+            changeable:true,
+            col:()=>{},
+        },
+        {
+
+        }
+    ]
+}
 
 const Sales = () => {
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
     const dispatch = useAppDispatch();
+
+    //структура которая связывает хеши с нужными полями образующего обекта и задает колбеки на их хедеры колонок,параметризируя их же
+    //a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them
+
+
+
+    //_______________________________________________________
+
     useEffect(()=>{
         dispatch(setsalesPagedata(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
     },[]);
-
 
     return (
         <div className={style.content} >
@@ -49,7 +73,7 @@ const Sales = () => {
             </div>
 
             <div className={style.contentWrapper}>
-                <Table formativeData={transaction} hashForForigenKey={{driverHash:driversHash,}}/>
+                <Table formativeData={transaction} hashForForigenKey={{driverHash:driversHash,}} bindingHashInterfase = {bindingInterfase}/>
             </div>
         </div>
     );
