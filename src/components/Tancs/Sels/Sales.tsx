@@ -2,12 +2,15 @@ import React, {useEffect} from 'react';
 import {AppRootStateType, useAppDispatch} from "../../../State/reduxStore";
 import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
-import Table from "../../UIcomponets/Tabels/SimpleTAble";
+import Table, {bindingHashInterfaceItemType} from "../../UIcomponets/Tabels/SimpleTAble";
 import SelectComponent from "../../UIcomponets/SelectComponent/Select";
 import {driverHash, setsalesPagedata, TransactionType} from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
 import {stationHashType} from "../../../ActionCreators/TanksPageAC";
+
+
+
 
 const options = [
     { value: 'Дт'},
@@ -21,27 +24,86 @@ const options1 = [
     { value: 'АЗС-3'},
     { value: 'АЗС-4'},
 ];
-const bindingInterfase  = {
-    driverHash:{
-        idForHash:"_driverId",
-    },
-
-
+const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>}  = {
     headers:[
         {
-            name:"Name",
-            hash:"driverHash",
+            name:"Дата",
+            hash:"",
+            hashDataFieldName:"",
+            data:"_date",
             changeable:true,
-            col:()=>{},
+            width:120,
         },
         {
+            name:"Путевой лист",
+            hash:"",
+            hashDataFieldName:"",
+            data:"",
+            changeable:true,
+            width:120,
+        },
+        {
+            name:"Организация",
+            hash:"stationHash",
+            data:"",
+            hashDataFieldName:"_name",
+            changeable:true,
+            width:120,
+        },
+        {
+            name:"Водитель",
+            hash:"stationHash",
+            hashDataFieldName:"_name",
+            data:"",
+            changeable:true,
+            width:120,
+        },
+        {
+            name:"Авто",
+            hash:"stationHash",
+            hashDataFieldName:"_name",
+            data:"",
+            changeable:false,
+            width:120,
+        },
+        {
+            name:"АЗС",
+            hash:"stationHash",
+            hashDataFieldName:"_name",
+            data:"",
+            changeable:false,
+            width:120,
+        },
+        {
+            name:"Продукт",
+            hash:"stationHash",
+            hashDataFieldName:"_name",
+            data:"",
+            changeable:false,
+            width:120,
+        },
+        {
+            name:"Рез-ар",
+            hash:"stationHash",
+            hashDataFieldName:"_name",
+            data:"",
+            changeable:false,
+            width:120,
+        },
+        {
+            name:"Обьем",
+            hash:"stationHash",
+            hashDataFieldName:"_name",
+            data:"",
+            changeable:false,
+            width:120,
+        },
 
-        }
     ]
 }
 
 const Sales = () => {
-    const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
+    const auth = useSelector<AppRootStateType,UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
     const stationHash = useSelector<AppRootStateType,stationHashType>(state => state.tanksPage.stationHash)
@@ -70,12 +132,17 @@ const Sales = () => {
                 }}>
                     <SelectComponent options={options} name={"Продукт"}/>
                     <SelectComponent options={options1} name={"По АЗС"}/>
-
                 </div>
             </div>
 
             <div className={style.contentWrapper}>
-                <Table formativeData={transaction} hashForForigenKey={{driverHash:driversHash,}} bindingHashInterfase = {bindingInterfase}/>
+                <Table
+                    formativeData={transaction}
+                    hashForForigenKey={{
+                        driverHash:driversHash,
+                        stationHash:stationHash
+                    }}
+                    bindingHashInterfase = {bindingInterfase}/>
             </div>
         </div>
     );
