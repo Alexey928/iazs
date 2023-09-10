@@ -68,8 +68,8 @@ export const initialStationDescription = {
 //______________________Types for Data of Tanks Page_______________________________
 export type TanksPageStateType = {
     tanksHash:{[key:string]:TankType}
-    stationHash:{[key:string]:StationsType}
-    stations:Array<StationsType>,
+    stationHash:{[key:string]:StationType}
+    stations:Array<StationType>,
     tanks:Array<TankType>,
     tanksDescriptions:TanksDescriptionsTypes,
     fuelList:fuelListType
@@ -77,11 +77,11 @@ export type TanksPageStateType = {
     endDate:string
 }
 export type tankHashType = { [key:string]:TankType}
-export type stationHashType = {[key:string]:StationsType}
+export type stationHashType = {[key:string]:StationType}
 
 export type TankType = typeof InitialTank
 export type TankDescriptionType = typeof initialTankDescriptions
-export type StationsType = typeof initialStationDescription
+export type StationType = typeof initialStationDescription
 
 export type tanksType = Array<TankType>
 
@@ -93,7 +93,7 @@ export type TanksDescriptionsTypes = {
 //___________________________________ ActionTypes__________________________________
 type setHashStationActionType = {
     type:"SET-HASH-FOR-SATION",
-    payload:{[key:string]:StationsType}
+    payload:{[key:string]:StationType}
 }
 type setHashTanksActionType = {
     type:"SET-HASH-FOR-TANKS"
@@ -105,7 +105,7 @@ type setTanksActionType = {
 }
 type setStationsActionType = {
     type:"SET-STATIONS-STATE"
-    payload:Array<StationsType>
+    payload:Array<StationType>
 }
 
 type setTanksDescriptionsActionType = {
@@ -136,10 +136,10 @@ export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
 export const setDescriptionsForTanksAC = (tanksDescription:TanksDescriptionsTypes):setTanksDescriptionsActionType=>{
     return {type:"SET-TANK-DESCRIPTIONS-STATE",payload:tanksDescription}
 }
-export const setStationsAC = (stations:Array<StationsType>):setStationsActionType=>{
+export const setStationsAC = (stations:Array<StationType>):setStationsActionType=>{
     return {type:"SET-STATIONS-STATE",payload:stations}
 }
-export const setStationHashdata = (station:{[key:string]:StationsType}):setHashStationActionType=>{
+export const setStationHashdata = (station:{[key:string]:StationType}):setHashStationActionType=>{
     return {type:"SET-HASH-FOR-SATION",payload:station}
 }
 
@@ -162,7 +162,14 @@ export type tanksPageActionsType =  setTanksActionType|
                                     setHashStationActionType;
 
 // ____________________Thanks as Redux Thunks Concept_________________________________________
-
+interface HasId {
+    _id: number|null;
+}
+const forHash = <T extends HasId>(arr:Array<T>):{[key:string]:T}=>{
+    const temp:{[key:string]:T} = {};
+    arr.forEach((e)=>{temp[`${e._id}`]=e})
+    return temp
+}
 export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
     return async (dispatch)=>{
         dispatch(setIsRequestProcessingStatusAC(true));
@@ -173,6 +180,8 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             const fuelList = await TanksPageAPI.getFuelList(_token)
 
             const tempTanksDescription:TanksDescriptionsTypes = {}
+            const tancsHash = forHash<TankType>(tanks);
+            const sattionsHash = forHash<StationType>(station);
 
             tanks.forEach((item,i)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);

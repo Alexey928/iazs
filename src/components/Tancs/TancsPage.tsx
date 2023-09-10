@@ -5,7 +5,7 @@ import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../Resduscers/authUserReduser";
-import {setTankPageData, StationsType, TanksPageStateType} from "../../ActionCreators/TanksPageAC";
+import {setTankPageData, StationType, TanksPageStateType} from "../../ActionCreators/TanksPageAC";
 import Stations from "./Stations";
 import Preloader from "../UIcomponets/generalPreloader/Preloader";
 
@@ -14,7 +14,7 @@ const TanksPage = () => {
     console.log(new Date())
     const navigate = useNavigate();
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
-    const tankPageStations = useSelector<AppRootStateType,Array<StationsType>>(state => state.tanksPage.stations);
+    const tankPageStations = useSelector<AppRootStateType,Array<StationType>>(state => state.tanksPage.stations);
 
     useEffect(()=>{
         if(!auth.isAuth) {

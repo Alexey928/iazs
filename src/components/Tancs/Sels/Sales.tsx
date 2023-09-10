@@ -48,8 +48,6 @@ const Sales = () => {
     //структура которая связывает хеши с нужными полями образующего обекта и задает колбеки на их хедеры колонок,параметризируя их же
     //a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them
 
-
-
     //_______________________________________________________
 
     useEffect(()=>{
