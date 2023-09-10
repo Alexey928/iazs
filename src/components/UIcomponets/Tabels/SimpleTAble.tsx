@@ -49,9 +49,10 @@ const Table: React.FC<TableProps> = ({hashForForigenKey}) => {
 
    const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
    const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
+
    console.log(transaction,driversHash);
 
-    return (
+   return (
         <table className={style.table}>
             <thead >
                 <tr style={{height:40}} >

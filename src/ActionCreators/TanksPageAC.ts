@@ -139,13 +139,15 @@ export const setDescriptionsForTanksAC = (tanksDescription:TanksDescriptionsType
 export const setStationsAC = (stations:Array<StationType>):setStationsActionType=>{
     return {type:"SET-STATIONS-STATE",payload:stations}
 }
-export const setStationHashdata = (station:{[key:string]:StationType}):setHashStationActionType=>{
+export const setStationHashAC = (station:{[key:string]:StationType}):setHashStationActionType=>{
     return {type:"SET-HASH-FOR-SATION",payload:station}
 }
 
 export const setDescriptionForTank = (description:Array<TankDescriptionType>):setTankDescriptionActionType=>{
     return {type:"SET-TANK-DESCRIPTION-SATE",payload:description}
 }
+
+
 export const setStartDate = (date:string):setStartDateActionType=>{
     return {type:"SET-START-DATE",date}
 }
@@ -162,14 +164,16 @@ export type tanksPageActionsType =  setTanksActionType|
                                     setHashStationActionType;
 
 // ____________________Thanks as Redux Thunks Concept_________________________________________
-interface HasId {
-    _id: number|null;
-}
-const forHash = <T extends HasId>(arr:Array<T>):{[key:string]:T}=>{
+
+const forArrToHash = <T extends {_id: number | null}>(arr:Array<T>):{[key:string]:T}=>{
     const temp:{[key:string]:T} = {};
     arr.forEach((e)=>{temp[`${e._id}`]=e})
     return temp
 }
+
+
+
+
 export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
     return async (dispatch)=>{
         dispatch(setIsRequestProcessingStatusAC(true));
@@ -180,12 +184,13 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             const fuelList = await TanksPageAPI.getFuelList(_token)
 
             const tempTanksDescription:TanksDescriptionsTypes = {}
-            const tancsHash = forHash<TankType>(tanks);
-            const sattionsHash = forHash<StationType>(station);
+            const tanksHash = forArrToHash<TankType>(tanks);
+            const stationsHash = forArrToHash<StationType>(station);
 
             tanks.forEach((item,i)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
             });
+            dispatch(setStationHashAC(stationsHash))
             dispatch(setTanksAC(tanks));
             dispatch(setStationsAC(station));
             dispatch(setDescriptionsForTanksAC(tempTanksDescription));

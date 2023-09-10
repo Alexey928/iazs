@@ -7,6 +7,7 @@ import SelectComponent from "../../UIcomponets/SelectComponent/Select";
 import {driverHash, setsalesPagedata, TransactionType} from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
+import {stationHashType} from "../../../ActionCreators/TanksPageAC";
 
 const options = [
     { value: 'Дт'},
@@ -43,6 +44,9 @@ const Sales = () => {
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
+    const stationHash = useSelector<AppRootStateType,stationHashType>(state => state.tanksPage.stationHash)
+
+
     const dispatch = useAppDispatch();
 
     //структура которая связывает хеши с нужными полями образующего обекта и задает колбеки на их хедеры колонок,параметризируя их же
