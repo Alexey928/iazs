@@ -9,9 +9,6 @@ import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
 import {stationHashType} from "../../../ActionCreators/TanksPageAC";
 
-
-
-
 const options = [
     { value: 'Дт'},
     { value: 'А92'},
@@ -24,13 +21,15 @@ const options1 = [
     { value: 'АЗС-3'},
     { value: 'АЗС-4'},
 ];
-const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>}  = {
+
+const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
         {
-            name:"Дата",
+            name:"Привет",
             hash:"",
             hashDataFieldName:"",
-            data:"_date",
+            fieldFromHash:"",
+            data:"_organization_id",
             changeable:true,
             width:120,
         },
@@ -38,68 +37,76 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>}  = {
             name:"Путевой лист",
             hash:"",
             hashDataFieldName:"",
-            data:"",
+            fieldFromHash:"",
+            data:"_organization_id",
             changeable:true,
             width:120,
         },
         {
             name:"Организация",
-            hash:"stationHash",
-            data:"",
-            hashDataFieldName:"_name",
+            hash:"",
+            data:"_organization_id",
+            hashDataFieldName:"",
+            fieldFromHash:"",
             changeable:true,
             width:120,
         },
         {
             name:"Водитель",
-            hash:"stationHash",
+            hash:"driverHash",
             hashDataFieldName:"_name",
-            data:"",
+            fieldFromHash:"_driver_id",
+            data:"_driver_id",
             changeable:true,
             width:120,
         },
         {
             name:"Авто",
-            hash:"stationHash",
-            hashDataFieldName:"_name",
-            data:"",
+            hash:"",
+            hashDataFieldName:"",
+            fieldFromHash:"",
+            data:"_auto_id",
             changeable:false,
             width:120,
         },
         {
             name:"АЗС",
-            hash:"stationHash",
-            hashDataFieldName:"_name",
-            data:"",
+            hash:"",
+            hashDataFieldName:"",
+            fieldFromHash:"",
+            data:"_azs_id",
             changeable:false,
             width:120,
         },
         {
             name:"Продукт",
-            hash:"stationHash",
-            hashDataFieldName:"_name",
+            hash:"",
+            hashDataFieldName:"",
+            fieldFromHash:"",
             data:"",
             changeable:false,
             width:120,
         },
         {
             name:"Рез-ар",
-            hash:"stationHash",
-            hashDataFieldName:"_name",
+            hash:"",
+            hashDataFieldName:"",
+            fieldFromHash:"",
             data:"",
             changeable:false,
             width:120,
         },
         {
             name:"Обьем",
-            hash:"stationHash",
-            hashDataFieldName:"_name",
+            hash:"",
+            hashDataFieldName:"",
+            fieldFromHash:"",
             data:"",
             changeable:false,
             width:120,
         },
 
-    ]
+    ],
 }
 
 const Sales = () => {

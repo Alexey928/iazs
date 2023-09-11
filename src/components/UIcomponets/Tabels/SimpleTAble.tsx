@@ -1,17 +1,19 @@
 import React  from 'react';
 import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
-import {AppRootStateType} from "../../../State/reduxStore";
-import {useSelector} from "react-redux";
 import {driverHash, DriverType, TransactionType} from "../../../ActionCreators/SalePageAC";
-import {stationHashType, StationType, tankHashType, TankType} from "../../../ActionCreators/TanksPageAC";
+import {stationHashType, StationType, tankHashType} from "../../../ActionCreators/TanksPageAC";
 
-interface TableRowProps {
-    rowData: TransactionType;
-    driver:DriverType
+
+
+type TableRowProps = {
+    rowData: any
+    hashForForigenKey:{[key: string]:any}
+    bindingHashInterfase:{[key:string]:Array<bindingHashInterfaceItemType>}
 }
-type TableProps = {
-    formativeData: Array<formativeDataType>;
+
+type TableProps<T> = {
+    formativeData: Array<T>;
     hashForForigenKey: { [key: string]:hashType };
     bindingHashInterfase:{ [key:string]:Array<bindingHashInterfaceItemType>}
 };
@@ -19,19 +21,15 @@ export type bindingHashInterfaceItemType =  {
     name:string,
     hash:string,
     hashDataFieldName:string,
-    data:string
+    fieldFromHash:string,
+    data:string,
     changeable:boolean,
     width:number,
 }
 
 //for integration to another application we need tu change this types, too types of yor application
-type hashType = driverHash|
-                tankHashType|
-                stationHashType;
-
-type formativeDataType = TransactionType|
-                         Array<TankType>|
-                        Array<StationType>
+type hashType = driverHash| tankHashType| stationHashType;
+type formativeDataType = TransactionType | StationType | DriverType
 //________________________________________________________
 
 const hashValidator = (hash:{[key: string]:hashType}):boolean =>{
@@ -52,17 +50,12 @@ const  shortenName = (fullName:string|null):string|null=>{
 }
 
 
-const Table: React.FC<TableProps> = ({hashForForigenKey,
+const Table: React.FC<TableProps<formativeDataType>> = ({
+                                     hashForForigenKey,
                                      formativeData,
                                      bindingHashInterfase,
                                      }) => {
-
-   const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
-   const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
-
-   console.log(transaction,driversHash,Object.keys(hashForForigenKey));
-
-   return (
+    return (
         <table className={style.table}>
             <thead >
                 <tr style={{height:40}} >
@@ -73,29 +66,36 @@ const Table: React.FC<TableProps> = ({hashForForigenKey,
                 </tr>
             </thead>
             <tbody>
-                {transaction.map((rowData, index) => (
-                    <TableRow key={index} rowData={rowData} driver={driversHash[`${rowData._driver_id??"uknown"}`]}/>
+                {formativeData.map((rowData, index) => (
+                    <TableRow key={index}
+                              rowData={rowData}
+                              hashForForigenKey={hashForForigenKey}
+                              bindingHashInterfase={bindingHashInterfase}
+                    />
+
                 ))}
             </tbody>
         </table>
     );
 };
 
-const TableRow: React.FC<TableRowProps> = ({ rowData,driver }) => {
+const TableRow: React.FC<TableRowProps> = ({ rowData,hashForForigenKey,bindingHashInterfase }) => {
+
     return (
         <tr className={style.row} tabIndex={0}>
-            <td className={style.cell}>{rowData._date??"не задано"}</td>
-            <td className={style.cell}>{"не задано"}</td>
-            <td className={style.cell}>{rowData._organization_id??"не задано"}</td>
-            <td className={style.cell}>{shortenName(driver._name)??"не задано"}</td>
-            <td className={style.cell}>{rowData._auto_id??"не задано"}</td>
-            <td className={style.cell}>{rowData._azs_id??"не задано"}</td>
-            <td className={style.cell}>{rowData._tank_id??"не задано"}</td>
-            <td className={style.cell}>{rowData._fuel_id??"не задано"}</td>
-            <td className={style.cell}>{rowData._volume??"не задано"}</td>
+            {bindingHashInterfase["headers"].map((el,i)=>{
+                const currentHash =  el.hash?hashForForigenKey[el.hash]:null;
+                const curentHashField = el.hash?currentHash[`${rowData[el.fieldFromHash]}`]:null
+                const curent = el.hash&&curentHashField?curentHashField["_name"]:null
+                console.log(currentHash,curentHashField,curent)
+                return (
+                  <td key={i} className={style.cell}>{el.hash?"lllll":rowData[el.data]??"не задано"}</td>
+              )
+            })}
+            {/*<td className={style.cell}>{rowData._id?rowData._id:"не задано"}</td>*/}
         </tr>
-
     );
 };
+
 
 export default Table;
