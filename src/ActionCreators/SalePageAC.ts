@@ -96,6 +96,6 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
     } catch (e) {
         console.log(e);
     } finally {
-
+        dispatch(setIsRequestProcessingStatusAC(false));
     }
 }

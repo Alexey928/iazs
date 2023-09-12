@@ -80,22 +80,20 @@ const Table: React.FC<TableProps<formativeDataType>> = ({
 };
 
 const TableRow: React.FC<TableRowProps> = ({ rowData,hashForForigenKey,bindingHashInterfase }) => {
-
     return (
         <tr className={style.row} tabIndex={0}>
             {bindingHashInterfase["headers"].map((el,i)=>{
                 const currentHash =  el.hash?hashForForigenKey[el.hash]:null;
                 const curentHashField = el.hash?currentHash[`${rowData[el.fieldFromHash]}`]:null
-                const curent = el.hash&&curentHashField?curentHashField["_name"]:null
-                console.log(currentHash,curentHashField,curent)
+                const curent = el.hash&&curentHashField?curentHashField[el.hashDataFieldName]:null
+                // console.log(currentHash,curentHashField,curent)
                 return (
-                  <td key={i} className={style.cell}>{el.hash?"lllll":rowData[el.data]??"не задано"}</td>
+                  <td key={i} className={style.cell}>{ el.hash? curent ?? "не задано" : rowData[el.data] ?? "не задано"}</td>
               )
             })}
             {/*<td className={style.cell}>{rowData._id?rowData._id:"не задано"}</td>*/}
         </tr>
     );
 };
-
 
 export default Table;

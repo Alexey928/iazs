@@ -8,6 +8,7 @@ import {driverHash, setsalesPagedata, TransactionType} from "../../../ActionCrea
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
 import {stationHashType} from "../../../ActionCreators/TanksPageAC";
+import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 
 const options = [
     { value: 'Дт'},
@@ -21,16 +22,15 @@ const options1 = [
     { value: 'АЗС-3'},
     { value: 'АЗС-4'},
 ];
-
 const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
         {
-            name:"Привет",
+            name:"Дата",
             hash:"",
             hashDataFieldName:"",
             fieldFromHash:"",
-            data:"_organization_id",
-            changeable:true,
+            data:"_date",
+            changeable:false,
             width:120,
         },
         {
@@ -71,9 +71,9 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
         },
         {
             name:"АЗС",
-            hash:"",
-            hashDataFieldName:"",
-            fieldFromHash:"",
+            hash:"stationHash",
+            hashDataFieldName:"_name",
+            fieldFromHash:"_azs_id",
             data:"_azs_id",
             changeable:false,
             width:120,
@@ -101,7 +101,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             hash:"",
             hashDataFieldName:"",
             fieldFromHash:"",
-            data:"",
+            data:"_volume",
             changeable:false,
             width:120,
         },
@@ -114,7 +114,6 @@ const Sales = () => {
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
     const stationHash = useSelector<AppRootStateType,stationHashType>(state => state.tanksPage.stationHash)
-
 
     const dispatch = useAppDispatch();
 
@@ -134,7 +133,7 @@ const Sales = () => {
                 <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
                 <div style={{paddingLeft:10, display:"flex",zIndex:2,backgroundColor:'rgb(50,255,0)',
                             position:"absolute",left:0,right:0, top:30,height:60,
-                            alignItems:"flex-start",justifyContent:"space-evenly",
+                            alignItems:"center",justifyContent:"space-evenly",
 
                 }}>
                     <SelectComponent options={options} name={"Продукт"}/>
@@ -143,13 +142,18 @@ const Sales = () => {
             </div>
 
             <div className={style.contentWrapper}>
-                <Table
-                    formativeData={transaction}
-                    hashForForigenKey={{
-                        driverHash:driversHash,
-                        stationHash:stationHash
-                    }}
-                    bindingHashInterfase = {bindingInterfase}/>
+                {
+                    !auth.isLading ?
+                    <Table
+                            formativeData={transaction}
+                            hashForForigenKey={{
+                                driverHash:driversHash,
+                                stationHash:stationHash
+                            }}
+                            bindingHashInterfase = {bindingInterfase}
+                    />:
+                    <Preloader/>
+                }
             </div>
         </div>
     );
