@@ -61,7 +61,7 @@ const Table: React.FC<TableProps<formativeDataType>> = ({
                 <tr style={{height:40}} >
                     {bindingHashInterfase["headers"].map((el,i)=>!el.changeable?
                             <th>{el.name}</th>:
-                            <th><RegularEditableSpan key={i} mutable={false} title={el.name}  type={"text"}/></th>
+                            <th><RegularEditableSpan key={i} mutable={false} title={el.name} type={"text"}/></th>
                     )}
                 </tr>
             </thead>
@@ -86,12 +86,11 @@ const TableRow: React.FC<TableRowProps> = ({ rowData,hashForForigenKey,bindingHa
                 const currentHash =  el.hash?hashForForigenKey[el.hash]:null;
                 const curentHashField = el.hash?currentHash[`${rowData[el.fieldFromHash]}`]:null
                 const curent = el.hash&&curentHashField?curentHashField[el.hashDataFieldName]:null
-                // console.log(currentHash,curentHashField,curent)
+
                 return (
                   <td key={i} className={style.cell}>{ el.hash? curent ?? "не задано" : rowData[el.data] ?? "не задано"}</td>
               )
             })}
-            {/*<td className={style.cell}>{rowData._id?rowData._id:"не задано"}</td>*/}
         </tr>
     );
 };

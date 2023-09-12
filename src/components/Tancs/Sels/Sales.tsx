@@ -38,7 +38,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             hash:"",
             hashDataFieldName:"",
             fieldFromHash:"",
-            data:"_organization_id",
+            data:"",
             changeable:true,
             width:120,
         },
@@ -122,6 +122,10 @@ const Sales = () => {
 
     //_______________________________________________________
 
+    const  tableCallback = <T,>(data:T):{[key:string]:string}  => {
+        return  {}
+    }
+
     useEffect(()=>{
         dispatch(setsalesPagedata(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
     },[]);
@@ -131,7 +135,7 @@ const Sales = () => {
             <div className={style.contentHeader}>
                 <span>Выдача топлива</span>
                 <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
-                <div style={{paddingLeft:10, display:"flex",zIndex:2,backgroundColor:'rgb(50,255,0)',
+                <div style={{paddingLeft:10, display:"flex", zIndex:2, backgroundColor:'rgb(50,255,0)',
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
 
