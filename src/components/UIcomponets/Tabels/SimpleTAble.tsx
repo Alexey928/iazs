@@ -6,14 +6,22 @@ import {stationHashType, StationType, tankHashType} from "../../../ActionCreator
 
 
 
+export type callbackDataType = {
+    fieldOfFormickData:string
+    fieldOfHash:string
+    value:string
+    hash:string
+}
+
 type TableRowProps = {
     rowData: any
     hashForForigenKey:{[key: string]:any}
     bindingHashInterfase:{[key:string]:Array<bindingHashInterfaceItemType>}
 }
 
-type TableProps<T> = {
-    formativeData: Array<T>;
+type TableProps<K> = {
+    callbacck:(data:callbackDataType)=>void
+    formativeData: Array<K>;
     hashForForigenKey: { [key: string]:hashType };
     bindingHashInterfase:{ [key:string]:Array<bindingHashInterfaceItemType>}
 };

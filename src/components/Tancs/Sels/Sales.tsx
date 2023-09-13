@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {AppRootStateType, useAppDispatch} from "../../../State/reduxStore";
 import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
-import Table, {bindingHashInterfaceItemType} from "../../UIcomponets/Tabels/SimpleTAble";
+import Table, {bindingHashInterfaceItemType, callbackDataType} from "../../UIcomponets/Tabels/SimpleTAble";
 import SelectComponent from "../../UIcomponets/SelectComponent/Select";
 import {driverHash, setsalesPagedata, TransactionType} from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
@@ -21,7 +21,9 @@ const options1 = [
     { value: 'АЗС-2'},
     { value: 'АЗС-3'},
     { value: 'АЗС-4'},
-];
+]
+//структура которая связывает хеши с нужными полями образующего обекта и задает колбеки на их хедеры колонок,параметризируя их же
+//a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them
 const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
         {
@@ -108,23 +110,47 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
 
     ],
 }
+//______________________________________________________________________________________________________________________
+
+type dateType = {
+    [key:string]:driverHash|stationHashType
+}
 
 const Sales = () => {
     const auth = useSelector<AppRootStateType,UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
     const stationHash = useSelector<AppRootStateType,stationHashType>(state => state.tanksPage.stationHash)
-
     const dispatch = useAppDispatch();
 
-    //структура которая связывает хеши с нужными полями образующего обекта и задает колбеки на их хедеры колонок,параметризируя их же
-    //a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them
 
-    //_______________________________________________________
-
-    const  tableCallback = <T,>(data:T):{[key:string]:string}  => {
-        return  {}
+    const Data:dateType = {
+        driversHash,
+        stationHash,
     }
+    const formativeData = transaction;
+
+    const  tableCallback = (data:callbackDataType):void  => {
+      if(data.hash) {
+          const id:string[] = []
+          const hash = Data[data.hash];
+          for (let el in hash) {
+              const value:{[key:string]:string|number|null} = hash[el];
+              const v = value[data.fieldOfHash]
+              //console.log(v?String(v).toLowerCase():"not transmitted !");
+              if(v){
+                  const flag = String(v).toLowerCase().startsWith(data.value);
+                  if(flag)id.push(el)
+              }
+              console.log(id);
+              //тут будем виспачить креетор для фильтрации пердавая ему значение в виде ([id,id,id ...],{data})
+          }
+      }
+      if(!data.hash){
+          
+      }
+    }
+    tableCallback({value:"ме",hash:"driversHash",fieldOfHash:"_name",fieldOfFormickData:""})
 
     useEffect(()=>{
         dispatch(setsalesPagedata(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
@@ -149,6 +175,7 @@ const Sales = () => {
                 {
                     !auth.isLading ?
                     <Table
+                            callbacck={tableCallback}
                             formativeData={transaction}
                             hashForForigenKey={{
                                 driverHash:driversHash,
