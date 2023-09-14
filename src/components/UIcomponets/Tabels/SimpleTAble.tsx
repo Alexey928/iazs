@@ -36,7 +36,7 @@ export type bindingHashInterfaceItemType =  {
     width:number,
 }
 export type dateType = {
-    [key:string]:{[key:string]:{[key:string]:string|number|null}}
+    [key:string]:{[key:string]:{[key:string]:string|number|null}}// хеш хешей )
 }
 
 //for integration to another application we need tu change this types, too types of yor application
@@ -72,12 +72,12 @@ export const  tableCallback = (Data:dateType,data:callbackDataType):void  => {
                 const flag = String(v).toLowerCase().startsWith(data.value);
                 if(flag)id.push(el,String(v))
             }
-            //тут будем диспачить креетор setFilterAC пердавая ему значение в виде ([id:string,id:..,id:.., ...],{data.})
+            //тут будем возвращать данные в креетор setFilterAC пердавая ему значение в виде ([id:string,id:..,id:.., ...],{data.})
         }
         console.log(id);
     }
     if(!data.hash){
-        //тут будем диспачить креатор setFilterAC перредавая ему значение в виде (string ,{data})
+        //тут будем возвращать данные в креатор setFilterAC перредавая ему значение в виде (string ,{data})
         //на уровне креейтора нужно разруливать логику на две ветки по флагу  isArray
     }
 }
@@ -92,9 +92,21 @@ const Table: React.FC<TableProps<formativeDataType>> = ({
         <table className={style.table}>
             <thead >
                 <tr style={{height:40}} >
-                    {bindingHashInterfase["headers"].map((el,i)=>!el.changeable?
-                            <th>{el.name}</th>:
-                            <th><RegularEditableSpan key={i} mutable={false} title={el.name} type={"text"}/></th>
+                    {bindingHashInterfase["headers"].map((el,i)=>el.changeable && el.hash ?
+                        <th><RegularEditableSpan
+                                key={i}
+                                mutable={false}
+                                title={el.name}
+                                type={"text"}
+                                handler={(value:string)=>{
+                                    tableCallback(hashForForigenKey,{
+                                        value:value,
+                                        hash:el.hash,
+                                        fieldOfHash:el.hashDataFieldName,
+                                        fieldOfFormickData:" _driver_id"
+                                    })
+                                }}
+                            /></th>:<th>{el.name}</th>
                     )}
                 </tr>
             </thead>

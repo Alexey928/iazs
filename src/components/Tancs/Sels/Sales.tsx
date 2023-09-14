@@ -27,16 +27,16 @@ const options1 = [
     { value: 'АЗС-3'},
     { value: 'АЗС-4'},
 ]
-//структура которая связывает хеши с нужными полями образующего обекта и задает колбеки на их хедеры колонок,параметризируя их же
+
 //a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them
 const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
         {
-            name:"Ваня",
-            hash:"",
-            hashDataFieldName:"",
-            fieldFromHash:"",
-            data:"_date",
+            name:"чогось там",
+            hash:"stationHash",
+            hashDataFieldName:"_name",
+            fieldFromHash:"_azs_id",
+            data:"_azs_id",
             changeable:true,
             width:120,
         },
@@ -46,7 +46,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             hashDataFieldName:"",
             fieldFromHash:"",
             data:"",
-            changeable:true,
+            changeable:false,
             width:120,
         },
         {
@@ -55,7 +55,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             data:"_organization_id",
             hashDataFieldName:"",
             fieldFromHash:"",
-            changeable:true,
+            changeable:false,
             width:120,
         },
         {
@@ -73,7 +73,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             hashDataFieldName:"",
             fieldFromHash:"",
             data:"_auto_id",
-            changeable:false,
+            changeable:true,
             width:120,
         },
         {
@@ -117,8 +117,6 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
 }
 //______________________________________________________________________________________________________________________
 
-
-
 const Sales = () => {
     const auth = useSelector<AppRootStateType,UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
@@ -127,19 +125,12 @@ const Sales = () => {
 
     const dispatch = useAppDispatch();
 
-
-    const Data:dateType = {
-        driversHash,
-        stationHash,
+    const getCalbackData = (Data:dateType,interfase:callbackDataType)=>{
+        tableCallback(Data,interfase);
     }
 
-   const getCalbackData = (Data:dateType)=>{
-        tableCallback(Data,{value:"ме",hash:"driversHash",fieldOfHash:"_name",fieldOfFormickData:" _driver_id"})
-   }
-    getCalbackData(Data)
-
     useEffect(()=>{
-        dispatch(setsalesPagedata(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
+        dispatch(setsalesPagedata(auth.data._token?auth.data._token:"","2020-01-30 02:00:20"));
     },[]);
 
     return (
@@ -150,7 +141,6 @@ const Sales = () => {
                 <div style={{paddingLeft:10, display:"flex", zIndex:2, backgroundColor:'rgb(50,255,0)',
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
-
                 }}>
                     <SelectComponent options={options} name={"Продукт"}/>
                     <SelectComponent options={options1} name={"По АЗС"}/>
@@ -161,7 +151,7 @@ const Sales = () => {
                 {
                     !auth.isLading ?
                     <Table
-                            callbacck={tableCallback}
+                            callbacck={getCalbackData}
                             formativeData={transaction}
                             hashForForigenKey={{
                                 driverHash:driversHash,

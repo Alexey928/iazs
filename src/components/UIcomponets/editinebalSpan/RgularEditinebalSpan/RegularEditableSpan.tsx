@@ -18,7 +18,7 @@ export function RegularEditableSpan(props: EditableSpanPropsType){
     }
     const activateViewMode = () => {
         setEditMode(false);
-        props.handler && props.handler(title)
+        props.handler && title && props.handler(title)
 
     }
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
