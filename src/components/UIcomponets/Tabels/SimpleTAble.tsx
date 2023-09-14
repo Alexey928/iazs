@@ -20,7 +20,8 @@ type TableRowProps = {
 }
 
 type TableProps<K> = {
-    callbacck:(data:callbackDataType)=>void
+    callbacck:(Data:{[key:string]:{[key:string]:{[key:string]:string|number|null}}},
+               data:callbackDataType)=>void
     formativeData: Array<K>;
     hashForForigenKey: { [key: string]:hashType };
     bindingHashInterfase:{ [key:string]:Array<bindingHashInterfaceItemType>}
@@ -33,6 +34,9 @@ export type bindingHashInterfaceItemType =  {
     data:string,
     changeable:boolean,
     width:number,
+}
+export type dateType = {
+    [key:string]:{[key:string]:{[key:string]:string|number|null}}
 }
 
 //for integration to another application we need tu change this types, too types of yor application
@@ -55,6 +59,27 @@ const  shortenName = (fullName:string|null):string|null=>{
     }).join(" "):null;
     console.log(n ,`--->${fullName}`)
     return n
+}
+export const  tableCallback = (Data:dateType,data:callbackDataType):void  => {
+    if(data.hash) {
+        const id:string[] = []
+        const hash = Data[data.hash];
+        for (let el in hash) {
+            const value:{[key:string]:string|number|null} = hash[el];
+            const v = value[data.fieldOfHash]
+            //console.log(v?String(v).toLowerCase():"not transmitted !");
+            if(v){
+                const flag = String(v).toLowerCase().startsWith(data.value);
+                if(flag)id.push(el,String(v))
+            }
+            //тут будем диспачить креетор setFilterAC пердавая ему значение в виде ([id:string,id:..,id:.., ...],{data.})
+        }
+        console.log(id);
+    }
+    if(!data.hash){
+        //тут будем диспачить креатор setFilterAC перредавая ему значение в виде (string ,{data})
+        //на уровне креейтора нужно разруливать логику на две ветки по флагу  isArray
+    }
 }
 
 

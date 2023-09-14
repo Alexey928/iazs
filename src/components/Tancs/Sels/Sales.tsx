@@ -2,7 +2,12 @@ import React, {useEffect} from 'react';
 import {AppRootStateType, useAppDispatch} from "../../../State/reduxStore";
 import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
-import Table, {bindingHashInterfaceItemType, callbackDataType} from "../../UIcomponets/Tabels/SimpleTAble";
+import Table, {
+    bindingHashInterfaceItemType,
+    callbackDataType,
+    dateType,
+    tableCallback
+} from "../../UIcomponets/Tabels/SimpleTAble";
 import SelectComponent from "../../UIcomponets/SelectComponent/Select";
 import {driverHash, setsalesPagedata, TransactionType} from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
@@ -27,12 +32,12 @@ const options1 = [
 const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
         {
-            name:"Дата",
+            name:"Ваня",
             hash:"",
             hashDataFieldName:"",
             fieldFromHash:"",
             data:"_date",
-            changeable:false,
+            changeable:true,
             width:120,
         },
         {
@@ -112,15 +117,14 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
 }
 //______________________________________________________________________________________________________________________
 
-type dateType = {
-    [key:string]:driverHash|stationHashType
-}
+
 
 const Sales = () => {
     const auth = useSelector<AppRootStateType,UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
     const stationHash = useSelector<AppRootStateType,stationHashType>(state => state.tanksPage.stationHash)
+
     const dispatch = useAppDispatch();
 
 
@@ -128,29 +132,11 @@ const Sales = () => {
         driversHash,
         stationHash,
     }
-    const formativeData = transaction;
 
-    const  tableCallback = (data:callbackDataType):void  => {
-      if(data.hash) {
-          const id:string[] = []
-          const hash = Data[data.hash];
-          for (let el in hash) {
-              const value:{[key:string]:string|number|null} = hash[el];
-              const v = value[data.fieldOfHash]
-              //console.log(v?String(v).toLowerCase():"not transmitted !");
-              if(v){
-                  const flag = String(v).toLowerCase().startsWith(data.value);
-                  if(flag)id.push(el)
-              }
-              console.log(id);
-              //тут будем виспачить креетор для фильтрации пердавая ему значение в виде ([id,id,id ...],{data})
-          }
-      }
-      if(!data.hash){
-          
-      }
-    }
-    tableCallback({value:"ме",hash:"driversHash",fieldOfHash:"_name",fieldOfFormickData:""})
+   const getCalbackData = (Data:dateType)=>{
+        tableCallback(Data,{value:"ме",hash:"driversHash",fieldOfHash:"_name",fieldOfFormickData:" _driver_id"})
+   }
+    getCalbackData(Data)
 
     useEffect(()=>{
         dispatch(setsalesPagedata(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));

@@ -1,8 +1,10 @@
 import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
 import {FuelReleasePageApi} from "../API/dalAPI";
+import {callbackDataType} from "../components/UIcomponets/Tabels/SimpleTAble";
 
 export const salePageInitialState:salePageInitialStateType = {
+    filteredTransaction:[],
     transaction: [],
     drivers: [],
     driversHash:{}
@@ -10,6 +12,7 @@ export const salePageInitialState:salePageInitialStateType = {
 
 
  export type salePageInitialStateType = {
+    filteredTransaction:Array<{[key:string]:string|number|null}>
     transaction:Array<TransactionType>
     drivers:Array<DriverType>
     driversHash:driverHash
@@ -58,11 +61,29 @@ export type driverHash = {
     type:"SET-DRIVER-HASH"
     payload:driverHash
 }
+type setFilteredTransactionActionType = {
+    type:"SET-FILTERED-TRANSACTION",
+    payload:Array<{[key:string]:string|number|null}>
+
+}
 //___________________________________________________________________________________
 
-export type salePageActionType = setTransactionActionType | setDriverActionType | setDriverHashActionType
+export type salePageActionType = setTransactionActionType | setDriverActionType | setDriverHashActionType | setFilteredTransactionActionType
 
 //______________Action Creators_____________________________________________________
+
+
+const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|number|null}>,filter:string[]|string,data:callbackDataType)=>{
+
+    if(Array.isArray(filter)){
+        const filteredValue = transaction.filter((el)=>{
+            if(el[data.fieldOfFormickData]){
+                debugger
+            }
+        })
+    }
+
+}
 
 const setTransactionActionAC = (transactions:Array<TransactionType>):setTransactionActionType=>{
     return {type:"SET-TRANSACTION",payload:transactions}
@@ -92,6 +113,7 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
         dispatch(setDriversHashAC(driverMap))
         dispatch(setTransactionActionAC(tronsaction));
         dispatch(setDriversActionAC(drivers));
+        setFilteredTrasactionAC(tronsaction,["55","55"],{value:"ме",hash:"driversHash",fieldOfHash:"_name",fieldOfFormickData:" _driver_id"})
 
     } catch (e) {
         console.log(e);
