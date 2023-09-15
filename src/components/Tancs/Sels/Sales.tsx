@@ -9,7 +9,12 @@ import Table, {
     tableCallback
 } from "../../UIcomponets/Tabels/SimpleTAble";
 import SelectComponent from "../../UIcomponets/SelectComponent/Select";
-import {driverHash, setsalesPagedata, TransactionType} from "../../../ActionCreators/SalePageAC";
+import {
+    driverHash,
+    setFilteredTrasactionAC,
+    setsalesPagedata,
+    TransactionType
+} from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
 import {stationHashType} from "../../../ActionCreators/TanksPageAC";
@@ -32,7 +37,7 @@ const options1 = [
 const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
         {
-            name:"чогось там",
+            name:"Дата",
             hash:"stationHash",
             hashDataFieldName:"_name",
             fieldFromHash:"_azs_id",
@@ -126,7 +131,8 @@ const Sales = () => {
     const dispatch = useAppDispatch();
 
     const getCalbackData = (Data:dateType,interfase:callbackDataType)=>{
-        tableCallback(Data,interfase);
+        const [filteredId, data] = tableCallback(Data,interfase)
+        dispatch(setFilteredTrasactionAC(transaction,filteredId,data)) ;
     }
 
     useEffect(()=>{
@@ -151,7 +157,7 @@ const Sales = () => {
                 {
                     !auth.isLading ?
                     <Table
-                            callbacck={getCalbackData}
+                            callback={getCalbackData}
                             formativeData={transaction}
                             hashForForigenKey={{
                                 driverHash:driversHash,

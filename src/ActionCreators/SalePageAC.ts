@@ -68,22 +68,37 @@ type setFilteredTransactionActionType = {
 }
 //___________________________________________________________________________________
 
-export type salePageActionType = setTransactionActionType | setDriverActionType | setDriverHashActionType | setFilteredTransactionActionType
+export type salePageActionType = setTransactionActionType |
+                                setDriverActionType |
+                                setDriverHashActionType |
+                                setFilteredTransactionActionType
 
 //______________Action Creators_____________________________________________________
 
-
-const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|number|null}>,filter:string[]|string,data:callbackDataType)=>{
-
+export const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|number|null}>,
+                                 filter:string[]|string,
+                                 data:callbackDataType):setFilteredTransactionActionType => {
     if(Array.isArray(filter)){
         const filteredValue = transaction.filter((el)=>{
-            if(el[data.fieldOfFormickData]){
-                debugger
-            }
-        })
-    }
+            const filtrableData = el[data.fieldOfFormickData];
+            if(!filtrableData) debugger
 
+            if(filtrableData){
+                let flag = false;
+                filter.forEach((el) => {
+                    if(el === filtrableData.toString()) flag=true
+                })
+                if(flag){
+                 return true
+                }
+            }
+            return filter.length===0;
+        })
+        return {type:"SET-FILTERED-TRANSACTION",payload:filteredValue}
+    }
+    return {type:"SET-FILTERED-TRANSACTION",payload:[]}
 }
+
 
 const setTransactionActionAC = (transactions:Array<TransactionType>):setTransactionActionType=>{
     return {type:"SET-TRANSACTION",payload:transactions}
@@ -113,7 +128,7 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
         dispatch(setDriversHashAC(driverMap))
         dispatch(setTransactionActionAC(tronsaction));
         dispatch(setDriversActionAC(drivers));
-        setFilteredTrasactionAC(tronsaction,["55","55"],{value:"ме",hash:"driversHash",fieldOfHash:"_name",fieldOfFormickData:" _driver_id"})
+        //dispatch(setFilteredTrasactionAC(tronsaction,[],{value:"",hash:"",fieldOfHash:"",fieldOfFormickData:""}))
 
     } catch (e) {
         console.log(e);

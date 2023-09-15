@@ -20,7 +20,7 @@ type TableRowProps = {
 }
 
 type TableProps<K> = {
-    callbacck:(Data:{[key:string]:{[key:string]:{[key:string]:string|number|null}}},
+    callback:(Data:{[key:string]:{[key:string]:{[key:string]:string|number|null}}},
                data:callbackDataType)=>void
     formativeData: Array<K>;
     hashForForigenKey: { [key: string]:hashType };
@@ -57,29 +57,32 @@ const  shortenName = (fullName:string|null):string|null=>{
     const n = fullName ? fullName.split(" ").map((item,i)=>{
       return   i===0 ? item:item.charAt(0).toUpperCase();
     }).join(" "):null;
-    console.log(n ,`--->${fullName}`)
+    console.log(n ,`---> ${fullName}`)
     return n
 }
-export const  tableCallback = (Data:dateType,data:callbackDataType):void  => {
+export const  tableCallback = (Data:dateType,data:callbackDataType):any  => {
     if(data.hash) {
         const id:string[] = []
         const hash = Data[data.hash];
         for (let el in hash) {
             const value:{[key:string]:string|number|null} = hash[el];
             const v = value[data.fieldOfHash]
-            //console.log(v?String(v).toLowerCase():"not transmitted !");
             if(v){
                 const flag = String(v).toLowerCase().startsWith(data.value);
-                if(flag)id.push(el,String(v))
+                if(flag)id.push(el);
             }
-            //тут будем возвращать данные в креетор setFilterAC пердавая ему значение в виде ([id:string,id:..,id:.., ...],{data.})
         }
+        //тут будем возвращать данные в креетор setFilterAC пердавая ему значение в виде ([id:string,id:..,id:.., ...],{data.})
         console.log(id);
+        return [id, data]
+
     }
-    if(!data.hash){
-        //тут будем возвращать данные в креатор setFilterAC перредавая ему значение в виде (string ,{data})
-        //на уровне креейтора нужно разруливать логику на две ветки по флагу  isArray
-    }
+    return [[],data]
+
+    // if(!data.hash){
+    //     //тут будем возвращать данные в креатор setFilterAC перредавая ему значение в виде (string ,{data})
+    //     //на уровне креейтора нужно разруливать логику на две ветки по флагу  isArray
+    // }
 }
 
 
@@ -87,26 +90,28 @@ const Table: React.FC<TableProps<formativeDataType>> = ({
                                      hashForForigenKey,
                                      formativeData,
                                      bindingHashInterfase,
+                                     callback
                                      }) => {
     return (
         <table className={style.table}>
             <thead >
                 <tr style={{height:40}} >
-                    {bindingHashInterfase["headers"].map((el,i)=>el.changeable && el.hash ?
-                        <th><RegularEditableSpan
+                    {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
+                        <th key={i}>
+                            <RegularEditableSpan
                                 key={i}
                                 mutable={false}
                                 title={el.name}
                                 type={"text"}
                                 handler={(value:string)=>{
-                                    tableCallback(hashForForigenKey,{
+                                    callback(hashForForigenKey,{
                                         value:value,
                                         hash:el.hash,
                                         fieldOfHash:el.hashDataFieldName,
-                                        fieldOfFormickData:" _driver_id"
+                                        fieldOfFormickData:el.data,
                                     })
                                 }}
-                            /></th>:<th>{el.name}</th>
+                            /></th>:<th key={i}>{el.name}</th>
                     )}
                 </tr>
             </thead>
@@ -131,7 +136,6 @@ const TableRow: React.FC<TableRowProps> = ({ rowData,hashForForigenKey,bindingHa
                 const currentHash =  el.hash?hashForForigenKey[el.hash]:null;
                 const curentHashField = el.hash?currentHash[`${rowData[el.fieldFromHash]}`]:null
                 const curent = el.hash&&curentHashField?curentHashField[el.hashDataFieldName]:null
-
                 return (
                   <td key={i} className={style.cell}>{ el.hash? curent ?? "не задано" : rowData[el.data] ?? "не задано"}</td>
               )
