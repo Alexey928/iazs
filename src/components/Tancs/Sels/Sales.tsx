@@ -40,7 +40,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Дата",
             hash:"stationHash",
             hashDataFieldName:"_name",
-            fieldFromHash:"_azs_id",
+            //fieldFromHash:"_azs_id",
             data:"_azs_id",
             changeable:true,
             width:120,
@@ -49,7 +49,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Путевой лист",
             hash:"",
             hashDataFieldName:"",
-            fieldFromHash:"",
+           // fieldFromHash:"",
             data:"",
             changeable:false,
             width:120,
@@ -59,7 +59,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             hash:"",
             data:"_organization_id",
             hashDataFieldName:"",
-            fieldFromHash:"",
+            //fieldFromHash:"",
             changeable:false,
             width:120,
         },
@@ -67,7 +67,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Водитель",
             hash:"driverHash",
             hashDataFieldName:"_name",
-            fieldFromHash:"_driver_id",
+            //fieldFromHash:"_driver_id",
             data:"_driver_id",
             changeable:true,
             width:120,
@@ -76,7 +76,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Авто",
             hash:"",
             hashDataFieldName:"",
-            fieldFromHash:"",
+            //fieldFromHash:"",
             data:"_auto_id",
             changeable:true,
             width:120,
@@ -85,7 +85,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"АЗС",
             hash:"stationHash",
             hashDataFieldName:"_name",
-            fieldFromHash:"_azs_id",
+            //fieldFromHash:"_azs_id",
             data:"_azs_id",
             changeable:false,
             width:120,
@@ -94,7 +94,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Продукт",
             hash:"",
             hashDataFieldName:"",
-            fieldFromHash:"",
+            //fieldFromHash:"",
             data:"",
             changeable:false,
             width:120,
@@ -103,7 +103,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Рез-ар",
             hash:"",
             hashDataFieldName:"",
-            fieldFromHash:"",
+            //fieldFromHash:"",
             data:"",
             changeable:false,
             width:120,
@@ -112,7 +112,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Обьем",
             hash:"",
             hashDataFieldName:"",
-            fieldFromHash:"",
+           // fieldFromHash:"",
             data:"_volume",
             changeable:false,
             width:120,
@@ -126,7 +126,8 @@ const Sales = () => {
     const auth = useSelector<AppRootStateType,UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
-    const stationHash = useSelector<AppRootStateType,stationHashType>(state => state.tanksPage.stationHash)
+    const stationHash = useSelector<AppRootStateType,stationHashType>(state => state.tanksPage.stationHash);
+    const filteredTransaction = useSelector<AppRootStateType, Array<{[key:string]:string|number|null}>>(state=>state.salesPage.filteredTransaction);
 
     const dispatch = useAppDispatch();
 

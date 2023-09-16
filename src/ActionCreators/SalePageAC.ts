@@ -81,7 +81,7 @@ export const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|n
     if(Array.isArray(filter)){
         const filteredValue = transaction.filter((el)=>{
             const filtrableData = el[data.fieldOfFormickData];
-            if(!filtrableData) debugger
+            if(!filtrableData) 
 
             if(filtrableData){
                 let flag = false;
@@ -128,7 +128,7 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
         dispatch(setDriversHashAC(driverMap))
         dispatch(setTransactionActionAC(tronsaction));
         dispatch(setDriversActionAC(drivers));
-        //dispatch(setFilteredTrasactionAC(tronsaction,[],{value:"",hash:"",fieldOfHash:"",fieldOfFormickData:""}))
+        dispatch(setFilteredTrasactionAC(tronsaction,[],{value:"",hash:"",fieldOfHash:"",fieldOfFormickData:""}))
 
     } catch (e) {
         console.log(e);

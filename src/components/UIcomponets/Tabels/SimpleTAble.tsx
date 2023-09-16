@@ -30,7 +30,7 @@ export type bindingHashInterfaceItemType =  {
     name:string,
     hash:string,
     hashDataFieldName:string,
-    fieldFromHash:string,
+    //fieldFromHash:string,
     data:string,
     changeable:boolean,
     width:number,
@@ -134,7 +134,7 @@ const TableRow: React.FC<TableRowProps> = ({ rowData,hashForForigenKey,bindingHa
         <tr className={style.row} tabIndex={0}>
             {bindingHashInterfase["headers"].map((el,i)=>{
                 const currentHash =  el.hash?hashForForigenKey[el.hash]:null;
-                const curentHashField = el.hash?currentHash[`${rowData[el.fieldFromHash]}`]:null
+                const curentHashField = el.hash?currentHash[`${rowData[el.data]}`]:null
                 const curent = el.hash&&curentHashField?curentHashField[el.hashDataFieldName]:null
                 return (
                   <td key={i} className={style.cell}>{ el.hash? curent ?? "не задано" : rowData[el.data] ?? "не задано"}</td>

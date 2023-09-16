@@ -54,8 +54,8 @@ export const loginTC = (email: string, password: string, rememberMe: boolean ): 
                 console.log(_user,_token);
                 dispatch(setAuthUserDataAC( _user,_token,true));
             } catch (e) {
-                console.log("Some error from login");
-                alert("errrr")
+                console.log("Some error from login--> internet is not correct, or passvorod or login");
+
             } finally {
                 dispatch(setIsRequestProcessingStatusAC(false));
             }
@@ -67,7 +67,6 @@ export const logoutTC = (): AppThunkType => async (dispatch) => {
         const response = await authUserAPI.logoutUser();
         if (response.data.resultCode === 0) {
             dispatch(setAuthUserDataAC(null, null,false));
-            //dispatch(setAuthedUserProfileAC(null));
         }
     } catch (e) {
         alert(e);
