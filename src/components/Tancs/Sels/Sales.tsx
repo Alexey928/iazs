@@ -19,6 +19,7 @@ import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
 import {stationHashType} from "../../../ActionCreators/TanksPageAC";
 import Preloader from "../../UIcomponets/generalPreloader/Preloader";
+import loginPage from "../../Login/loginPage";
 
 const options = [
     { value: 'Дт'},
@@ -34,14 +35,14 @@ const options1 = [
 ]
 
 //a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them
-const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
+const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
         {
             name:"Дата",
-            hash:"stationHash",
+            hash:"stationHash",// if we point to some state of this field. We are defining a hash for this column
             hashDataFieldName:"_name",
-            //fieldFromHash:"_azs_id",
             data:"_azs_id",
+            chooseFromRemaining:false,
             changeable:true,
             width:120,
         },
@@ -49,8 +50,8 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Путевой лист",
             hash:"",
             hashDataFieldName:"",
-           // fieldFromHash:"",
             data:"",
+            chooseFromRemaining:false,
             changeable:false,
             width:120,
         },
@@ -59,7 +60,7 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             hash:"",
             data:"_organization_id",
             hashDataFieldName:"",
-            //fieldFromHash:"",
+            chooseFromRemaining:false,
             changeable:false,
             width:120,
         },
@@ -67,8 +68,8 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Водитель",
             hash:"driverHash",
             hashDataFieldName:"_name",
-            //fieldFromHash:"_driver_id",
             data:"_driver_id",
+            chooseFromRemaining:false,
             changeable:true,
             width:120,
         },
@@ -76,8 +77,8 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Авто",
             hash:"",
             hashDataFieldName:"",
-            //fieldFromHash:"",
             data:"_auto_id",
+            chooseFromRemaining:false,
             changeable:true,
             width:120,
         },
@@ -85,8 +86,8 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"АЗС",
             hash:"stationHash",
             hashDataFieldName:"_name",
-            //fieldFromHash:"_azs_id",
             data:"_azs_id",
+            chooseFromRemaining:false,
             changeable:false,
             width:120,
         },
@@ -94,8 +95,8 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Продукт",
             hash:"",
             hashDataFieldName:"",
-            //fieldFromHash:"",
             data:"",
+            chooseFromRemaining:false,
             changeable:false,
             width:120,
         },
@@ -103,8 +104,8 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Рез-ар",
             hash:"",
             hashDataFieldName:"",
-            //fieldFromHash:"",
             data:"",
+            chooseFromRemaining:false,
             changeable:false,
             width:120,
         },
@@ -112,8 +113,8 @@ const bindingInterfase:{[key:string]:Array<bindingHashInterfaceItemType>} = {
             name:"Обьем",
             hash:"",
             hashDataFieldName:"",
-           // fieldFromHash:"",
             data:"_volume",
+            chooseFromRemaining:false,
             changeable:false,
             width:120,
         },
@@ -130,10 +131,11 @@ const Sales = () => {
     const filteredTransaction = useSelector<AppRootStateType, Array<{[key:string]:string|number|null}>>(state=>state.salesPage.filteredTransaction);
 
     const dispatch = useAppDispatch();
-
     const getCalbackData = (Data:dateType,interfase:callbackDataType)=>{
+        console.log("gggg")
         const [filteredId, data] = tableCallback(Data,interfase)
-        dispatch(setFilteredTrasactionAC(transaction,filteredId,data)) ;
+        console.log(filteredId);
+        dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,data)) ;
     }
 
     useEffect(()=>{
@@ -153,18 +155,17 @@ const Sales = () => {
                     <SelectComponent options={options1} name={"По АЗС"}/>
                 </div>
             </div>
-
             <div className={style.contentWrapper}>
                 {
                     !auth.isLading ?
                     <Table
                             callback={getCalbackData}
-                            formativeData={transaction}
+                            formativeData={filteredTransaction}
                             hashForForigenKey={{
                                 driverHash:driversHash,
                                 stationHash:stationHash
                             }}
-                            bindingHashInterfase = {bindingInterfase}
+                            bindingHashInterfase = {bindingInterface}
                     />:
                     <Preloader/>
                 }

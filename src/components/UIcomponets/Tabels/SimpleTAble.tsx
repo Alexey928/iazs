@@ -1,7 +1,7 @@
 import React  from 'react';
 import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
-import {driverHash, DriverType, TransactionType} from "../../../ActionCreators/SalePageAC";
+import {driverHash, DriverType, filteredTransactionType, TransactionType} from "../../../ActionCreators/SalePageAC";
 import {stationHashType, StationType, tankHashType} from "../../../ActionCreators/TanksPageAC";
 
 
@@ -19,18 +19,18 @@ type TableRowProps = {
     bindingHashInterfase:{[key:string]:Array<bindingHashInterfaceItemType>}
 }
 
-type TableProps<K> = {
+type TableProps = {
     callback:(Data:{[key:string]:{[key:string]:{[key:string]:string|number|null}}},
                data:callbackDataType)=>void
-    formativeData: Array<K>;
-    hashForForigenKey: { [key: string]:hashType };
+    formativeData: filteredTransactionType;
+    hashForForigenKey: {[key: string]:hashType};
     bindingHashInterfase:{ [key:string]:Array<bindingHashInterfaceItemType>}
 };
 export type bindingHashInterfaceItemType =  {
     name:string,
     hash:string,
     hashDataFieldName:string,
-    //fieldFromHash:string,
+    chooseFromRemaining:boolean,
     data:string,
     changeable:boolean,
     width:number,
@@ -41,13 +41,14 @@ export type dateType = {
 
 //for integration to another application we need tu change this types, too types of yor application
 type hashType = driverHash| tankHashType| stationHashType;
-type formativeDataType = TransactionType | StationType | DriverType
-//________________________________________________________
+//type formativeDataType = TransactionType | StationType | DriverType
+//_____________________________________________________________________________________________________________
 
 const hashValidator = (hash:{[key: string]:hashType}):boolean =>{
+
     let trigger = true;
     for (let hashKey in hash) {
-        hash[hashKey] ? trigger=false:trigger=true
+        hash[hashKey] ? trigger=false:trigger=true;
     }
     return trigger
 }
@@ -60,7 +61,7 @@ const  shortenName = (fullName:string|null):string|null=>{
     console.log(n ,`---> ${fullName}`)
     return n
 }
-export const  tableCallback = (Data:dateType,data:callbackDataType):any  => {
+export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], callbackDataType] => {
     if(data.hash) {
         const id:string[] = []
         const hash = Data[data.hash];
@@ -75,7 +76,6 @@ export const  tableCallback = (Data:dateType,data:callbackDataType):any  => {
         //тут будем возвращать данные в креетор setFilterAC пердавая ему значение в виде ([id:string,id:..,id:.., ...],{data.})
         console.log(id);
         return [id, data]
-
     }
     return [[],data]
 
@@ -86,7 +86,7 @@ export const  tableCallback = (Data:dateType,data:callbackDataType):any  => {
 }
 
 
-const Table: React.FC<TableProps<formativeDataType>> = ({
+const Table: React.FC<TableProps> = ({
                                      hashForForigenKey,
                                      formativeData,
                                      bindingHashInterfase,

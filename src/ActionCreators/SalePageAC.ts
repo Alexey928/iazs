@@ -2,6 +2,7 @@ import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
 import {FuelReleasePageApi} from "../API/dalAPI";
 import {callbackDataType} from "../components/UIcomponets/Tabels/SimpleTAble";
+import {log} from "util";
 
 export const salePageInitialState:salePageInitialStateType = {
     filteredTransaction:[],
@@ -10,9 +11,9 @@ export const salePageInitialState:salePageInitialStateType = {
     driversHash:{}
 }
 
-
+export type filteredTransactionType = Array<{[key:string]:string|number|null}>
  export type salePageInitialStateType = {
-    filteredTransaction:Array<{[key:string]:string|number|null}>
+    filteredTransaction:filteredTransactionType
     transaction:Array<TransactionType>
     drivers:Array<DriverType>
     driversHash:driverHash
@@ -76,13 +77,13 @@ export type salePageActionType = setTransactionActionType |
 //______________Action Creators_____________________________________________________
 
 export const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|number|null}>,
-                                 filter:string[]|string,
-                                 data:callbackDataType):setFilteredTransactionActionType => {
+                                        filteredTransaction:Array<{[key:string]:string|number|null}>,
+                                        filter:string[]|string,
+                                        data:callbackDataType):setFilteredTransactionActionType => {
     if(Array.isArray(filter)){
         const filteredValue = transaction.filter((el)=>{
             const filtrableData = el[data.fieldOfFormickData];
-            if(!filtrableData) 
-
+            if(filter.length===0) return true
             if(filtrableData){
                 let flag = false;
                 filter.forEach((el) => {
@@ -92,8 +93,9 @@ export const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|n
                  return true
                 }
             }
-            return filter.length===0;
+            return false;
         })
+        console.log(filteredValue)
         return {type:"SET-FILTERED-TRANSACTION",payload:filteredValue}
     }
     return {type:"SET-FILTERED-TRANSACTION",payload:[]}
@@ -128,7 +130,7 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
         dispatch(setDriversHashAC(driverMap))
         dispatch(setTransactionActionAC(tronsaction));
         dispatch(setDriversActionAC(drivers));
-        dispatch(setFilteredTrasactionAC(tronsaction,[],{value:"",hash:"",fieldOfHash:"",fieldOfFormickData:""}))
+        dispatch(setFilteredTrasactionAC(tronsaction,tronsaction,[],{value:"",hash:"",fieldOfHash:"",fieldOfFormickData:""}))
 
     } catch (e) {
         console.log(e);
