@@ -32,6 +32,7 @@ const options1 = [
     { value: 'АЗС-2'},
     { value: 'АЗС-3'},
     { value: 'АЗС-4'},
+
 ]
 
 //a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them

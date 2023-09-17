@@ -53,6 +53,40 @@ const hashValidator = (hash:{[key: string]:hashType}):boolean =>{
     return trigger
 }
 
+function detectLanguage(string: string):string {
+    const englishChars = /[a-zA-Z]/;
+    const spanishChars = /[áéíóúñ]/;
+    const russianChars = /[а-яА-ЯЁё]/;
+
+    let englishCount = 0;
+    let ruCount = 0;
+    let spanishCount = 0;
+
+    for (const char of string) {
+        if (englishChars.test(char)) {
+            englishCount++;
+        } else if (russianChars.test(char)) {
+            ruCount++;
+        } else if (spanishChars.test(char)) {
+            spanishCount++;
+        }
+    }
+
+    if (englishCount > ruCount && englishCount > spanishCount) {
+        return "en";
+    } else if (ruCount > englishCount && ruCount > spanishCount) {
+        return "ru";
+    } else if (spanishCount > englishCount && spanishCount > ruCount) {
+        return "es";
+    } else {
+        // Если ни один язык не преобладает, вернем "unknown"
+        return "unknown";
+    }
+}
+
+
+
+
 
 const  shortenName = (fullName:string|null):string|null=>{
     const n = fullName ? fullName.split(" ").map((item,i)=>{
@@ -70,19 +104,19 @@ export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], c
             const v = value[data.fieldOfHash]
             if(v){
                 const flag = String(v).toLowerCase().startsWith(data.value);
-                if(flag)id.push(el);
+                if(detectLanguage(String(v)) === detectLanguage(String(data.value))){
+                    if(flag)id.push(el);
+                }else{
+                    alert("не коректный ввод")
+                    id.length = 0;
+                    break
+                }
             }
         }
-        //тут будем возвращать данные в креетор setFilterAC пердавая ему значение в виде ([id:string,id:..,id:.., ...],{data.})
         console.log(id);
         return [id, data]
     }
     return [[],data]
-
-    // if(!data.hash){
-    //     //тут будем возвращать данные в креатор setFilterAC перредавая ему значение в виде (string ,{data})
-    //     //на уровне креейтора нужно разруливать логику на две ветки по флагу  isArray
-    // }
 }
 
 
@@ -135,7 +169,7 @@ const TableRow: React.FC<TableRowProps> = ({ rowData,hashForForigenKey,bindingHa
             {bindingHashInterfase["headers"].map((el,i)=>{
                 const currentHash =  el.hash?hashForForigenKey[el.hash]:null;
                 const curentHashField = el.hash?currentHash[`${rowData[el.data]}`]:null
-                const curent = el.hash&&curentHashField?curentHashField[el.hashDataFieldName]:null
+                const curent = el.hash && curentHashField?curentHashField[el.hashDataFieldName]:null
                 return (
                   <td key={i} className={style.cell}>{ el.hash? curent ?? "не задано" : rowData[el.data] ?? "не задано"}</td>
               )

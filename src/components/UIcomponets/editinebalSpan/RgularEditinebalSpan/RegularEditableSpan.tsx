@@ -8,6 +8,9 @@ type EditableSpanPropsType = {
     handler?:(value:string)=>void
     placeholder?:string
 }
+
+
+
 export function RegularEditableSpan(props: EditableSpanPropsType){
     let [editMode, setEditMode] = useState<boolean>(false);
     let [title, setTitle] = useState<string>("");
@@ -54,5 +57,4 @@ export function RegularEditableSpan(props: EditableSpanPropsType){
                 {visible?"of":"on"}
             </span>}
         </span>
-
 }
