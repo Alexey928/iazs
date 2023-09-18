@@ -15,7 +15,6 @@
 .spanContainer{
     max-width: 210px;
     position: relative;
-
     background-color: #002041;
     color: azure;
     margin-top: 20px;
@@ -46,9 +45,14 @@
     left: -60px;
 }
 .triger{
+    border: 1px solid #3bfc07;
+    padding:5px ;
+    background-color: #d70101;
+    border-radius: 4px;
+    color: #11ff00;
     position: absolute;
-    top:3px;
-    right: -20px;
+    top: -10px;
+    right: 5px;
 }
 
 @media (max-width: 500px) {
@@ -56,3 +60,4 @@
         max-width: 190px;
     }
 }
+

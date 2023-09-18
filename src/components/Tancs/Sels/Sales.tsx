@@ -3,7 +3,6 @@ import {AppRootStateType, useAppDispatch} from "../../../State/reduxStore";
 import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
 import Table, {
-    bindingHashInterfaceItemType,
     callbackDataType,
     dateType,
     tableCallback
@@ -20,6 +19,7 @@ import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
 import {stationHashType} from "../../../ActionCreators/TanksPageAC";
 import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 import loginPage from "../../Login/loginPage";
+import {bindingInterface} from "./options";
 
 const options = [
     { value: 'Дт'},
@@ -36,92 +36,7 @@ const options1 = [
 ]
 
 //a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them
-const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>} = {
-    headers:[
-        {
-            name:"Дата",
-            hash:"stationHash",// if we point to some state of this field. We are defining a hash for this column
-            hashDataFieldName:"_name",
-            data:"_azs_id",
-            chooseFromRemaining:false,
-            changeable:true,
-            width:120,
-        },
-        {
-            name:"Путевой лист",
-            hash:"",
-            hashDataFieldName:"",
-            data:"",
-            chooseFromRemaining:false,
-            changeable:false,
-            width:120,
-        },
-        {
-            name:"Организация",
-            hash:"",
-            data:"_organization_id",
-            hashDataFieldName:"",
-            chooseFromRemaining:false,
-            changeable:false,
-            width:120,
-        },
-        {
-            name:"Водитель",
-            hash:"driverHash",
-            hashDataFieldName:"_name",
-            data:"_driver_id",
-            chooseFromRemaining:false,
-            changeable:true,
-            width:120,
-        },
-        {
-            name:"Авто",
-            hash:"",
-            hashDataFieldName:"",
-            data:"_auto_id",
-            chooseFromRemaining:false,
-            changeable:true,
-            width:120,
-        },
-        {
-            name:"АЗС",
-            hash:"stationHash",
-            hashDataFieldName:"_name",
-            data:"_azs_id",
-            chooseFromRemaining:false,
-            changeable:false,
-            width:120,
-        },
-        {
-            name:"Продукт",
-            hash:"",
-            hashDataFieldName:"",
-            data:"",
-            chooseFromRemaining:false,
-            changeable:false,
-            width:120,
-        },
-        {
-            name:"Рез-ар",
-            hash:"",
-            hashDataFieldName:"",
-            data:"",
-            chooseFromRemaining:false,
-            changeable:false,
-            width:120,
-        },
-        {
-            name:"Обьем",
-            hash:"",
-            hashDataFieldName:"",
-            data:"_volume",
-            chooseFromRemaining:false,
-            changeable:false,
-            width:120,
-        },
 
-    ],
-}
 //______________________________________________________________________________________________________________________
 
 const Sales = () => {
@@ -132,11 +47,13 @@ const Sales = () => {
     const filteredTransaction = useSelector<AppRootStateType, Array<{[key:string]:string|number|null}>>(state=>state.salesPage.filteredTransaction);
 
     const dispatch = useAppDispatch();
-    const getCalbackData = (Data:dateType,interfase:callbackDataType)=>{
-        console.log("gggg")
+    const getDataFromHeader = (Data:dateType,interfase:callbackDataType)=>{
         const [filteredId, data] = tableCallback(Data,interfase)
         console.log(filteredId);
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,data)) ;
+    }
+    const getDataFromSelect = ()=>{
+
     }
 
     useEffect(()=>{
@@ -160,7 +77,7 @@ const Sales = () => {
                 {
                     !auth.isLading ?
                     <Table
-                            callback={getCalbackData}
+                            callback={getDataFromHeader}
                             formativeData={filteredTransaction}
                             hashForForigenKey={{
                                 driverHash:driversHash,

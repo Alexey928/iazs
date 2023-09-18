@@ -1,0 +1,88 @@
+import {bindingHashInterfaceItemType} from "../../UIcomponets/Tabels/SimpleTAble";
+
+export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>} = {
+    headers:[
+        {
+            name:"Дата",
+            hash:"",// if we point to some state of this field. We are defining a hash for this column
+            hashDataFieldName:"",
+            data:"_date",
+            chooseFromRemaining:false,
+            changeable:true,// if we dont have a hash, we can not filterred in this area, changable input is not working too!!
+            width:120,
+        },
+        {
+            name:"Путевой лист",
+            hash:"",
+            hashDataFieldName:"",
+            data:"",
+            chooseFromRemaining:false,
+            changeable:false,
+            width:120,
+        },
+        {
+            name:"Организация",
+            hash:"",
+            data:"_organization_id",
+            hashDataFieldName:"",
+            chooseFromRemaining:false,
+            changeable:false,
+            width:120,
+        },
+        {
+            name:"Водитель",
+            hash:"driverHash",
+            hashDataFieldName:"_name",
+            data:"_driver_id",
+            chooseFromRemaining:false,
+            changeable:true,
+            width:120,
+        },
+        {
+            name:"Авто",
+            hash:"",
+            hashDataFieldName:"",
+            data:"_auto_id",
+            chooseFromRemaining:false,
+            changeable:true,
+            width:120,
+        },
+        {
+            name:"АЗС",
+            hash:"stationHash",
+            hashDataFieldName:"_name",
+            data:"_azs_id",
+            chooseFromRemaining:false,
+            changeable:false,
+            width:120,
+        },
+        {
+            name:"Продукт",
+            hash:"",
+            hashDataFieldName:"",
+            data:"",
+            chooseFromRemaining:false,
+            changeable:false,
+            width:120,
+        },
+        {
+            name:"Рез-ар",
+            hash:"",
+            hashDataFieldName:"",
+            data:"",
+            chooseFromRemaining:false,
+            changeable:false,
+            width:120,
+        },
+        {
+            name:"Обьем",
+            hash:"",
+            hashDataFieldName:"",
+            data:"_volume",
+            chooseFromRemaining:false,
+            changeable:false,
+            width:120,
+        },
+
+    ],
+}

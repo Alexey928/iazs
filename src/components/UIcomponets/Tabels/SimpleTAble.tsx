@@ -45,47 +45,12 @@ type hashType = driverHash| tankHashType| stationHashType;
 //_____________________________________________________________________________________________________________
 
 const hashValidator = (hash:{[key: string]:hashType}):boolean =>{
-
     let trigger = true;
     for (let hashKey in hash) {
         hash[hashKey] ? trigger=false:trigger=true;
     }
     return trigger
 }
-
-function detectLanguage(string: string):string {
-    const englishChars = /[a-zA-Z]/;
-    const spanishChars = /[áéíóúñ]/;
-    const russianChars = /[а-яА-ЯЁё]/;
-
-    let englishCount = 0;
-    let ruCount = 0;
-    let spanishCount = 0;
-
-    for (const char of string) {
-        if (englishChars.test(char)) {
-            englishCount++;
-        } else if (russianChars.test(char)) {
-            ruCount++;
-        } else if (spanishChars.test(char)) {
-            spanishCount++;
-        }
-    }
-
-    if (englishCount > ruCount && englishCount > spanishCount) {
-        return "en";
-    } else if (ruCount > englishCount && ruCount > spanishCount) {
-        return "ru";
-    } else if (spanishCount > englishCount && spanishCount > ruCount) {
-        return "es";
-    } else {
-        // Если ни один язык не преобладает, вернем "unknown"
-        return "unknown";
-    }
-}
-
-
-
 
 
 const  shortenName = (fullName:string|null):string|null=>{
@@ -104,13 +69,8 @@ export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], c
             const v = value[data.fieldOfHash]
             if(v){
                 const flag = String(v).toLowerCase().startsWith(data.value);
-                if(detectLanguage(String(v)) === detectLanguage(String(data.value))){
-                    if(flag)id.push(el);
-                }else{
-                    alert("не коректный ввод")
-                    id.length = 0;
-                    break
-                }
+                if(flag) id.push(el);
+
             }
         }
         console.log(id);
@@ -134,6 +94,7 @@ const Table: React.FC<TableProps> = ({
                         <th key={i}>
                             <RegularEditableSpan
                                 key={i}
+                                lang={"ru"}
                                 mutable={false}
                                 title={el.name}
                                 type={"text"}
