@@ -4,28 +4,28 @@ import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
 import {TanksPageAPI} from "../API/dalAPI";
 
-
 const initDate:Date = new Date()
 
 export const initialTankPageState:TanksPageStateType = {
+    tanks:[],
     tanksHash:{},
+    stations:[],
     stationHash:{},
     fuelList:[],
-    stations:[],
-    tanks:[],
+    fuelListHash:{},
     tanksDescriptions:{},
     startDate:`${initDate.getFullYear()}-${initDate.getMonth()}-${initDate.getDate()}
                ${initDate.getHours()}:${initDate.getMinutes()}:${initDate.getSeconds()}`,
     endDate:`${initDate.getFullYear()}-${initDate.getMonth()}-${initDate.getDate()}
                ${initDate.getHours()}:${initDate.getMinutes()}:${initDate.getSeconds()}`,
 }
-
-export type fuelListType = Array<{
+export type fuelListItemType = {
     _id: number,
     _code:number,
     _name: string,
     _note:null|string,
-}>
+}
+export type fuelListType = Array<fuelListItemType>
 
 const InitialTank = {
     _id:null as number|null,
@@ -73,6 +73,7 @@ export type TanksPageStateType = {
     tanks:Array<TankType>,
     tanksDescriptions:TanksDescriptionsTypes,
     fuelList:fuelListType
+    fuelListHash:any
     startDate:string
     endDate:string
 }
@@ -98,6 +99,10 @@ type setHashStationActionType = {
 type setHashTanksActionType = {
     type:"SET-HASH-FOR-TANKS"
     payload:{[key:string]:TankType}
+}
+type setHashFuelListType  = {
+    type:"SET-HASH-FOR-FUEL-LIST"
+    payload:{[key:string]:fuelListItemType}
 }
 type setTanksActionType = {
     type:"SET-TANKS-STATE",
@@ -142,12 +147,13 @@ export const setStationsAC = (stations:Array<StationType>):setStationsActionType
 export const setStationHashAC = (station:{[key:string]:StationType}):setHashStationActionType=>{
     return {type:"SET-HASH-FOR-SATION",payload:station}
 }
+export const setFuelListHashAC = (fuilhash:{[key:string]:fuelListItemType}):setHashFuelListType=>{
+    return{type:"SET-HASH-FOR-FUEL-LIST",payload:fuilhash}
+}
 
 export const setDescriptionForTank = (description:Array<TankDescriptionType>):setTankDescriptionActionType=>{
     return {type:"SET-TANK-DESCRIPTION-SATE",payload:description}
 }
-
-
 export const setStartDate = (date:string):setStartDateActionType=>{
     return {type:"SET-START-DATE",date}
 }
@@ -161,7 +167,8 @@ export type tanksPageActionsType =  setTanksActionType|
                                     setStationsActionType|
                                     setFuelListActionType|
                                     setHashTanksActionType|
-                                    setHashStationActionType;
+                                    setHashStationActionType|
+                                    setHashFuelListType;
 
 // ____________________Thanks as Redux Thunks Concept_________________________________________
 
@@ -170,10 +177,6 @@ const forArrToHash = <T extends {_id: number | null}>(arr:Array<T>):{[key:string
     arr.forEach((e)=>{temp[`${e._id}`]=e})
     return temp
 }
-
-
-
-
 export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
     return async (dispatch)=>{
         dispatch(setIsRequestProcessingStatusAC(true));
@@ -183,10 +186,10 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"10000");
             const fuelList = await TanksPageAPI.getFuelList(_token);
 
-
             const tempTanksDescription:TanksDescriptionsTypes = {}
             const tanksHash = forArrToHash<TankType>(tanks);
             const stationsHash = forArrToHash<StationType>(station);
+            const fuelListHash = forArrToHash<fuelListItemType>(fuelList)
 
             tanks.forEach((item,i)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
@@ -196,6 +199,7 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             dispatch(setStationsAC(station));
             dispatch(setDescriptionsForTanksAC(tempTanksDescription));
             dispatch(setFuelList(fuelList));
+            dispatch(setFuelListHashAC(fuelListHash))
 
         }catch (e){
             console.log(e);

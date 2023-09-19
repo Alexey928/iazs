@@ -21,18 +21,15 @@ import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 import loginPage from "../../Login/loginPage";
 import {bindingInterface} from "./options";
 
-const options = [
+const productSelectOptions = [
     { value: 'Дт'},
     { value: 'А92'},
     { value: 'А95'},
     { value: 'А98'},
 ];
-const options1 = [
+const azsSelectOptions = [
     { value: 'АЗС-1'},
     { value: 'АЗС-2'},
-    { value: 'АЗС-3'},
-    { value: 'АЗС-4'},
-
 ]
 
 const select_AZS_CalbackOptions:sellectColbacSetingsType = {
@@ -53,16 +50,22 @@ const Sales = () => {
     const filteredTransaction = useSelector<AppRootStateType, Array<{[key:string]:string|number|null}>>(state=>state.salesPage.filteredTransaction);
 
     const dispatch = useAppDispatch();
+
     const getDataFromHeader = (Data:dateType,interfase:callbackDataType)=>{
-        const [filteredId, fieldOfFormickData] = tableCallback(Data,interfase)
+        const [filteredId, fieldOfFormickData,chooseFromRemaining] = tableCallback(Data,interfase)
         console.log(filteredId);
-        dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData));
+        dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
 
-    const setFilteredTrasactionFromSelect = (value:string)=>{
-        const [filteredId, fieldOfFormickData] = sellectColbac(driversHash,value,select_AZS_CalbackOptions)
-
-
+    const setFilteredTrasactionFromAzsSelect = (value:string)=>{
+        const [filteredId, fieldOfFormickData,chooseFromRemaining] = sellectColbac(stationHash,value,select_AZS_CalbackOptions);
+        console.log(filteredId);
+        dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
+    }
+    const setFilteredTransactionFromProductSelect = (value:string)=>{
+        const [filteredId, fieldOfFormickData,chooseFromRemaining] = sellectColbac(driversHash,value,select_AZS_CalbackOptions);
+        console.log(filteredId);
+        dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
 
     useEffect(()=>{
@@ -78,8 +81,8 @@ const Sales = () => {
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
                 }}>
-                    <SelectComponent options={options} name={"Продукт"}/>
-                    <SelectComponent options={options1} name={"По АЗС"}/>
+                    <SelectComponent options={productSelectOptions} name={"Продукт"}/>
+                    <SelectComponent options={azsSelectOptions} name={"По АЗС"}/>
                 </div>
             </div>
             <div className={style.contentWrapper}>

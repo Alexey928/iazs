@@ -1,8 +1,6 @@
 import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
 import {FuelReleasePageApi} from "../API/dalAPI";
-import {callbackDataType} from "../components/UIcomponets/Tabels/SimpleTAble";
-import {log} from "util";
 
 export const salePageInitialState:salePageInitialStateType = {
     filteredTransaction:[],
@@ -79,8 +77,11 @@ export type salePageActionType = setTransactionActionType |
 export const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|number|null}>,
                                         filteredTransaction:Array<{[key:string]:string|number|null}>,
                                         filter:string[]|string,
-                                        fieldOfFormickData:string):setFilteredTransactionActionType => {
+                                        fieldOfFormickData:string,
+                                        chooseFromRemaining:boolean,
+):setFilteredTransactionActionType => {
     if(Array.isArray(filter)){
+
         const filteredValue = transaction.filter((el)=>{
             const filtrableData = el[fieldOfFormickData];
             if(filter.length===0) return true
@@ -131,7 +132,7 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
         dispatch(setDriversHashAC(driverMap))
         dispatch(setTransactionActionAC(tronsaction));
         dispatch(setDriversActionAC(drivers));
-        dispatch(setFilteredTrasactionAC(tronsaction,tronsaction,[],""))
+        dispatch(setFilteredTrasactionAC(tronsaction,tronsaction,[],"",false))
 
     } catch (e) {
         console.log(e);

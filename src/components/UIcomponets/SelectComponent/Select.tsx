@@ -23,7 +23,7 @@ export const sellectColbac = (
                                       fiedOfFormikcData:string,
                                       chooseFromRemaining:boolean,
                                   },
-                                 ):[string[],string] => {
+                                 ):[string[],string,boolean] => {
 
     if(hash){
         const id:string[] = [];
@@ -35,10 +35,10 @@ export const sellectColbac = (
                 if(flag) id.push(el);
             }
         }
-        return [id,setings.fiedOfFormikcData];
+        return [id,setings.fiedOfFormikcData,setings.chooseFromRemaining];
     }
 
-    return [[],setings.fiedOfFormikcData];
+    return [[],setings.fiedOfFormikcData,setings.chooseFromRemaining];
 }
 
 const SelectComponent: React.FC<SelectProps> = ({ options, onSelect, name }) => {

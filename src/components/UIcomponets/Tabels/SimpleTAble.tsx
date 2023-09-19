@@ -1,16 +1,15 @@
 import React  from 'react';
 import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
-import {driverHash, DriverType, filteredTransactionType, TransactionType} from "../../../ActionCreators/SalePageAC";
+import {driverHash, filteredTransactionType} from "../../../ActionCreators/SalePageAC";
 import {stationHashType, StationType, tankHashType} from "../../../ActionCreators/TanksPageAC";
-
-
 
 export type callbackDataType = {
     fieldOfFormickData:string
     fieldOfHash:string
     value:string
     hash:string
+    chooseFromRemaining:boolean
 }
 
 type TableRowProps = {
@@ -36,7 +35,7 @@ export type bindingHashInterfaceItemType =  {
     width:number,
 }
 export type dateType = {
-    [key:string]:{[key:string]:{[key:string]:string|number|null}}// хеш хешей )
+    [key:string]:{[key:string]:{[key:string]:string|number|null}}// hash of hashes )
 }
 
 //for integration to another application we need tu change this types, too types of yor application
@@ -61,7 +60,7 @@ const  shortenName = (fullName:string|null):string|null=>{
     return n
 }
 
-export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], string] => {
+export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], string, boolean] => {
     if(data.hash) {
         const id:string[] = []
         const hash = Data[data.hash];
@@ -73,9 +72,9 @@ export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], s
                 if(flag) id.push(el);
             }
         }
-        return [id, data.fieldOfFormickData];
+        return [id, data.fieldOfFormickData,data.chooseFromRemaining];
     }
-    return [[],data.fieldOfFormickData];
+    return [[],data.fieldOfFormickData,data.chooseFromRemaining];
 }
 
 
@@ -103,6 +102,8 @@ const Table: React.FC<TableProps> = ({
                                         hash:el.hash,
                                         fieldOfHash:el.hashDataFieldName,
                                         fieldOfFormickData:el.data,
+                                        chooseFromRemaining:el.chooseFromRemaining
+
                                     })
                                 }}
                             /></th>:<th key={i}>{el.name}</th>
