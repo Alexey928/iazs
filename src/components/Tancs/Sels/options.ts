@@ -5,10 +5,10 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
         {
             name:"Дата",
             hash:"",// if we point to some state of this field. We are defining a hash for this column
-            hashDataFieldName:"",
-            data:"_date",
+            hashDataFieldName:"",//if we point to hash, then we MAST !! point this field
+            data:"_date",// we must point this field olvays.
             chooseFromRemaining:false,
-            changeable:true,// if we dont have a hash, we can not filterred in this area, changable input is not working too!!
+            changeable:true,// if we don't have a hash, we can not change "tru/false - not worcked!!"- changable input is not working !!  in this area
             width:120,
         },
         {
@@ -33,7 +33,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             name:"Водитель",
             hash:"driverHash",
             hashDataFieldName:"_name",
-            data:"_driver_id",
+            data:"_driver_id",// указывается обязательно !!!
             chooseFromRemaining:false,
             changeable:true,
             width:120,
@@ -44,7 +44,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             hashDataFieldName:"",
             data:"_auto_id",
             chooseFromRemaining:false,
-            changeable:true,
+            changeable:false,
             width:120,
         },
         {
@@ -53,7 +53,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             hashDataFieldName:"_name",
             data:"_azs_id",
             chooseFromRemaining:false,
-            changeable:false,
+            changeable:true,
             width:120,
         },
         {

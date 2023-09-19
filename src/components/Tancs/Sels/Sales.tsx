@@ -48,9 +48,9 @@ const Sales = () => {
 
     const dispatch = useAppDispatch();
     const getDataFromHeader = (Data:dateType,interfase:callbackDataType)=>{
-        const [filteredId, data] = tableCallback(Data,interfase)
+        const [filteredId, fieldOfFormickData] = tableCallback(Data,interfase)
         console.log(filteredId);
-        dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,data)) ;
+        dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData));
     }
     const getDataFromSelect = ()=>{
 

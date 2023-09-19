@@ -49,7 +49,10 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     let [editMode, setEditMode] = useState<boolean>(false);
     let [title, setTitle] = useState<string>("");
     let [langError , setLangErr] = useState<string>("");
+    let [isTitle , setIsTitle] = useState<boolean>(false)
     console.log(title+"<---")
+
+
 
     const activateEditMode = () => {
         setEditMode(true);
@@ -60,10 +63,11 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     }
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         if(props.lang){
-            detectLanguage(e.currentTarget.value) === props.lang && setTitle(e.currentTarget.value);
-            detectLanguage(e.currentTarget.value)==="unknown" && setTitle("")
-            detectLanguage(e.currentTarget.value) !== props.lang && setLangErr(props.lang)
-
+            const lang = detectLanguage(e.currentTarget.value);
+            lang === props.lang && setTitle(e.currentTarget.value);
+            lang==="unknown" && setTitle("")
+            lang !== props.lang && setLangErr(props.lang)
+            title&&setIsTitle(true);
         }else{
             setTitle(e.currentTarget.value);
         }
@@ -82,7 +86,7 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     },[editMode,langError])
 
     return editMode ?
-        <input className={style.input} style={langError?{color:"red",boxShadow: "0 0 10px rgb(253, 240, 1)"}:{}}
+        <input className={style.input} style={langError&&!isTitle?{color:"red",boxShadow: "0 0 10px rgb(253, 240, 1)"}:{}}
             type={props.type}
                     placeholder={props.placeholder?props.placeholder:""}
                     value={title}
@@ -97,7 +101,7 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
                 {
                     props.title
                 }
-            </span>{props.lang && langError &&
+            </span>{props.lang && langError && !isTitle &&
             <span className={style.triger}
                   >
                   {langError?`  -> '${langError}'`:null}

@@ -60,7 +60,8 @@ const  shortenName = (fullName:string|null):string|null=>{
     console.log(n ,`---> ${fullName}`)
     return n
 }
-export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], callbackDataType] => {
+
+export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], string] => {
     if(data.hash) {
         const id:string[] = []
         const hash = Data[data.hash];
@@ -70,13 +71,11 @@ export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], c
             if(v){
                 const flag = String(v).toLowerCase().startsWith(data.value);
                 if(flag) id.push(el);
-
             }
         }
-        console.log(id);
-        return [id, data]
+        return [id, data.fieldOfFormickData];
     }
-    return [[],data]
+    return [[],data.fieldOfFormickData];
 }
 
 

@@ -79,10 +79,10 @@ export type salePageActionType = setTransactionActionType |
 export const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|number|null}>,
                                         filteredTransaction:Array<{[key:string]:string|number|null}>,
                                         filter:string[]|string,
-                                        data:callbackDataType):setFilteredTransactionActionType => {
+                                        fieldOfFormickData:string):setFilteredTransactionActionType => {
     if(Array.isArray(filter)){
         const filteredValue = transaction.filter((el)=>{
-            const filtrableData = el[data.fieldOfFormickData];
+            const filtrableData = el[fieldOfFormickData];
             if(filter.length===0) return true
             if(filtrableData){
                 let flag = false;
@@ -125,12 +125,12 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
             driverMap[`${d._id}`] = d;
         });
 
-        driverMap["uknown"] = {_id:"podonok",_name:"podonok",_note:"podonok"};
+        driverMap["uknown"] = {_id:"PODONOK",_name:"PODONOK",_note:"PODONOK"};
 
         dispatch(setDriversHashAC(driverMap))
         dispatch(setTransactionActionAC(tronsaction));
         dispatch(setDriversActionAC(drivers));
-        dispatch(setFilteredTrasactionAC(tronsaction,tronsaction,[],{value:"",hash:"",fieldOfHash:"",fieldOfFormickData:""}))
+        dispatch(setFilteredTrasactionAC(tronsaction,tronsaction,[],""))
 
     } catch (e) {
         console.log(e);
