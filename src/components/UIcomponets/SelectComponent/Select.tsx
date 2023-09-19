@@ -9,8 +9,16 @@ interface SelectProps {
     options: Option[];
     onSelect?: (selectedValue: string) => void;
 }
+export const sellectColbac = (
+                                  hash:{[key:string]:string|number|null},
+                                  fieldOfHash:string,
+                                  fiedOfFormikcData:string,
+                                  ):[string[],string] => {
 
+    
 
+    return [["s"],"ss"];
+}
 
 const SelectComponent: React.FC<SelectProps> = ({ options, onSelect, name }) => {
     const [selectedOption, setSelectedOption] = useState('');
