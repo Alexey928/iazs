@@ -7,7 +7,7 @@ import Table, {
     dateType,
     tableCallback
 } from "../../UIcomponets/Tabels/SimpleTAble";
-import SelectComponent from "../../UIcomponets/SelectComponent/Select";
+import SelectComponent, {sellectColbac, sellectColbacSetingsType} from "../../UIcomponets/SelectComponent/Select";
 import {
     driverHash,
     setFilteredTrasactionAC,
@@ -35,6 +35,12 @@ const options1 = [
 
 ]
 
+const select_AZS_CalbackOptions:sellectColbacSetingsType = {
+    fieldOfHash:"",
+    fiedOfFormikcData:"",
+    chooseFromRemaining:false
+}
+
 //a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them
 
 //______________________________________________________________________________________________________________________
@@ -52,7 +58,10 @@ const Sales = () => {
         console.log(filteredId);
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData));
     }
-    const getDataFromSelect = ()=>{
+
+    const setFilteredTrasactionFromSelect = (value:string)=>{
+        const [filteredId, fieldOfFormickData] = sellectColbac(driversHash,value,select_AZS_CalbackOptions)
+
 
     }
 

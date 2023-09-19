@@ -13,8 +13,8 @@ export const salePageInitialState:salePageInitialStateType = {
 
 export type filteredTransactionType = Array<{[key:string]:string|number|null}>
  export type salePageInitialStateType = {
-    filteredTransaction:filteredTransactionType
     transaction:Array<TransactionType>
+    filteredTransaction:filteredTransactionType
     drivers:Array<DriverType>
     driversHash:driverHash
 }
@@ -119,6 +119,7 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
     try {
         const tronsaction = await FuelReleasePageApi.getTransactionList(token, date ,"1000");
         const drivers = await FuelReleasePageApi.getDriversList(token,"1000");
+
         console.log(tronsaction,drivers);
         const driverMap:driverHash = {};
         drivers.map((d)=>{

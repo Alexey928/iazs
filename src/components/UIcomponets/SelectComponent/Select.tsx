@@ -9,15 +9,36 @@ interface SelectProps {
     options: Option[];
     onSelect?: (selectedValue: string) => void;
 }
+export interface sellectColbacSetingsType {
+    fieldOfHash:string,
+    fiedOfFormikcData:string,
+    chooseFromRemaining:boolean
+}
+
 export const sellectColbac = (
-                                  hash:{[key:string]:string|number|null},
-                                  fieldOfHash:string,
-                                  fiedOfFormikcData:string,
-                                  ):[string[],string] => {
+                                  hash:{[key:string]:{[key:string]:string|number|null}},
+                                  value:string,
+                                  setings:{
+                                      fieldOfHash:string,
+                                      fiedOfFormikcData:string,
+                                      chooseFromRemaining:boolean,
+                                  },
+                                 ):[string[],string] => {
 
-    
+    if(hash){
+        const id:string[] = [];
+        for(let el in hash){
+            const hashElem = hash[el];
+            const v = hashElem[setings.fieldOfHash];
+            if(v){
+                const flag = String(v).toLowerCase().startsWith(value);
+                if(flag) id.push(el);
+            }
+        }
+        return [id,setings.fiedOfFormikcData];
+    }
 
-    return [["s"],"ss"];
+    return [[],setings.fiedOfFormikcData];
 }
 
 const SelectComponent: React.FC<SelectProps> = ({ options, onSelect, name }) => {
