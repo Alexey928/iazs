@@ -71,6 +71,9 @@ export const TanksPageAPI = {
         return axios.
         get<fuelListType>(corsProxyUrl+encodeURIComponent(`${baseUrl}fuel_list&_token=${_token}`)).
         then(res=>res.data)
+    },
+    getAutoList(_token:string,_offset:string){
+
     }
 }
 

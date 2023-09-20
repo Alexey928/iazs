@@ -73,10 +73,11 @@ export type TanksPageStateType = {
     tanks:Array<TankType>,
     tanksDescriptions:TanksDescriptionsTypes,
     fuelList:fuelListType
-    fuelListHash:any
+    fuelListHash:{[key:string]:fuelListItemType}
     startDate:string
     endDate:string
 }
+export type fuelListHashType = {[key:string]:fuelListItemType}
 export type tankHashType = { [key:string]:TankType}
 export type stationHashType = {[key:string]:StationType}
 
@@ -150,7 +151,9 @@ export const setStationHashAC = (station:{[key:string]:StationType}):setHashStat
 export const setFuelListHashAC = (fuilhash:{[key:string]:fuelListItemType}):setHashFuelListType=>{
     return{type:"SET-HASH-FOR-FUEL-LIST",payload:fuilhash}
 }
-
+const setHashOfTanksAC = (tanksHash:{[key:string]:TankType}):setHashTanksActionType=>{
+    return {type:"SET-HASH-FOR-TANKS",payload:tanksHash}
+}
 export const setDescriptionForTank = (description:Array<TankDescriptionType>):setTankDescriptionActionType=>{
     return {type:"SET-TANK-DESCRIPTION-SATE",payload:description}
 }
@@ -203,7 +206,6 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
 
         }catch (e){
             console.log(e);
-
         }finally {
             dispatch(setIsRequestProcessingStatusAC(false));
         }

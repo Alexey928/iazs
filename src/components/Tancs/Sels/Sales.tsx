@@ -4,7 +4,7 @@ import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
 import Table, {
     callbackDataType,
-    dateType,
+    HashCollectionType,
     tableCallback
 } from "../../UIcomponets/Tabels/SimpleTAble";
 import SelectComponent, {sellectColbac, sellectColbacSetingsType} from "../../UIcomponets/SelectComponent/Select";
@@ -16,7 +16,7 @@ import {
 } from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
-import {stationHashType} from "../../../ActionCreators/TanksPageAC";
+import {fuelListHashType, stationHashType} from "../../../ActionCreators/TanksPageAC";
 import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 import loginPage from "../../Login/loginPage";
 import {bindingInterface} from "./options";
@@ -48,10 +48,10 @@ const Sales = () => {
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
     const stationHash = useSelector<AppRootStateType,stationHashType>(state => state.tanksPage.stationHash);
     const filteredTransaction = useSelector<AppRootStateType, Array<{[key:string]:string|number|null}>>(state=>state.salesPage.filteredTransaction);
-
+    const fuelListHash = useSelector<AppRootStateType,fuelListHashType>(state => state.tanksPage.fuelListHash)
     const dispatch = useAppDispatch();
 
-    const getDataFromHeader = (Data:dateType,interfase:callbackDataType)=>{
+    const getDataFromHeader = (Data:HashCollectionType, interfase:callbackDataType)=>{
         const [filteredId, fieldOfFormickData,chooseFromRemaining] = tableCallback(Data,interfase)
         console.log(filteredId);
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
@@ -93,7 +93,8 @@ const Sales = () => {
                             formativeData={filteredTransaction}
                             hashForForigenKey={{
                                 driverHash:driversHash,
-                                stationHash:stationHash
+                                stationHash:stationHash,
+                                fuelListHash:fuelListHash,
                             }}
                             bindingHashInterfase = {bindingInterface}
                     />:

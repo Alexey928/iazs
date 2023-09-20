@@ -3,7 +3,7 @@ import {bindingHashInterfaceItemType} from "../../UIcomponets/Tabels/SimpleTAble
 export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
         {
-            name:"Дата",
+            name:"Дата",// Header of column
             hash:"",// if we point to some state of this field. We are defining a hash for this column
             hashDataFieldName:"",//if we point to hash, then we MAST !! point this field
             data:"_date",// we must point this field olvays.
@@ -33,7 +33,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             name:"Водитель",
             hash:"driverHash",
             hashDataFieldName:"_name",
-            data:"_driver_id",// указывается обязательно !!!
+            data:"_driver_id",
             chooseFromRemaining:false,
             changeable:true,
             width:120,
@@ -58,11 +58,11 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
         },
         {
             name:"Продукт",
-            hash:"",
-            hashDataFieldName:"",
-            data:"",
+            hash:"fuelListHash",
+            hashDataFieldName:"_name",
+            data:"_fuel_id",
             chooseFromRemaining:false,
-            changeable:false,
+            changeable:true,
             width:120,
         },
         {

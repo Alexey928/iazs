@@ -1,8 +1,8 @@
 import React  from 'react';
 import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
-import {driverHash, filteredTransactionType} from "../../../ActionCreators/SalePageAC";
-import {stationHashType, StationType, tankHashType} from "../../../ActionCreators/TanksPageAC";
+import {filteredTransactionType} from "../../../ActionCreators/SalePageAC";
+
 
 export type callbackDataType = {
     fieldOfFormickData:string
@@ -17,12 +17,14 @@ type TableRowProps = {
     hashForForigenKey:{[key: string]:any}
     bindingHashInterfase:{[key:string]:Array<bindingHashInterfaceItemType>}
 }
+export type HashCollectionType = {
+    [key:string]:{[key:string]:{[key:string]:string|number|null}}// hash of hashes )
+}
 
 type TableProps = {
-    callback:(Data:{[key:string]:{[key:string]:{[key:string]:string|number|null}}},
-               data:callbackDataType)=>void
+    callback:(Data:HashCollectionType, data:callbackDataType)=>void
     formativeData: filteredTransactionType;
-    hashForForigenKey: {[key: string]:hashType};
+    hashForForigenKey: {[key: string]:{[key:string]:{[key:string]:string|number|null}}};
     bindingHashInterfase:{ [key:string]:Array<bindingHashInterfaceItemType>}
 };
 export type bindingHashInterfaceItemType =  {
@@ -34,16 +36,14 @@ export type bindingHashInterfaceItemType =  {
     changeable:boolean,
     width:number,
 }
-export type dateType = {
-    [key:string]:{[key:string]:{[key:string]:string|number|null}}// hash of hashes )
-}
+
 
 //for integration to another application we need tu change this types, too types of yor application
-type hashType = driverHash| tankHashType| stationHashType;
+    //type hashType = driverHash| tankHashType| stationHashType;
 //type formativeDataType = TransactionType | StationType | DriverType
 //_____________________________________________________________________________________________________________
 
-const hashValidator = (hash:{[key: string]:hashType}):boolean =>{
+const hashValidator = (hash:{[key: string]:HashCollectionType}):boolean =>{
     let trigger = true;
     for (let hashKey in hash) {
         hash[hashKey] ? trigger=false:trigger=true;
@@ -60,7 +60,7 @@ const  shortenName = (fullName:string|null):string|null=>{
     return n
 }
 
-export const  tableCallback = (Data:dateType,data:callbackDataType):[string[], string, boolean] => {
+export const  tableCallback = (Data:HashCollectionType, data:callbackDataType):[string[], string, boolean] => {
     if(data.hash) {
         const id:string[] = []
         const hash = Data[data.hash];
