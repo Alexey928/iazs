@@ -27,6 +27,14 @@ export type fuelListItemType = {
 }
 export type fuelListType = Array<fuelListItemType>
 
+export type AutoListType = {
+    _id:   number,
+    _gosnumber: string|null,//  "AX3140HB"
+    _note: string|null//"Трактор БЕЛАРУС 1221.2,   15271BX (01185);   541-10104-0013",
+    _organization_id: number|null,
+    _model_id: number|null
+}
+
 const InitialTank = {
     _id:null as number|null,
     _number: null as number|null,
@@ -104,6 +112,11 @@ type setHashTanksActionType = {
 type setHashFuelListType  = {
     type:"SET-HASH-FOR-FUEL-LIST"
     payload:{[key:string]:fuelListItemType}
+}
+
+type setAutoListHash = {
+    type:"SET-HASH-FOR-AUTO-LIST",
+    payload:{[key:string]:AutoListType}
 }
 type setTanksActionType = {
     type:"SET-TANKS-STATE",
@@ -188,11 +201,13 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             const tanks = await TanksPageAPI.getTanks(_token);
             const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"10000");
             const fuelList = await TanksPageAPI.getFuelList(_token);
+            const autoList = await  TanksPageAPI.getAutoList(_token,"10000");
 
             const tempTanksDescription:TanksDescriptionsTypes = {}
             const tanksHash = forArrToHash<TankType>(tanks);
             const stationsHash = forArrToHash<StationType>(station);
             const fuelListHash = forArrToHash<fuelListItemType>(fuelList)
+            const autoListHash = forArrToHash<AutoListType>(autoList)
 
             tanks.forEach((item,i)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
