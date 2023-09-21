@@ -7,6 +7,7 @@ import {TanksPageAPI} from "../API/dalAPI";
 const initDate:Date = new Date()
 
 export const initialTankPageState:TanksPageStateType = {
+    autoHashList:{},
     tanks:[],
     tanksHash:{},
     stations:[],
@@ -75,6 +76,7 @@ export const initialStationDescription = {
 
 //______________________Types for Data of Tanks Page_______________________________
 export type TanksPageStateType = {
+    autoHashList:autoListHashtype
     tanksHash:{[key:string]:TankType}
     stationHash:{[key:string]:StationType}
     stations:Array<StationType>,
@@ -85,8 +87,9 @@ export type TanksPageStateType = {
     startDate:string
     endDate:string
 }
+export type autoListHashtype = {[key:string]:AutoListType}
 export type fuelListHashType = {[key:string]:fuelListItemType}
-export type tankHashType = { [key:string]:TankType}
+export type tankHashType = {[key:string]:TankType}
 export type stationHashType = {[key:string]:StationType}
 
 export type TankType = typeof InitialTank
@@ -164,6 +167,10 @@ export const setStationHashAC = (station:{[key:string]:StationType}):setHashStat
 export const setFuelListHashAC = (fuilhash:{[key:string]:fuelListItemType}):setHashFuelListType=>{
     return{type:"SET-HASH-FOR-FUEL-LIST",payload:fuilhash}
 }
+const setAutoListHash = (autoHash:{[key:string]:AutoListType}):setAutoListHash=>{
+    return {type:"SET-HASH-FOR-AUTO-LIST",payload:autoHash}
+}
+
 const setHashOfTanksAC = (tanksHash:{[key:string]:TankType}):setHashTanksActionType=>{
     return {type:"SET-HASH-FOR-TANKS",payload:tanksHash}
 }
@@ -184,7 +191,8 @@ export type tanksPageActionsType =  setTanksActionType|
                                     setFuelListActionType|
                                     setHashTanksActionType|
                                     setHashStationActionType|
-                                    setHashFuelListType;
+                                    setHashFuelListType|setAutoListHash
+
 
 // ____________________Thanks as Redux Thunks Concept_________________________________________
 
@@ -209,15 +217,16 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             const fuelListHash = forArrToHash<fuelListItemType>(fuelList)
             const autoListHash = forArrToHash<AutoListType>(autoList)
 
-            tanks.forEach((item,i)=>{
+            tanks.forEach((item)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
             });
-            dispatch(setStationHashAC(stationsHash))
+            dispatch(setStationHashAC(stationsHash));
             dispatch(setTanksAC(tanks));
             dispatch(setStationsAC(station));
             dispatch(setDescriptionsForTanksAC(tempTanksDescription));
             dispatch(setFuelList(fuelList));
-            dispatch(setFuelListHashAC(fuelListHash))
+            dispatch(setFuelListHashAC(fuelListHash));
+            dispatch(setAutoListHash(autoListHash));
 
         }catch (e){
             console.log(e);

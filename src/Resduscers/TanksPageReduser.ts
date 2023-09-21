@@ -15,8 +15,9 @@ export const TanksPageReduser =(state:TanksPageStateType = initialTankPageState,
       return {...state,stationHash:action.payload};
    case "SET-HASH-FOR-FUEL-LIST":
       return {...state,fuelListHash:action.payload};
-
-   default:
+  case "SET-HASH-FOR-AUTO-LIST":
+      return {...state,autoHashList:action.payload}
+  default:
     return state
   }
 };
