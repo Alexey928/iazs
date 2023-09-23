@@ -37,14 +37,15 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             chooseFromRemaining:false,
             changeable:true,
             width:120,
+
         },
         {
             name:"Авто",
-            hash:"",
-            hashDataFieldName:"",
+            hash:"autoListHash",
+            hashDataFieldName:"_gosnumber",
             data:"_auto_id",
             chooseFromRemaining:false,
-            changeable:false,
+            changeable:true,
             width:120,
         },
         {
@@ -67,11 +68,11 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
         },
         {
             name:"Рез-ар",
-            hash:"",
-            hashDataFieldName:"",
-            data:"",
+            hash:"tanksHashList",
+            hashDataFieldName:"_name",
+            data:"_tank_id",
             chooseFromRemaining:false,
-            changeable:false,
+            changeable:true,
             width:120,
         },
         {
