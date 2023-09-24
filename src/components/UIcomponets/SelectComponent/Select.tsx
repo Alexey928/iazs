@@ -24,24 +24,22 @@ export const sellectColbac = (
                                       chooseFromRemaining:boolean,
                                   },
                                  ):[string[],string,boolean] => {
-
     if(hash){
         const id:string[] = [];
         for(let el in hash){
             const hashElem = hash[el];
             const v = hashElem[setings.fieldOfHash];
             if(v){
-                const flag = String(v).toLowerCase().startsWith(value);
+                const flag = String(v).toLowerCase().startsWith(value.toLowerCase());
                 if(flag) id.push(el);
             }
         }
         return [id,setings.fiedOfFormikcData,setings.chooseFromRemaining];
     }
-
     return [[],setings.fiedOfFormikcData,setings.chooseFromRemaining];
 }
 
-const SelectComponent: React.FC<SelectProps> = ({ options, onSelect, name }) => {
+const SelectComponent: React.FC<SelectProps> = ({ options, onSelect, name ,}) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [active, setActive] = useState(false);
     const selectRef = useRef<HTMLDivElement | null>(null);// Ссылка на DOM-элемент селекта
@@ -49,11 +47,8 @@ const SelectComponent: React.FC<SelectProps> = ({ options, onSelect, name }) => 
     const handleSelectChange = (event: React.MouseEvent<HTMLLIElement>) => {
         setSelectedOption(event.currentTarget.innerText);
         setActive(!active);
+        onSelect && onSelect(event.currentTarget.innerText)
     };
-
-    useEffect(() => {
-        selectedOption && onSelect && onSelect(selectedOption);
-    }, [selectedOption,onSelect]);
 
     useEffect(() => {
         // Добавляем обработчик события клика на документ
@@ -76,7 +71,7 @@ const SelectComponent: React.FC<SelectProps> = ({ options, onSelect, name }) => 
     return (
         <div ref={selectRef} className={style.select}>
             <header onClick={() => setActive(!active)} className={style.selectHeader}>
-                <span className={style.currentSelect}>{!active && selectedOption ? selectedOption : name}</span>
+                <span className={style.currentSelect}>{name}</span>
                 <div className={style.selectIcon} style={{ transform: !active ? "rotate(90deg)" : "rotate(270deg)" }}>
                     {"➤"}
                 </div>

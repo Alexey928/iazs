@@ -34,7 +34,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             hash:"driverHash",
             hashDataFieldName:"_name",
             data:"_driver_id",
-            chooseFromRemaining:false,
+            chooseFromRemaining:true,
             changeable:true,
             width:120,
 
@@ -54,7 +54,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             hashDataFieldName:"_name",
             data:"_azs_id",
             chooseFromRemaining:false,
-            changeable:true,
+            changeable:false,
             width:120,
         },
         {

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../../My-GooglePage-master/.idea/My-GooglePage-master.iml" filepath="$PROJECT_DIR$/../../../My-GooglePage-master/.idea/My-GooglePage-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../New/.idea/New.iml" filepath="$PROJECT_DIR$/../../../New/.idea/New.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../web_store/client/client_app/.idea/client_app.iml" filepath="$PROJECT_DIR$/../../../web_store/client/client_app/.idea/client_app.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../clock/cloc-width-wether/.idea/cloc-width-wether.iml" filepath="$PROJECT_DIR$/../../../clock/cloc-width-wether/.idea/cloc-width-wether.iml" />

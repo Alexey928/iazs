@@ -3,7 +3,7 @@ import {AppRootStateType, useAppDispatch} from "../../../State/reduxStore";
 import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
 import Table, {
-    callbackDataType,
+    callbackDataType, createModelForExel,
     HashCollectionType,
     tableCallback
 } from "../../UIcomponets/Tabels/SimpleTAble";
@@ -16,11 +16,13 @@ import {
 } from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
-import {fuelListHashType, stationHashType} from "../../../ActionCreators/TanksPageAC";
+import {autoListHashtype, fuelListHashType, stationHashType, tankHashType} from "../../../ActionCreators/TanksPageAC";
 import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 import loginPage from "../../Login/loginPage";
-import {bindingInterface} from "./options";
+import {bindingInterface} from "./optionsForSalePageTable";
+import * as XLSX from 'xlsx';
 
+// select configuration_________________________________________________________
 const productSelectOptions = [
     { value: 'Дт'},
     { value: 'А92'},
@@ -33,23 +35,49 @@ const azsSelectOptions = [
 ]
 
 const select_AZS_CalbackOptions:sellectColbacSetingsType = {
-    fieldOfHash:"",
-    fiedOfFormikcData:"",
-    chooseFromRemaining:false
+    fieldOfHash:"_name",
+    fiedOfFormikcData:"_azs_id",
+    chooseFromRemaining:false,
 }
-
-//a structure that connects hashes with the necessary fields of the forming object and sets callbacks to their column headers, parameterizing them
-
-//______________________________________________________________________________________________________________________
+const selectProductCalbakOptions:sellectColbacSetingsType = {
+    fieldOfHash:"_name",
+    fiedOfFormikcData:"_fuel_id",
+    chooseFromRemaining:false,
+}
+//_________________________________________________________________________________
 
 const Sales = () => {
+
+
+
     const auth = useSelector<AppRootStateType,UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
     const stationHash = useSelector<AppRootStateType,stationHashType>(state => state.tanksPage.stationHash);
-    const filteredTransaction = useSelector<AppRootStateType, Array<{[key:string]:string|number|null}>>(state=>state.salesPage.filteredTransaction);
-    const fuelListHash = useSelector<AppRootStateType,fuelListHashType>(state => state.tanksPage.fuelListHash)
+    const filteredTransaction = useSelector<AppRootStateType, Array<{[key:string]:string|number|null}>>((state) =>
+    { return state.salesPage.filteredTransaction });
+    const fuelListHash = useSelector<AppRootStateType,fuelListHashType>(state => state.tanksPage.fuelListHash);
+    const autoListHash = useSelector<AppRootStateType,autoListHashtype>(state => state.tanksPage.autoHashList);
+    const tanksHashList = useSelector<AppRootStateType,tankHashType>(state => state.tanksPage.tanksHash)
+
     const dispatch = useAppDispatch();
+
+    const creteExelFile = ()=>{
+        const ws = XLSX.utils.aoa_to_sheet(createModelForExel(
+                                                            filteredTransaction,
+                                                            {
+                                                                driverHash:driversHash,
+                                                                stationHash:stationHash,
+                                                                fuelListHash:fuelListHash,
+                                                                autoListHash:autoListHash,
+                                                                tanksHashList: tanksHashList
+                                                            },
+                                                            bindingInterface["headers"]));
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet2');
+        XLSX.writeFile(wb, 'data.xlsx');
+    }
+
 
     const getDataFromHeader = (Data:HashCollectionType, interfase:callbackDataType)=>{
         const [filteredId, fieldOfFormickData,chooseFromRemaining] = tableCallback(Data,interfase)
@@ -59,12 +87,10 @@ const Sales = () => {
 
     const setFilteredTrasactionFromAzsSelect = (value:string)=>{
         const [filteredId, fieldOfFormickData,chooseFromRemaining] = sellectColbac(stationHash,value,select_AZS_CalbackOptions);
-        console.log(filteredId);
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
     const setFilteredTransactionFromProductSelect = (value:string)=>{
-        const [filteredId, fieldOfFormickData,chooseFromRemaining] = sellectColbac(driversHash,value,select_AZS_CalbackOptions);
-        console.log(filteredId);
+        const [filteredId, fieldOfFormickData,chooseFromRemaining] = sellectColbac(fuelListHash,value,selectProductCalbakOptions);
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
 
@@ -81,22 +107,25 @@ const Sales = () => {
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
                 }}>
-                    <SelectComponent options={productSelectOptions} name={"Продукт"}/>
-                    <SelectComponent options={azsSelectOptions} name={"По АЗС"}/>
+                    <SelectComponent options={productSelectOptions} name={"Продукт"} onSelect={setFilteredTransactionFromProductSelect}/>
+                    <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
+                    <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute"}}>XSLS</button>
                 </div>
             </div>
             <div className={style.contentWrapper}>
                 {
                     !auth.isLading ?
                     <Table
-                            callback={getDataFromHeader}
-                            formativeData={filteredTransaction}
-                            hashForForigenKey={{
-                                driverHash:driversHash,
-                                stationHash:stationHash,
-                                fuelListHash:fuelListHash,
-                            }}
-                            bindingHashInterfase = {bindingInterface}
+                        callback={getDataFromHeader}
+                        formativeData={filteredTransaction}
+                        hashForForigenKey={{
+                            driverHash:driversHash,
+                            stationHash:stationHash,
+                            fuelListHash:fuelListHash,
+                            autoListHash:autoListHash,
+                            tanksHashList: tanksHashList
+                        }}
+                        bindingHashInterfase = {bindingInterface}
                     />:
                     <Preloader/>
                 }

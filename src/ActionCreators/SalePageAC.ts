@@ -81,10 +81,10 @@ export const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|n
                                         chooseFromRemaining:boolean,
 ):setFilteredTransactionActionType => {
     if(Array.isArray(filter)){
-
-        const filteredValue = transaction.filter((el)=>{
+        const curentData = chooseFromRemaining?[...filteredTransaction]:[...transaction];
+        if(filter.length===0) return {type:"SET-FILTERED-TRANSACTION",payload:curentData}
+        const filteredValue = curentData.filter((el)=>{
             const filtrableData = el[fieldOfFormickData];
-            if(filter.length===0) return true
             if(filtrableData){
                 let flag = false;
                 filter.forEach((el) => {
@@ -94,7 +94,7 @@ export const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|n
                  return true
                 }
             }
-            return false;
+            return false
         })
         console.log(filteredValue)
         return {type:"SET-FILTERED-TRANSACTION",payload:filteredValue}
@@ -118,10 +118,10 @@ const setDriversHashAC  = (hash:driverHash):setDriverHashActionType=>{
 export const setsalesPagedata = (token:string,date:string):AppThunkType => async (dispatch)=>{
     dispatch(setIsRequestProcessingStatusAC(true));
     try {
-        const tronsaction = await FuelReleasePageApi.getTransactionList(token, date ,"1000");
+        const transaction = await FuelReleasePageApi.getTransactionList(token, date ,"1000");
         const drivers = await FuelReleasePageApi.getDriversList(token,"1000");
 
-        console.log(tronsaction,drivers);
+        console.log(transaction,drivers);
         const driverMap:driverHash = {};
         drivers.map((d)=>{
             driverMap[`${d._id}`] = d;
@@ -130,10 +130,9 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
         driverMap["uknown"] = {_id:"PODONOK",_name:"PODONOK",_note:"PODONOK"};
 
         dispatch(setDriversHashAC(driverMap))
-        dispatch(setTransactionActionAC(tronsaction));
+        dispatch(setTransactionActionAC(transaction));
         dispatch(setDriversActionAC(drivers));
-        dispatch(setFilteredTrasactionAC(tronsaction,tronsaction,[],"",false))
-
+        dispatch(setFilteredTrasactionAC(transaction,[],[],"",false))
     } catch (e) {
         console.log(e);
     } finally {

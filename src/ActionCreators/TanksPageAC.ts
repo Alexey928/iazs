@@ -7,6 +7,7 @@ import {TanksPageAPI} from "../API/dalAPI";
 const initDate:Date = new Date()
 
 export const initialTankPageState:TanksPageStateType = {
+    isFirstloading:false,
     autoHashList:{},
     tanks:[],
     tanksHash:{},
@@ -76,6 +77,7 @@ export const initialStationDescription = {
 
 //______________________Types for Data of Tanks Page_______________________________
 export type TanksPageStateType = {
+    isFirstloading:boolean
     autoHashList:autoListHashtype
     tanksHash:{[key:string]:TankType}
     stationHash:{[key:string]:StationType}
@@ -150,7 +152,13 @@ type setTankDescriptionActionType = {
     type:"SET-TANK-DESCRIPTION-SATE"
     payload:Array<TankDescriptionType>
 }
+type isFirstLoadingActionType = {
+    type:""
+}
 //_______________ActionCreators_________________________________________
+export const setIsFirstLoading = ()=>{
+
+}
 
 export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
     return {type:"SET-TANKS-STATE",payload:tanks}
@@ -165,7 +173,7 @@ export const setStationHashAC = (station:{[key:string]:StationType}):setHashStat
     return {type:"SET-HASH-FOR-SATION",payload:station}
 }
 export const setFuelListHashAC = (fuilhash:{[key:string]:fuelListItemType}):setHashFuelListType=>{
-    return{type:"SET-HASH-FOR-FUEL-LIST",payload:fuilhash}
+    return {type:"SET-HASH-FOR-FUEL-LIST",payload:fuilhash}
 }
 const setAutoListHash = (autoHash:{[key:string]:AutoListType}):setAutoListHash=>{
     return {type:"SET-HASH-FOR-AUTO-LIST",payload:autoHash}
@@ -226,8 +234,8 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             dispatch(setDescriptionsForTanksAC(tempTanksDescription));
             dispatch(setFuelList(fuelList));
             dispatch(setFuelListHashAC(fuelListHash));
+            dispatch(setHashOfTanksAC(tanksHash))
             dispatch(setAutoListHash(autoListHash));
-
         }catch (e){
             console.log(e);
         }finally {

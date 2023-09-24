@@ -3,6 +3,7 @@ import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
 import {filteredTransactionType} from "../../../ActionCreators/SalePageAC";
 
+const NULL_WALUE = "not Found"
 
 export type callbackDataType = {
     fieldOfFormickData:string
@@ -13,13 +14,14 @@ export type callbackDataType = {
 }
 
 type TableRowProps = {
-    rowData: any
+    rowData: {[p: string]: string | number | null}
     hashForForigenKey:{[key: string]:any}
     bindingHashInterfase:{[key:string]:Array<bindingHashInterfaceItemType>}
 }
 export type HashCollectionType = {
     [key:string]:{[key:string]:{[key:string]:string|number|null}}// hash of hashes )
 }
+ type formativeDataType =  Array<{[key:string]:string|number|null}>
 
 type TableProps = {
     callback:(Data:HashCollectionType, data:callbackDataType)=>void
@@ -35,12 +37,12 @@ export type bindingHashInterfaceItemType =  {
     data:string,
     changeable:boolean,
     width:number,
+    shortenString?:boolean,
 }
 
 
-//for integration to another application we need tu change this types, too types of yor application
-    //type hashType = driverHash| tankHashType| stationHashType;
-//type formativeDataType = TransactionType | StationType | DriverType
+//for integration to another application we need tu change this types, too types of yor application !!
+
 //_____________________________________________________________________________________________________________
 
 const hashValidator = (hash:{[key: string]:HashCollectionType}):boolean =>{
@@ -58,6 +60,27 @@ const  shortenName = (fullName:string|null):string|null=>{
     }).join(" "):null;
     console.log(n ,`---> ${fullName}`)
     return n
+}
+const createRowExelModel = (bindingHashInterfase:Array<bindingHashInterfaceItemType>,
+                            hashForForigenKey:HashCollectionType,
+                            rowData:{[p: string]: string | number | null})=>{
+   return  bindingHashInterfase.map((el,i)=>{
+        const currentHash =  el.hash?hashForForigenKey[el.hash]:null;
+        const curentHashField = el.hash && currentHash ? currentHash[`${rowData[el.data]}`]:null;
+        const curent = el.hash && curentHashField?curentHashField[el.hashDataFieldName]:null;
+        return `${el.hash? curent ?? NULL_WALUE : rowData[el.data] ?? NULL_WALUE}`
+    })
+}
+export const createModelForExel =  (formativeAray:formativeDataType,
+                                    hashForForigenKey:HashCollectionType,
+                                    bindingHashInterfase:Array<bindingHashInterfaceItemType>):string[][]=>{
+    const exelModel:Array<Array<string>> = [];
+    exelModel.push(bindingHashInterfase.map((el)=>el.name));
+    formativeAray.forEach((el,i)=>{
+        exelModel.push(createRowExelModel(bindingHashInterfase,hashForForigenKey,el))
+    })
+
+    return exelModel
 }
 
 export const  tableCallback = (Data:HashCollectionType, data:callbackDataType):[string[], string, boolean] => {
@@ -117,14 +140,15 @@ const Table: React.FC<TableProps> = ({
                               hashForForigenKey={hashForForigenKey}
                               bindingHashInterfase={bindingHashInterfase}
                     />
-
                 ))}
             </tbody>
         </table>
     );
 };
 
-const TableRow: React.FC<TableRowProps> = ({ rowData,hashForForigenKey,bindingHashInterfase }) => {
+const TableRow: React.FC<TableRowProps> = ({   rowData,
+                                               hashForForigenKey,
+                                               bindingHashInterfase })    => {
     return (
         <tr className={style.row} tabIndex={0}>
             {bindingHashInterfase["headers"].map((el,i)=>{
@@ -132,8 +156,8 @@ const TableRow: React.FC<TableRowProps> = ({ rowData,hashForForigenKey,bindingHa
                 const curentHashField = el.hash?currentHash[`${rowData[el.data]}`]:null
                 const curent = el.hash && curentHashField?curentHashField[el.hashDataFieldName]:null
                 return (
-                  <td key={i} className={style.cell}>{ el.hash? curent ?? "не задано" : rowData[el.data] ?? "не задано"}</td>
-              )
+                  <td key={i} className={style.cell}>{ el.hash? curent ?? NULL_WALUE : rowData[el.data] ?? NULL_WALUE}</td>
+                )
             })}
         </tr>
     );
