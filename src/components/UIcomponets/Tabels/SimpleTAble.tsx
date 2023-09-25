@@ -66,21 +66,21 @@ const createRowExelModel = (bindingHashInterfase:Array<bindingHashInterfaceItemT
                             rowData:{[p: string]: string | number | null})=>{
    return  bindingHashInterfase.map((el,i)=>{
         const currentHash =  el.hash?hashForForigenKey[el.hash]:null;
-        const curentHashField = el.hash && currentHash ? currentHash[`${rowData[el.data]}`]:null;
-        const curent = el.hash && curentHashField?curentHashField[el.hashDataFieldName]:null;
-        return `${el.hash? curent ?? NULL_WALUE : rowData[el.data] ?? NULL_WALUE}`
+        const currentHashField = el.hash && currentHash ? currentHash[`${rowData[el.data]}`]:null;
+        const current = el.hash && currentHashField ? currentHashField[el.hashDataFieldName]:null;
+        return `${el.hash ? current ?? NULL_WALUE : rowData[el.data] ?? NULL_WALUE}`;
     })
 }
 export const createModelForExel =  (formativeAray:formativeDataType,
                                     hashForForigenKey:HashCollectionType,
-                                    bindingHashInterfase:Array<bindingHashInterfaceItemType>):string[][]=>{
+                                    bindingHashInterfase:Array<bindingHashInterfaceItemType>):string[][] => {
     const exelModel:Array<Array<string>> = [];
-    exelModel.push(bindingHashInterfase.map((el)=>el.name));
+    exelModel.push(bindingHashInterfase.map((el) => el.name));
     formativeAray.forEach((el,i)=>{
-        exelModel.push(createRowExelModel(bindingHashInterfase,hashForForigenKey,el))
-    })
+        exelModel.push(createRowExelModel(bindingHashInterfase,hashForForigenKey,el));
+    });
 
-    return exelModel
+    return exelModel;
 }
 
 export const  tableCallback = (Data:HashCollectionType, data:callbackDataType):[string[], string, boolean] => {

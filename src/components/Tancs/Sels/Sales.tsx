@@ -18,7 +18,6 @@ import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
 import {autoListHashtype, fuelListHashType, stationHashType, tankHashType} from "../../../ActionCreators/TanksPageAC";
 import Preloader from "../../UIcomponets/generalPreloader/Preloader";
-import loginPage from "../../Login/loginPage";
 import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
 
@@ -42,14 +41,11 @@ const select_AZS_CalbackOptions:sellectColbacSetingsType = {
 const selectProductCalbakOptions:sellectColbacSetingsType = {
     fieldOfHash:"_name",
     fiedOfFormikcData:"_fuel_id",
-    chooseFromRemaining:false,
+    chooseFromRemaining:true,
 }
 //_________________________________________________________________________________
 
 const Sales = () => {
-
-
-
     const auth = useSelector<AppRootStateType,UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
     const driversHash = useSelector<AppRootStateType,driverHash>(state => state.salesPage.driversHash);
