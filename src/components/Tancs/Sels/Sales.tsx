@@ -20,6 +20,7 @@ import {autoListHashtype, fuelListHashType, stationHashType, tankHashType} from 
 import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
+import {createDaste} from "../../UIcomponets/SelectOfData/createDate";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [
@@ -59,6 +60,7 @@ const Sales = () => {
     const dispatch = useAppDispatch();
 
     const creteExelFile = ()=>{
+        console.log(createDaste());
         const ws = XLSX.utils.aoa_to_sheet(createModelForExel(
                                                             filteredTransaction,
                                                             {
