@@ -2,6 +2,22 @@ interface CreateDateparams {
 locale:string//"usa","uk","gb"....
  date:Date
 }
+type autputType = {
+    monthName:string
+    monthIndex:number
+    monthNumber:number
+    timeStamp:number
+    WeekNumberInMonts:number
+    dayShort:string
+    YearShort:string
+    locale:string
+    date:Date
+    DayNumber:number
+    day:string
+    dayNumberInMonth:number
+    Year:number
+
+}
 
 
 const getWeekNumber = (date:Date)=>{
@@ -14,15 +30,25 @@ const getWeekNumber = (date:Date)=>{
  export const createDate = (params?:CreateDateparams)=>{
     const locale= params?params.locale:"default";
     const date = params?params.date : new Date();
+    //______basis Data ______________________________________________
+    const monthName  = date.toLocaleDateString(locale,{month:"long"})
     const DayNumber  = date.getDate();
     const day = date.toLocaleDateString(locale,{weekday:"long"});
     const dayShort = date.toLocaleDateString(locale,{weekday:"short"});
-    const dayNumberInWeek = date.getDate()+1;
+    const dayNumberInMonth = date.getDate()+1;
+    const monthNumber = date.getMonth()+1;
+    const monthIndex = date.getMonth();
     const Year= date.getFullYear();
     const YearShort = date.toLocaleDateString(locale,{year:"2-digit"});
-    const WeekNumberInMonts  = Math.ceil(getWeekNumber(date))
+    const WeekNumberInMonts  = Math.ceil(getWeekNumber(date));
+    const timeStamp = date.getTime();
+
 
      return {
+         monthName,
+         monthIndex,
+         monthNumber,
+         timeStamp,
         WeekNumberInMonts,
         dayShort,
         YearShort,
@@ -30,7 +56,7 @@ const getWeekNumber = (date:Date)=>{
         date,
         DayNumber,
         day,
-        dayNumberInWeek,
+         dayNumberInMonth,
         Year,
      }
 }

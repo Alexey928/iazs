@@ -20,7 +20,7 @@ import {autoListHashtype, fuelListHashType, stationHashType, tankHashType} from 
 import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
-import {createDate} from "../../UIcomponets/SelectOfData/createDate";
+import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createDate";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [
