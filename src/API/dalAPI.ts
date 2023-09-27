@@ -76,6 +76,11 @@ export const TanksPageAPI = {
         return axios.
         get<Array<AutoListType>>(corsProxyUrl+encodeURIComponent(`${baseUrl}auto_list&_token=${_token}`)).
         then(res=>res.data)
+    },
+    getOrganisationList(_token:string){
+        return axios.
+        get<Array<AutoListType>>(corsProxyUrl+encodeURIComponent(`${baseUrl}auto_list&_token=${_token}`)).
+        then(res=>res.data)
     }
 }
 
