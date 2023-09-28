@@ -1,7 +1,10 @@
+
+
 interface CreateDateparams {
-locale:string//"usa","uk","gb"....
+ locale:string//"usa","uk","gb"....
  date:Date
 }
+
 type autputType = {
     monthName:string
     monthIndex:number
@@ -27,7 +30,7 @@ const getWeekNumber = (date:Date)=>{
 }
 
 
- export const createDate = (params?:CreateDateparams)=>{
+ export const createDate = (params?:CreateDateparams):autputType=>{
     const locale= params?params.locale:"default";
     const date = params?params.date : new Date();
     //______basis Data ______________________________________________
@@ -45,10 +48,10 @@ const getWeekNumber = (date:Date)=>{
 
 
      return {
-         monthName,
-         monthIndex,
-         monthNumber,
-         timeStamp,
+        monthName,
+        monthIndex,
+        monthNumber,
+        timeStamp,
         WeekNumberInMonts,
         dayShort,
         YearShort,
@@ -56,7 +59,7 @@ const getWeekNumber = (date:Date)=>{
         date,
         DayNumber,
         day,
-         dayNumberInMonth,
+        dayNumberInMonth,
         Year,
      }
 }
