@@ -22,6 +22,7 @@ import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
 import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createDate";
 import {createMonth} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createMonth";
+import {cteateYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [
@@ -62,7 +63,8 @@ const Sales = () => {
 
     const creteExelFile = ()=>{
         const monts = createMonth().getDay(5)
-        console.log(createMonth(),monts);
+        const year = cteateYear().getYearMonthes();
+        console.log(monts,year);
         const ws = XLSX.utils.aoa_to_sheet(createModelForExel(
                                                             filteredTransaction,
                                                             {

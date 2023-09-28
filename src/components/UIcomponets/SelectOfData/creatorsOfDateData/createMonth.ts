@@ -18,7 +18,7 @@ export const createMonth = (params?:creteMonthParamsType)=>{
     const {monthName,Year,monthNumber,monthIndex} =currentDate;
 
     const getDay = (dayNumber:number=1)=>{
-        return createDate({date:new Date(1970,8,dayNumber),locale})
+        return createDate({date:new Date(Year,monthIndex,dayNumber),locale})
     }
     const createMonthDays =()=>{
         const days = [];
