@@ -22,7 +22,8 @@ import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
 import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createDate";
 import {createMonth} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createMonth";
-import {cteateYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
+import {createYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
+import Calendar from "../../UIcomponets/SelectOfData/Calendar";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [
@@ -62,8 +63,8 @@ const Sales = () => {
     const dispatch = useAppDispatch();
 
     const creteExelFile = ()=>{
-        const monts = createMonth().getDay(5)
-        const year = cteateYear().getYearMonthes();
+        const monts = createDate()
+        const year = createYear().getYearMonthes();
         console.log(monts,year);
         const ws = XLSX.utils.aoa_to_sheet(createModelForExel(
                                                             filteredTransaction,
@@ -109,9 +110,11 @@ const Sales = () => {
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
                 }}>
+                    <Calendar firstWeekDay={3} selectedDate={new Date()} selectDate={(date)=>{}}/>
                     <SelectComponent options={productSelectOptions} name={"Продукт"} onSelect={setFilteredTransactionFromProductSelect}/>
                     <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
                     <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute"}}>XSLS</button>
+
                 </div>
             </div>
             <div className={style.contentWrapper}>

@@ -1,8 +1,8 @@
 import {createDate} from "./createDate";
 
 interface creteMonthParamsType {
-    date?:Date;
-    locale:string
+    date:Date;
+    locale?:string
 }
 const getDayCountOfMonth = (monthIndex:number,// count of days in month
                             yearNumber:number=new Date().getFullYear())=>{

@@ -8,7 +8,7 @@ interface createYearParametrs{
 }
 const MONTH_COUNT = 12;
 
-export const cteateYear = (params?:createYearParametrs) => {
+export const createYear = (params?:createYearParametrs) => {
     const locale = params?.locale??"default";
 
     const tuday = createDate();
