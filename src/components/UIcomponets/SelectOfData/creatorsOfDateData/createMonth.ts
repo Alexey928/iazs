@@ -4,7 +4,7 @@ interface creteMonthParamsType {
     date:Date;
     locale?:string
 }
-const getDayCountOfMonth = (monthIndex:number,// count of days in month
+export const getDayCountOfMonth = (monthIndex:number,// count of days in month
                             yearNumber:number=new Date().getFullYear())=>{
     return new Date(yearNumber,monthIndex+1,0).getDate();//   "0"  in paramert Date() reterned to us ?count deys in  month
 }

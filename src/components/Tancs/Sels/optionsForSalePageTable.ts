@@ -63,7 +63,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             hashDataFieldName:"_name",
             data:"_fuel_id",
             chooseFromRemaining:false,
-            changeable:true,
+            changeable:false,
             width:120,
         },
         {
