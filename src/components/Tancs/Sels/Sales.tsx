@@ -24,6 +24,7 @@ import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/crea
 import {createMonth} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createMonth";
 import {createYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
 import Calendar from "../../UIcomponets/SelectOfData/Calendar";
+import CalendarContainer from "../../UIcomponets/SelectOfData/CalendarContainer";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [
@@ -110,11 +111,10 @@ const Sales = () => {
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
                 }}>
-                    <Calendar firstWeekDay={2} selectedDate={new Date()} selectDate={(date)=>{}}/>
+                    <CalendarContainer/>
                     <SelectComponent options={productSelectOptions} name={"Продукт"} onSelect={setFilteredTransactionFromProductSelect}/>
                     <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
-                    <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute",left:20,top:-10}}>XSLS</button>
-
+                    <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute",left:15,top:-15}}>XSLS</button>
                 </div>
             </div>
             <div className={style.contentWrapper}>

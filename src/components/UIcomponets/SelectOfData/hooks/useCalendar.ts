@@ -113,9 +113,16 @@ const getDayNamesInWeek = ( firstWeekDay:number = 2, locale:string="default")=>{
     }[] = Array.from({length:7})
 
     const d = new Date();
+
     weekDaysNames.forEach((_,i)=>{
         const{day,dayNumberInWeek,dayShort}=createDate({locale,date:new Date(d.getFullYear(),d.getMonth(),d.getDate()+i)});
         weekDaysNames[dayNumberInWeek-1]={day,dayShort}
     });
     return [...weekDaysNames.slice(firstWeekDay-1),...weekDaysNames.slice(0,firstWeekDay-1)];
+}
+const formativeDate = (date:Date,format:string):string=>{
+    const d = createDate({date});
+    return format.replace(/\bYYYY\b/,d.Year.toString())
+                 .replace(/\bDD\b/,d.DayNumber.toString())
+                 .replace(/\bMM\b/, d.monthNumber.toString())
 }
