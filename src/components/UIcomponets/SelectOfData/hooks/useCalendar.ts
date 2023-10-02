@@ -8,11 +8,17 @@ interface usecalendarParams{
     selectedDate:Date
     firstWeekDay:number
 }
+const getYearsInterval = (year:number)=>{
+    const startYear = Math.floor(year/10)*10;
+    return [...Array(10)].map((_,index) =>  (startYear + index));
+}
+
 export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarParams)=>{
     const [mode,setMode] = useState<"day"|"month>"|"years">("day");
     const [selectedDate,setSelectedDate] = useState(createDate({date}));
     const [selectedMonth, setSelectedMonth] = useState(createMonth({date:new Date(selectedDate.Year,selectedDate.monthIndex)}));
     const [selectedYear, setSelectedYear] = useState(selectedDate.Year);
+    const [selectedYearInterval, setselectedYearInterval] = useState(getYearsInterval(selectedYear))
     const monthNames = useMemo(()=>getMonthNames(locale),[]);
     const weekDayNames = useMemo(()=>getDayNamesInWeek(firstWeekDay,locale),[]);
 
@@ -30,20 +36,26 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
         const firstsDay = days[0];
         const lastDay = days[monthNumberOfDay-1];
 
-        const shiftIndex = firstWeekDay-1;// don't use yet
-        const numberOfPrevisDays = firstsDay.dayNumberInWeek-1 ;
-        const numberOflastDays = 7 - lastDay.dayNumberInWeek;
-        const totalCalendarDay =  days.length +numberOfPrevisDays+numberOflastDays;
+        const shiftIndex = firstWeekDay-1;// don't use yet???????
+        const numberOfPrevisDays = firstsDay.dayNumberInWeek - 1 - shiftIndex < 0
+            ? 7 - (firstWeekDay - firstsDay.dayNumberInWeek)
+            : firstsDay.dayNumberInWeek - 1 - shiftIndex;
 
+        const numberOflastDays = 7 - lastDay.dayNumberInWeek + shiftIndex > 6
+            ? 7 - lastDay.dayNumberInWeek-(7-shiftIndex)
+            : 7- lastDay.dayNumberInWeek +shiftIndex;
+
+        const totalCalendarDay =  days.length +numberOfPrevisDays+numberOflastDays;
 
         const result = []
 
-        for (let i = 0; i<numberOfPrevisDays; i++){
+        for (let i = 0; i < numberOfPrevisDays; i++){
+
             const inverted = numberOfPrevisDays-i;
             result[i] = previusMonthDasys[previusMonthDasys.length-inverted];
 
         }
-        for (let i=0; i<totalCalendarDay-numberOflastDays; i++){
+        for (let i=numberOfPrevisDays; i<totalCalendarDay-numberOflastDays; i++){
             result[i] = days[i-numberOfPrevisDays];
         }
         for (let i=totalCalendarDay-numberOflastDays; i<totalCalendarDay; i++){
@@ -61,6 +73,7 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
     return {
         state:{
             calendarDays,
+            selectedYearInterval,
             mode,
             days,
             selectedDate,
