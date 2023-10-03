@@ -57,7 +57,6 @@ export const options = {
 };
 
 const TankChartPage = () => {
-
     const id  = useParams<'*'>();
     const tankId = id["*"] ;
     const tankPageState = useSelector<AppRootStateType,TanksPageStateType>(state => state.tanksPage);

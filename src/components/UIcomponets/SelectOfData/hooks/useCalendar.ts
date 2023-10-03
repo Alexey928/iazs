@@ -70,6 +70,8 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
 
     ])
 
+
+
     return {
         state:{
             calendarDays,
@@ -120,7 +122,7 @@ const getDayNamesInWeek = ( firstWeekDay:number = 2, locale:string="default")=>{
     });
     return [...weekDaysNames.slice(firstWeekDay-1),...weekDaysNames.slice(0,firstWeekDay-1)];
 }
-const formativeDate = (date:Date,format:string):string=>{
+export const formativeDate = (date:Date,format:string):string=>{
     const d = createDate({date});
     return format.replace(/\bYYYY\b/,d.Year.toString())
                  .replace(/\bDD\b/,d.DayNumber.toString())
