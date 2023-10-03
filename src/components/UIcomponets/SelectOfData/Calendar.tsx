@@ -1,5 +1,5 @@
 import React from 'react';
-import {useCalendar} from "./hooks/useCalendar";
+import {isIqualDate, useCalendar} from "./hooks/useCalendar";
 import style from "./calendar.module.css"
 
 
@@ -20,9 +20,9 @@ const Calendar:React.FC<CalendarPropsType> = ({
 
                         }) => {
 
-    const {state}= useCalendar({selectedDate:selectedDate,firstWeekDay:firstWeekDay});
-    const {selectedMonth,calendarDays,mode,selectedYear} = state;
-    
+const {state,methods}= useCalendar({selectedDate:selectedDate,firstWeekDay:firstWeekDay});
+const {selectedMonth,calendarDays,mode,selectedYear,selectedDate:date} = state;
+
 
     return (
         <div className={style.calendar}>
@@ -33,11 +33,18 @@ const Calendar:React.FC<CalendarPropsType> = ({
             </div>
             <div className={style.calendar_wraper}>
                 {calendarDays.map((el)=>{
-                    const isAdditiomalDay = el.monthIndex == state.selectedMonth.monthIndex
+                    const isAdditionalDay = el.monthIndex == state.selectedMonth.monthIndex;
+                    const isDayIqual = isIqualDate(el.date,date.date)
 
                     return(<div style={
-                                isAdditiomalDay?{backgroundColor:"#3bfc07"}:{}
+                                isAdditionalDay?{backgroundColor:"#3bfc07",color:isDayIqual?"#ff6300":"white"}:
+                                                {color:isDayIqual?"blue":"white"}
                                }
+                                onClick={()=>{
+                                    selectDate(el.date);
+                                    methods.setSelectedDate(el)
+
+                                }}
                                 className={style.calendar_item}>{el.DayNumber}
                             </div>)
                 })}

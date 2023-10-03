@@ -44,8 +44,7 @@
     justify-content: center;
 }
 .calendar_item:hover{
-    color: #00072a;
-    background-color: #b3d4fc;
+    border: 2px solid green;
     cursor: pointer;
     border-radius: 3px;
 }

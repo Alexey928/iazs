@@ -14,7 +14,7 @@ const CalendarContainer = () => {
         <div className={style.calendarContayner} >
             <div className={style.dateSpan} onClick={()=>setActive(!active)}>{formativeDate(selectedDate," DD. MM. YYYY.")}</div>
             {active && <Calendar
-                                 firstWeekDay={5}
+                                 firstWeekDay={2}
                                  selectedDate={selectedDate}
                                  selectDate={(date)=>{setSelectedDate(date)}}/>}
         </div>

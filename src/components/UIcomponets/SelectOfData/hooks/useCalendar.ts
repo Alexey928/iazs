@@ -69,6 +69,9 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
         selectedMonth.Year
 
     ])
+    const onClicArrow = (derection:"right"|"left")=>{
+        
+    }
 
 
 
@@ -83,6 +86,9 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
             selectedYear,
             monthNames,
             weekDayNames,
+        },
+        methods:{
+            setSelectedDate
         }
     }
 }
@@ -127,4 +133,9 @@ export const formativeDate = (date:Date,format:string):string=>{
     return format.replace(/\bYYYY\b/,d.Year.toString())
                  .replace(/\bDD\b/,d.DayNumber.toString())
                  .replace(/\bMM\b/, d.monthNumber.toString())
+}
+export const isIqualDate = (date1:Date,date2:Date)=>{
+    return  date1.getFullYear()===date2.getFullYear()&&
+            date1.getMonth()===date2.getMonth()&&
+            date1.getDate()===date2.getDate();
 }
