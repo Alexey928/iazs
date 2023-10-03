@@ -1,6 +1,8 @@
 import React from 'react';
 import {useCalendar} from "./hooks/useCalendar";
 import style from "./calendar.module.css"
+
+
 type CalendarPropsType = {
 
     firstWeekDay:number
@@ -19,7 +21,8 @@ const Calendar:React.FC<CalendarPropsType> = ({
                         }) => {
 
     const {state}= useCalendar({selectedDate:selectedDate,firstWeekDay:firstWeekDay});
-    const {selectedMonth,calendarDays,mode,selectedYear} = state
+    const {selectedMonth,calendarDays,mode,selectedYear} = state;
+    
 
     return (
         <div className={style.calendar}>
@@ -30,7 +33,13 @@ const Calendar:React.FC<CalendarPropsType> = ({
             </div>
             <div className={style.calendar_wraper}>
                 {calendarDays.map((el)=>{
-                    return(<div key={el.DayNumber + el.monthIndex} className={style.calendar_item}>{el.DayNumber}</div>)
+                    const isAdditiomalDay = el.monthIndex == state.selectedMonth.monthIndex
+
+                    return(<div style={
+                                isAdditiomalDay?{backgroundColor:"#3bfc07"}:{}
+                               }
+                                className={style.calendar_item}>{el.DayNumber}
+                            </div>)
                 })}
             </div>
 
