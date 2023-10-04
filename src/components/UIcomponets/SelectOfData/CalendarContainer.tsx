@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Calendar from "./Calendar";
 import {formativeDate, useCalendar} from "./hooks/useCalendar";
 import style from "./calendar.module.css"
@@ -9,6 +9,12 @@ const CalendarContainer = () => {
     const [selectedDate,setSelectedDate] = useState<Date>(new Date());
     const [active,setActive] = useState<boolean>(false);
 
+    useEffect(()=>{
+        setTimeout(()=>{
+            setActive(false);
+        },280)
+
+    },[selectedDate])
 
     return (
         <div className={style.calendarContayner} >

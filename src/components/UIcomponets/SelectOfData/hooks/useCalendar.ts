@@ -11,10 +11,10 @@ interface usecalendarParams{
 const getYearsInterval = (year:number)=>{
     const startYear = Math.floor(year/10)*10;
     return [...Array(10)].map((_,index) =>  (startYear + index));
-}
+};
 
 export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarParams)=>{
-    const [mode,setMode] = useState<"day"|"month>"|"years">("day");
+    const [mode,setMode] = useState<"day"|"month>"|"years">("day");// in progress
     const [selectedDate,setSelectedDate] = useState(createDate({date}));
     const [selectedMonth, setSelectedMonth] = useState(createMonth({date:new Date(selectedDate.Year,selectedDate.monthIndex)}));
     const [selectedYear, setSelectedYear] = useState(selectedDate.Year);
@@ -25,13 +25,11 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
     const days = useMemo(()=>selectedMonth.createMonthDays(),[selectedMonth,selectedYear])
 
     const calendarDays = useMemo(()=>{
-        const monthNumberOfDay = getDayCountOfMonth(selectedDate.monthIndex,selectedYear);
+        const monthNumberOfDay = getDayCountOfMonth(selectedMonth.monthIndex,selectedYear);
 
-        const previusMonthDasys = createMonth({locale,
-                                                      date:new Date(selectedYear,selectedMonth.monthIndex-1)}
+        const previusMonthDasys = createMonth({locale, date:new Date(selectedYear,selectedMonth.monthIndex-1)}
                                             ).createMonthDays();
-        const nextMonthDasys = createMonth({locale,
-                                                   date:new Date(selectedYear,selectedMonth.monthIndex+1)}
+        const nextMonthDasys = createMonth({locale, date:new Date(selectedYear,selectedMonth.monthIndex+1)}
                                             ).createMonthDays();
         const firstsDay = days[0];
         const lastDay = days[monthNumberOfDay-1];
@@ -44,7 +42,6 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
         const numberOflastDays = 7 - lastDay.dayNumberInWeek + shiftIndex > 6
             ? 7 - lastDay.dayNumberInWeek-(7-shiftIndex)
             : 7- lastDay.dayNumberInWeek +shiftIndex;
-
         const totalCalendarDay =  days.length +numberOfPrevisDays+numberOflastDays;
 
         const result = []
@@ -62,15 +59,27 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
             result[i] = nextMonthDasys[i-totalCalendarDay+numberOflastDays];
         }
         return result
-
     },[
         selectedYear,
         selectedMonth.monthIndex,
         selectedMonth.Year
-
     ])
-    const onClicArrow = (derection:"right"|"left")=>{
-        
+    const onClickArrow = ( derection:"right"|"left" )=>{
+         const monthIndex = derection === "left" ? selectedMonth.monthIndex-1 : selectedMonth.monthIndex+1;
+         if(monthIndex===-1){
+             const year = selectedYear-1;
+             setSelectedYear(year)
+             if(!selectedYearInterval.includes(year)) setselectedYearInterval(getYearsInterval(year));
+             return setSelectedMonth(createMonth({date:new Date(year,11),locale}))
+         }
+        if(monthIndex===12){
+            const year = selectedYear+1;
+            setSelectedYear(year)
+            if(!selectedYearInterval.includes(year)) setselectedYearInterval(getYearsInterval(year));
+            return setSelectedMonth(createMonth({date:new Date(year,0),locale}))
+        }
+
+        return setSelectedMonth(createMonth({date:new Date(selectedYear,monthIndex),locale}));
     }
 
 
@@ -88,7 +97,8 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
             weekDayNames,
         },
         methods:{
-            setSelectedDate
+            setSelectedDate,
+            onClickArrow,
         }
     }
 }

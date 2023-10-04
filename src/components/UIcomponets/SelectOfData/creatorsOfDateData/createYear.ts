@@ -6,6 +6,7 @@ interface createYearParametrs{
     locale?:string,
     monthNumber?:number
 }
+
 const MONTH_COUNT = 12;
 
 export const createYear = (params?:createYearParametrs) => {

@@ -9,7 +9,6 @@ type CalendarPropsType = {
     locale?:string
     selectedDate:Date
     selectDate:(date:Date)=>void
-
 }
 
 const Calendar:React.FC<CalendarPropsType> = ({
@@ -17,8 +16,7 @@ const Calendar:React.FC<CalendarPropsType> = ({
     selectDate,
     selectedDate,
     firstWeekDay,
-
-                        }) => {
+                                              }) => {
 
 const {state,methods}= useCalendar({selectedDate:selectedDate,firstWeekDay:firstWeekDay});
 const {selectedMonth,calendarDays,mode,selectedYear,selectedDate:date} = state;
@@ -27,17 +25,19 @@ const {selectedMonth,calendarDays,mode,selectedYear,selectedDate:date} = state;
     return (
         <div className={style.calendar}>
             <div className={style.calendar_header}>
-                <span className={style.arrow_left}>{"<"}</span>
+                <span onClick={()=>methods.onClickArrow("left")} className={style.arrow_left}>{"<"}</span>
                 {selectedMonth.monthName+" "}{selectedYear}
-                <span className={style.arrowRight}>{">"}</span>
+                <span onClick={()=>methods.onClickArrow("right")} className={style.arrowRight}>{">"}</span>
             </div>
             <div className={style.calendar_wraper}>
-                {calendarDays.map((el)=>{
+                {calendarDays.map((el,i)=>{
                     const isAdditionalDay = el.monthIndex == state.selectedMonth.monthIndex;
                     const isDayIqual = isIqualDate(el.date,date.date)
 
-                    return(<div style={
-                                isAdditionalDay?{backgroundColor:"#3bfc07",color:isDayIqual?"#ff6300":"white"}:
+                    return(<div
+                            key={i}
+                            style={
+                                isAdditionalDay?{backgroundColor:"#3bfc07",color:isDayIqual?"#020041":"white"}:
                                                 {color:isDayIqual?"blue":"white"}
                                }
                                 onClick={()=>{

@@ -21,10 +21,8 @@ import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
 import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createDate";
-import {createMonth} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createMonth";
 import {createYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
-import Calendar from "../../UIcomponets/SelectOfData/Calendar";
-import CalendarContainer from "../../UIcomponets/SelectOfData/CalendarContainer";
+import DateSelectsContainer from "./dateSelectsContayner";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [
@@ -107,14 +105,14 @@ const Sales = () => {
             <div className={style.contentHeader}>
                 <span>Выдача топлива</span>
                 <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
-                <div style={{paddingLeft:10, display:"flex", zIndex:2, backgroundColor:'rgb(50,255,0)',
+                <div style={{display:"flex", zIndex:2, backgroundColor:'rgb(50,255,0)',
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
                 }}>
-                    <CalendarContainer/>
+                    <DateSelectsContainer/>
                     <SelectComponent options={productSelectOptions} name={"Продукт"} onSelect={setFilteredTransactionFromProductSelect}/>
                     <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
-                    <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute",left:15,top:-15}}>XSLS</button>
+                    <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute",left:0,top:-30}}>XSLS</button>
                 </div>
             </div>
             <div className={style.contentWrapper}>

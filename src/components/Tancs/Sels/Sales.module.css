@@ -1,0 +1,10 @@
+.dateSelectContayner{
+    z-index: 20;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+    background-color: transparent;
+    justify-content: center;
+}

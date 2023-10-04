@@ -1,6 +1,7 @@
 import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
 import {FuelReleasePageApi} from "../API/dalAPI";
+import {AxiosError} from "axios";
 
 export const salePageInitialState:salePageInitialStateType = {
     filteredTransaction:[],
@@ -114,6 +115,7 @@ const setDriversHashAC  = (hash:driverHash):setDriverHashActionType=>{
 }
 
 //__________________________________________________________________________________
+//tsanck creators
 
 export const setsalesPagedata = (token:string,date:string):AppThunkType => async (dispatch)=>{
     dispatch(setIsRequestProcessingStatusAC(true));
@@ -138,4 +140,17 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
     } finally {
         dispatch(setIsRequestProcessingStatusAC(false));
     }
+}
+
+const setTransaction = (token:string,date:string):AppThunkType => async (dispatch)=>{
+    dispatch(setIsRequestProcessingStatusAC(true));
+    try{
+        const transaction = await FuelReleasePageApi.getTransactionList(token, date ,"1000");
+
+    }catch (e){
+
+    }finally {
+
+    }
+
 }
