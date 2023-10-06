@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import chartIcom from "../../asets/chartIcon.png"
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../State/reduxStore";
+import {colorOffuel} from "./utils";
 
 type TankPropsType = {
     name:string|null
@@ -14,6 +15,12 @@ type TankPropsType = {
 
 }
 type swithVectorType = ""|"inc"|"dec";
+
+declare module 'csstype' {// добавляем в кастомную типизацию стилей нашу css переменную
+    interface Properties {
+        '--bac'?: string;
+    }
+}
 
 const Tank = (props:TankPropsType) => {
     const currentDescriptions = useSelector<AppRootStateType, Array<TankDescriptionType>>(state => (
@@ -62,14 +69,6 @@ const Tank = (props:TankPropsType) => {
     const handleIncMouseUp = () => {
         setIsSwithed(false)
     }
-    const synchroneWidthTankColor = ()=>{
-        switch (currentFuelName) {
-            case "ДТ":
-                return
-
-
-        }
-    }
     const nav = ()=>{
         navigate(`/TankChartPage/${props.tankId}`)
     }
@@ -78,7 +77,7 @@ const Tank = (props:TankPropsType) => {
     return (
         <div className={style.glass}>
             <div className={style.inner}>
-                <label className={style.fuelName}>{props.name+" "+currentFuelName}</label>
+                <label className={style.fuelName}>{props.name + " " + currentFuelName}</label>
                 <div className={style.tankDescription}>
                     <div><span>Объем(л)</span><span>{description._fuelVolume}</span></div>
                     <div><span>Уровеь(мм)</span><span>{description._fuelLevel}</span></div>
@@ -113,12 +112,12 @@ const Tank = (props:TankPropsType) => {
                     </div>
                 </div>
                 <div className={style.liquidPetrol}
-                     style={{top:tankViewLevel(Number(currentDescriptions[currentDescriptionPos]._fuelLevel),
-                                 Number(props.height))}}>
+                     style={{"top":tankViewLevel(Number(currentDescriptions[currentDescriptionPos]._fuelLevel),
+                                 Number(props.height)),"--bac":colorOffuel[currentFuelName.toLowerCase()]}}>
+
                 </div>
             </div>
         </div>
     );
 };
-
 export default Tank;
