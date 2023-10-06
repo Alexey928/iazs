@@ -1,3 +1,9 @@
+.tableContayner{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .table{
   table-layout: fixed;
   margin-top: 65px;
@@ -36,6 +42,11 @@
   color: rgba(0, 0, 0, 0.54);
   font-weight: 500;
 }
-.tableColumnHeader{
 
+
+@media (max-width: 1390px) {
+  .tableContayner {
+    width: auto;
+    display: block;
+  }
 }

@@ -108,8 +108,9 @@ const Table: React.FC<TableProps> = ({
                                      callback
                                      }) => {
     return (
-        <table className={style.table}>
-            <thead >
+        <div className={style.tableContayner}>
+            <table className={style.table}>
+                <thead >
                 <tr style={{height:40}} >
                     {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
                         <th key={i}>
@@ -132,8 +133,8 @@ const Table: React.FC<TableProps> = ({
                             /></th>:<th key={i}>{el.name}</th>
                     )}
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 {formativeData.map((rowData, index) => (
                     <TableRow key={index}
                               rowData={rowData}
@@ -141,8 +142,10 @@ const Table: React.FC<TableProps> = ({
                               bindingHashInterfase={bindingHashInterfase}
                     />
                 ))}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
     );
 };
 

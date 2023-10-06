@@ -77,7 +77,7 @@ const Sales = () => {
                                                             bindingInterface["headers"]));
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet2');
-        XLSX.writeFile(wb, 'data.xlsx');
+        XLSX.writeFile(wb, 'table.xlsx');
     }
 
 
@@ -115,24 +115,27 @@ const Sales = () => {
                     <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute",left:0,top:-30}}>XSLS</button>
                 </div>
             </div>
-            <div className={style.contentWrapper}>
-                {
-                    !auth.isLading ?
-                    <Table
-                        callback={getDataFromHeader}
-                        formativeData={filteredTransaction}
-                        hashForForigenKey={{
-                            driverHash:driversHash,
-                            stationHash:stationHash,
-                            fuelListHash:fuelListHash,
-                            autoListHash:autoListHash,
-                            tanksHashList: tanksHashList
-                        }}
-                        bindingHashInterfase = {bindingInterface}
-                    />:
-                    <Preloader/>
-                }
-            </div>
+
+                <div className={style.contentWrapper}>
+                    {
+                        !auth.isLading ?
+                            <Table
+                                callback={getDataFromHeader}
+                                formativeData={filteredTransaction}
+                                hashForForigenKey={{
+                                    driverHash:driversHash,
+                                    stationHash:stationHash,
+                                    fuelListHash:fuelListHash,
+                                    autoListHash:autoListHash,
+                                    tanksHashList: tanksHashList
+                                }}
+                                bindingHashInterfase = {bindingInterface}
+                            />:
+                            <Preloader/>
+                    }
+                </div>
+
+
         </div>
     );
 };

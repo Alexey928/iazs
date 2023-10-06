@@ -37,13 +37,21 @@
 
 }
 .contentWrapper{
+    position: relative;
     width: calc(100vw - 160px);
-    background-color: #002041;
+    background-color: #001a34;
     height: calc(100% - 30px);
     overflow-x: scroll;
     overflow-y: scroll;
-    background-size: cover;
     padding: 5px;
+}
+.video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заполнение контейнера видео */
 }
 .station{
     color: #010934;
@@ -55,6 +63,7 @@
 .flexWraper{
     display: flex;
     flex-wrap:wrap;
+    justify-content: center;
     gap: 15px;
     border: 5px double forestgreen;
     padding: 8px;

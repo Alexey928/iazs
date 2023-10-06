@@ -10,6 +10,8 @@ import Stations from "./Stations";
 import Preloader from "../UIcomponets/generalPreloader/Preloader";
 
 
+
+
 const TanksPage = () => {
     const dispatch = useAppDispatch()
     console.log(new Date())
@@ -21,9 +23,6 @@ const TanksPage = () => {
         if(!auth.isAuth) {
             navigate("/");
         }
-    },[]);
-
-    useEffect(()=>{
        dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
     },[])
 
@@ -33,13 +32,14 @@ const TanksPage = () => {
                 <span>Состояние Резервуаров</span>
                 <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
             </div>
-            <div className={style.contentWrapper}>
-                {auth.isLading?<Preloader/>:tankPageStations && tankPageStations.map((station=><Stations
+
+                <div className={style.contentWrapper}>
+                    {auth.isLading?<Preloader/>:tankPageStations && tankPageStations.map((station=><Stations
                         name={station._name}
                         key={station._id}
                         stationId={station._id}
-                />))}
-            </div>
+                    />))}
+                </div>
         </div>
     );
 };
