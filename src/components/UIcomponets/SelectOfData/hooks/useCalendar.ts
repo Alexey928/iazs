@@ -149,3 +149,9 @@ export const isIqualDate = (date1:Date,date2:Date)=>{
             date1.getMonth()===date2.getMonth()&&
             date1.getDate()===date2.getDate();
 }
+export const comparisonOfTwoDAys = (daete_1:Date,date_2:Date)=>{
+
+    return daete_1.getFullYear() < date_2.getFullYear()&&
+        daete_1.getMonth() < date_2.getMonth()&&
+        daete_1.getDate() < date_2.getDate();
+}

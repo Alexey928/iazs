@@ -19,7 +19,7 @@ const Calendar:React.FC<CalendarPropsType> = ({
                                               }) => {
 
 const {state,methods}= useCalendar({selectedDate:selectedDate,firstWeekDay:firstWeekDay});
-const {selectedMonth,calendarDays,mode,selectedYear,selectedDate:date} = state;
+const {selectedMonth,calendarDays,mode,selectedYear,selectedDate:date,weekDayNames} = state;
 
 
     return (
@@ -30,6 +30,7 @@ const {selectedMonth,calendarDays,mode,selectedYear,selectedDate:date} = state;
                 <span onClick={()=>methods.onClickArrow("right")} className={style.arrowRight}>{">"}</span>
             </div>
             <div className={style.calendar_wraper}>
+                {weekDayNames.map((days)=><div className={style.monthNames}>{days.dayShort}</div>)}
                 {calendarDays.map((el,i)=>{
                     const isAdditionalDay = el.monthIndex == state.selectedMonth.monthIndex;
                     const isDayIqual = isIqualDate(el.date,date.date)

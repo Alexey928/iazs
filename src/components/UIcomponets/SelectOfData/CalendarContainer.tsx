@@ -27,7 +27,7 @@ const CalendarContainer:React.FC<CalendarContainerPropsType> = ({calback}) => {
         };
         document.addEventListener('click', handleClickOutside);
         return () => {
-            document.removeEventListener('click', handleClickOutside);
+        document.removeEventListener('click', handleClickOutside);
         };
     }, []);
 

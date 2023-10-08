@@ -22,7 +22,7 @@ import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
 import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createDate";
 import {createYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
-import DateSelectsContainer from "./dateSelectsContayner";
+import DateSelectsContainer from "./rangeOfDate";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [

@@ -69,3 +69,15 @@
     position: absolute;
     right: 5px;
 }
+.monthNames{
+    color: #00001f;
+    font-weight: bold;
+    font-size: 12px;
+    width: 25px;
+    height: 25px;
+    background-color:silver;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+
+}

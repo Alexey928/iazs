@@ -146,6 +146,7 @@ const setTransaction = (token:string,date:string):AppThunkType => async (dispatc
     dispatch(setIsRequestProcessingStatusAC(true));
     try{
         const transaction = await FuelReleasePageApi.getTransactionList(token, date ,"1000");
+        
 
     }catch (e){
 

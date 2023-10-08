@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import CalendarContainer from "../../UIcomponets/SelectOfData/CalendarContainer";
 import  style from "./Sales.module.css"
+import {comparisonOfTwoDAys, isIqualDate} from "../../UIcomponets/SelectOfData/hooks/useCalendar";
 type datePeriodType = Array<Date>
 
 const DateSelectsContainer = () => {
@@ -11,9 +12,15 @@ const DateSelectsContainer = () => {
     const setEnd = (date:Date)=>{
         setDatePeriod([datePeriod[0],date]);
     }
-    console.log(datePeriod)
+    console.log(comparisonOfTwoDAys(datePeriod[0],datePeriod[1]));
+
+
+    
     return (
         <div className={style.dateSelectContayner}>
+            {!isIqualDate(datePeriod[0],datePeriod[1])&&
+             !comparisonOfTwoDAys(datePeriod[0],datePeriod[1])&&
+                <div className={style.triger}>go</div>}
             <CalendarContainer calback={setStart}/>
             <CalendarContainer calback={setEnd} />
         </div>
