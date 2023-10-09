@@ -17,7 +17,7 @@ const CalendarContainer:React.FC<CalendarContainerPropsType> = ({calback}) => {
             calback(selectedDate);
         },300)
 
-    },[selectedDate])
+    },[selectedDate]);
 
     useEffect(() => {
         const handleClickOutside = (event:MouseEvent) => {

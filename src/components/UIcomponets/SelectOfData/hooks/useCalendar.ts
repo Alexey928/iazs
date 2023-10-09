@@ -102,7 +102,7 @@ export const useCalendar = ({locale,selectedDate:date,firstWeekDay}:usecalendarP
         }
     }
 }
-
+// helper functions _____________________________________
 const getMonthNames = (locale:string="default")=>{
     const montNames:{
         month:ReturnType<typeof createDate>["monthName"];
@@ -149,9 +149,29 @@ export const isIqualDate = (date1:Date,date2:Date)=>{
             date1.getMonth()===date2.getMonth()&&
             date1.getDate()===date2.getDate();
 }
-export const comparisonOfTwoDAys = (daete_1:Date,date_2:Date)=>{
-
-    return daete_1.getFullYear() < date_2.getFullYear()&&
-        daete_1.getMonth() < date_2.getMonth()&&
-        daete_1.getDate() < date_2.getDate();
+export const firstIsSmallerOfSecondDate = (date_1:Date, date_2:Date):boolean=>{
+    let yearFlag = false;
+    let monthFlag = false;
+    if (date_1.getFullYear() < date_2.getFullYear()) {
+        return true
+    }
+    else if (date_1.getFullYear() >= date_2.getFullYear()){
+        yearFlag =!yearFlag
+    }
+    if(yearFlag){
+        if( date_1.getFullYear() === date_2.getFullYear()){
+            if(date_1.getMonth() < date_2.getMonth()){
+                return true;
+            }else if(date_1.getMonth() >= date_2.getMonth()){
+                monthFlag = !monthFlag
+            }
+        }
+    }
+    if(monthFlag && yearFlag){
+       if(date_1.getMonth() === date_2.getMonth() && date_1.getFullYear() === date_2.getFullYear()){
+           return date_1.getDate() < date_2.getDate()
+       }
+        return false
+    }
+    return false
 }

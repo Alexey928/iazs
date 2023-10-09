@@ -109,7 +109,8 @@ const Sales = () => {
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
                 }}>
-                    <DateSelectsContainer/>
+                    <DateSelectsContainer setRange={()=>{
+                        console.log(" start thunck is here ")}}/>
                     <SelectComponent options={productSelectOptions} name={"Продукт"} onSelect={setFilteredTransactionFromProductSelect}/>
                     <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
                     <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute",left:0,top:-30}}>XSLS</button>
