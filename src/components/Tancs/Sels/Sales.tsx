@@ -11,7 +11,7 @@ import SelectComponent, {sellectColbac, sellectColbacSetingsType} from "../../UI
 import {
     driverHash,
     setFilteredTrasactionAC,
-    setsalesPagedata,
+    setSalesPageData, setTransactionInTimeRange,
     TransactionType
 } from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
@@ -22,7 +22,7 @@ import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
 import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createDate";
 import {createYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
-import DateSelectsContainer from "./rangeOfDate";
+import RangeOfDateSelect from "./rangeOfDate";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [
@@ -60,7 +60,7 @@ const Sales = () => {
     const tanksHashList = useSelector<AppRootStateType,tankHashType>(state => state.tanksPage.tanksHash)
 
     const dispatch = useAppDispatch();
-
+    console.log("Selse")
     const creteExelFile = ()=>{
         const monts = createDate()
         const year = createYear().getYearMonthes();
@@ -95,9 +95,12 @@ const Sales = () => {
         const [filteredId, fieldOfFormickData,chooseFromRemaining] = sellectColbac(fuelListHash,value,selectProductCalbakOptions);
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
-
+    const setTransactionOfTimeRange = (dateToo:string,dateFrom:string)=>{
+        console.log(dateToo,dateFrom)
+        dispatch(setTransactionInTimeRange(auth.data._token?auth.data._token:"",dateFrom,dateToo));
+    }
     useEffect(()=>{
-        dispatch(setsalesPagedata(auth.data._token?auth.data._token:"","2020-01-30 02:00:20"));
+        dispatch(setSalesPageData(auth.data._token?auth.data._token:"","2020-01-1 02:00:20"));
     },[]);
 
     return (
@@ -109,8 +112,7 @@ const Sales = () => {
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
                 }}>
-                    <DateSelectsContainer setRange={()=>{
-                        console.log(" start thunck is here ")}}/>
+                    <RangeOfDateSelect setRange={setTransactionOfTimeRange}/>
                     <SelectComponent options={productSelectOptions} name={"Продукт"} onSelect={setFilteredTransactionFromProductSelect}/>
                     <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
                     <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute",left:0,top:-30}}>XSLS</button>

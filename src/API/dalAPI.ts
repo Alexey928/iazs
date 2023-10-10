@@ -86,10 +86,11 @@ export const TanksPageAPI = {
 
 
  export const  FuelReleasePageApi = {
-    getTransactionList:( _token: string, _datefrom:string, limit:string )=>{
+    getTransactionList:( _token: string, _datetoo:string, _datefrom:string,limit:string )=>{
+        debugger
         return axios.
         get<Array<TransactionType>>(corsProxyUrl +
-            encodeURIComponent(`${baseUrl}transaction_list&_token=${_token}&_limit=${limit}&_datefrom${_datefrom}`)).
+            encodeURIComponent(`${baseUrl}transaction_list&_token=${_token}&_limit=${limit}&_datefrom=${_datefrom}`)).
         then((res)=> res.data);
     },
     getDriversList:( _token: string, limit:string)=> {
@@ -98,6 +99,7 @@ export const TanksPageAPI = {
             encodeURIComponent(`${baseUrl}driver_list&_token=${_token}&_limit=${limit}`)).
         then((res)=> res.data);
     }
+
 }
 
 

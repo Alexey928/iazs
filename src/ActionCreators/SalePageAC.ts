@@ -1,7 +1,7 @@
 import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
 import {FuelReleasePageApi} from "../API/dalAPI";
-import {AxiosError} from "axios";
+const LIMIT = "10000"
 
 export const salePageInitialState:salePageInitialStateType = {
     filteredTransaction:[],
@@ -117,13 +117,11 @@ const setDriversHashAC  = (hash:driverHash):setDriverHashActionType=>{
 //__________________________________________________________________________________
 //tsanck creators
 
-export const setsalesPagedata = (token:string,date:string):AppThunkType => async (dispatch)=>{
+export const setSalesPageData = (token:string, dateFrom:string):AppThunkType => async (dispatch)=>{
     dispatch(setIsRequestProcessingStatusAC(true));
     try {
-        const transaction = await FuelReleasePageApi.getTransactionList(token, date ,"1000");
+        const transaction = await FuelReleasePageApi.getTransactionList(token, dateFrom ,"",LIMIT);
         const drivers = await FuelReleasePageApi.getDriversList(token,"1000");
-
-        console.log(transaction,drivers);
         const driverMap:driverHash = {};
         drivers.map((d)=>{
             driverMap[`${d._id}`] = d;
@@ -142,16 +140,16 @@ export const setsalesPagedata = (token:string,date:string):AppThunkType => async
     }
 }
 
-const setTransaction = (token:string,date:string):AppThunkType => async (dispatch)=>{
+export const setTransactionInTimeRange = (token:string, dateFrom:string, dateToo:string):AppThunkType => async (dispatch)=>{
     dispatch(setIsRequestProcessingStatusAC(true));
     try{
-        const transaction = await FuelReleasePageApi.getTransactionList(token, date ,"1000");
-        
-
+        const transaction = await FuelReleasePageApi.getTransactionList(token, dateFrom ,dateToo,LIMIT);
+        dispatch(setTransactionActionAC(transaction));
+        dispatch(setFilteredTrasactionAC(transaction,[],[],"",false));
     }catch (e){
-
+        console.log(e);
     }finally {
-
+        dispatch(setIsRequestProcessingStatusAC(false));
     }
 
 }

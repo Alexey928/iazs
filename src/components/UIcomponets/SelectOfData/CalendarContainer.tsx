@@ -11,12 +11,12 @@ const CalendarContainer:React.FC<CalendarContainerPropsType> = ({calback}) => {
     const [active,setActive] = useState<boolean>(false);
     const selectRef = useRef<HTMLDivElement | null>(null);
 
+    // we are can select delay of caleder  disappearance , in here.
     useEffect(()=>{
         setTimeout(()=>{
             setActive(false);
             calback(selectedDate);
         },300)
-
     },[selectedDate]);
 
     useEffect(() => {
@@ -36,13 +36,14 @@ const CalendarContainer:React.FC<CalendarContainerPropsType> = ({calback}) => {
             <div className={style.dateSpan}
                  onClick={()=>setActive(!active)}>{formativeDate(selectedDate," DD. MM. YYYY.")}
             </div>
-            {active && <Calendar
+            {
+                active && <Calendar
                                  firstWeekDay={2}
                                  selectedDate={selectedDate}
                                  selectDate={(date)=>{setSelectedDate(date)}}
-            />}
+                />
+            }
         </div>
     );
 };
-
 export default CalendarContainer;
