@@ -5,9 +5,11 @@ import style from "./calendar.module.css"
 
 type CalendarContainerPropsType = {
     calback:(date:Date)=>void
+    startDate?:Date
+
 }
-const CalendarContainer:React.FC<CalendarContainerPropsType> = ({calback}) => {
-    const [selectedDate,setSelectedDate] = useState<Date>(new Date());
+const CalendarContainer:React.FC<CalendarContainerPropsType> = ({calback,startDate}) => {
+    const [selectedDate,setSelectedDate] = useState<Date>(startDate ? startDate:new Date());
     const [active,setActive] = useState<boolean>(false);
     const selectRef = useRef<HTMLDivElement | null>(null);
 

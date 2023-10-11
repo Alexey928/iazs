@@ -58,7 +58,6 @@ const Sales = () => {
     const fuelListHash = useSelector<AppRootStateType,fuelListHashType>(state => state.tanksPage.fuelListHash);
     const autoListHash = useSelector<AppRootStateType,autoListHashtype>(state => state.tanksPage.autoHashList);
     const tanksHashList = useSelector<AppRootStateType,tankHashType>(state => state.tanksPage.tanksHash)
-
     const dispatch = useAppDispatch();
     console.log("Selse")
     const creteExelFile = ()=>{

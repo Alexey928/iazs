@@ -6,6 +6,8 @@ type datePeriodType = Array<Date>
 type DateSelectsContainerType = {
     setRange:(dateFrom:string,dateToo:string)=>void
 }
+const tempStartDate = new Date(2020,0,1);
+const tempEndDate = new  Date(2020,0,31);
 
 const RangeOfDateSelect:React.FC<DateSelectsContainerType> = ({setRange}) => {
     const [datePeriod,setDatePeriod] = useState<datePeriodType>([new Date(),new Date()]);
@@ -24,8 +26,8 @@ const RangeOfDateSelect:React.FC<DateSelectsContainerType> = ({setRange}) => {
                                   } className={style.triger}> go
                     </div>
             }
-            <CalendarContainer calback={setStart}/>
-            <CalendarContainer calback={setEnd} />
+            <CalendarContainer startDate={tempStartDate} calback={setStart}/>
+            <CalendarContainer startDate={tempEndDate} calback={setEnd} />
         </div>
     );
 };

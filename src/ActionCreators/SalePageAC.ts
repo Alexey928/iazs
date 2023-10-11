@@ -120,7 +120,7 @@ const setDriversHashAC  = (hash:driverHash):setDriverHashActionType=>{
 export const setSalesPageData = (token:string, dateFrom:string):AppThunkType => async (dispatch)=>{
     dispatch(setIsRequestProcessingStatusAC(true));
     try {
-        const transaction = await FuelReleasePageApi.getTransactionList(token, dateFrom ,"",LIMIT);
+        const transaction = await FuelReleasePageApi.getTransactionList(token, "",dateFrom ,LIMIT);
         const drivers = await FuelReleasePageApi.getDriversList(token,"1000");
         const driverMap:driverHash = {};
         drivers.map((d)=>{
