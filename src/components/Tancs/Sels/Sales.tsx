@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {AppRootStateType, useAppDispatch} from "../../../State/reduxStore";
 import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
@@ -57,9 +57,17 @@ const Sales = () => {
     { return state.salesPage.filteredTransaction });
     const fuelListHash = useSelector<AppRootStateType,fuelListHashType>(state => state.tanksPage.fuelListHash);
     const autoListHash = useSelector<AppRootStateType,autoListHashtype>(state => state.tanksPage.autoHashList);
-    const tanksHashList = useSelector<AppRootStateType,tankHashType>(state => state.tanksPage.tanksHash)
+    const tanksHashList = useSelector<AppRootStateType,tankHashType>(state => state.tanksPage.tanksHash);
+
+    const totalTransactionFuelValue  = useMemo(()=>{
+        console.log("factory")
+        return  filteredTransaction.reduce((acum,el)=>{
+                return acum += Number(el["_volume"])
+    },0)},[filteredTransaction]);
+
+
     const dispatch = useAppDispatch();
-    console.log("Selse")
+    console.log("Selse",totalTransactionFuelValue);
     const creteExelFile = ()=>{
         const monts = createDate()
         const year = createYear().getYearMonthes();

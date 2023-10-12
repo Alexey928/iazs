@@ -3,7 +3,7 @@ import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
 import {filteredTransactionType} from "../../../ActionCreators/SalePageAC";
 
-const NULL_WALUE = "not Found"
+const NULL_WALUE = "Не задано"
 
 export type callbackDataType = {
     fieldOfFormickData:string
@@ -36,6 +36,7 @@ export type bindingHashInterfaceItemType =  {
     chooseFromRemaining:boolean,
     data:string,
     changeable:boolean,
+    totalValue:boolean
     width:number,
     shortenString?:boolean,
 }

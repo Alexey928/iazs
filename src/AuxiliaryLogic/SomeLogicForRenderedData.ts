@@ -9,7 +9,6 @@ const imgUrls = [
     "https://russia-dropshipping.ru/800/600/https/proprikol.ru/wp-content/uploads/2019/08/krutye-kartinki-dlya-vk-22.jpg",
 ];
 
-
 export function siftingArray<T>(inputArray: T[]): T[] {
 
     if (inputArray.length <= 300) return inputArray
