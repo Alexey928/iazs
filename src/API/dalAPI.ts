@@ -86,7 +86,7 @@ export const TanksPageAPI = {
     },
     getOrganisationList(_token:string){
         return axios.
-        get<OrganisationListType>(corsProxyUrl+encodeURIComponent(`${baseUrl}auto_list&_token=${_token}`)).
+        get<OrganisationListType>(corsProxyUrl+encodeURIComponent(`${baseUrl}organization_list&_token=${_token}`)).
         then(res=>res.data)
     }
 }
@@ -94,7 +94,6 @@ export const TanksPageAPI = {
 
  export const  FuelReleasePageApi = {
     getTransactionList:( _token: string, _datetoo:string, _datefrom:string,limit:string )=>{
-
         return axios.
         get<Array<TransactionType>>(corsProxyUrl +
             encodeURIComponent(`${baseUrl}transaction_list&_token=${_token}&_limit=${limit}&_datefrom=${_datefrom}&_dateto=${_datetoo}`)).

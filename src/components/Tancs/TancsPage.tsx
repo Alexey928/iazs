@@ -18,11 +18,13 @@ const TanksPage = () => {
     const navigate = useNavigate();
     const auth = useSelector<AppRootStateType, UserAuthStateType>(state => state.userAuth);
     const tankPageStations = useSelector<AppRootStateType,Array<StationType>>(state => state.tanksPage.stations);
+    const flagForLodingStartData = useSelector<AppRootStateType,boolean>(state => state.tanksPage.isFirstloading);
 
     useEffect(()=>{
         if(!auth.isAuth) {
             navigate("/");
         }
+       !flagForLodingStartData &&
        dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
     },[])
 

@@ -24,12 +24,12 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
         },
         {
             name:"Организация",
-            hash:"",
+            hash:"organisationHash",
             data:"_organization_id",
-            hashDataFieldName:"",
+            hashDataFieldName:"_name",
             chooseFromRemaining:false,
             totalValue:false,
-            changeable:false,
+            changeable:true,
             width:120,
         },
         {

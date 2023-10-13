@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect} from 'react';
 import {AppRootStateType, useAppDispatch} from "../../../State/reduxStore";
 import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
@@ -16,7 +16,13 @@ import {
 } from "../../../ActionCreators/SalePageAC";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../../Resduscers/authUserReduser";
-import {autoListHashtype, fuelListHashType, stationHashType, tankHashType} from "../../../ActionCreators/TanksPageAC";
+import {
+    autoListHashtype,
+    fuelListHashType,
+    OrganisationHashType,
+    stationHashType,
+    tankHashType
+} from "../../../ActionCreators/TanksPageAC";
 import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
@@ -58,6 +64,7 @@ const Sales = () => {
     const fuelListHash = useSelector<AppRootStateType,fuelListHashType>(state => state.tanksPage.fuelListHash);
     const autoListHash = useSelector<AppRootStateType,autoListHashtype>(state => state.tanksPage.autoHashList);
     const tanksHashList = useSelector<AppRootStateType,tankHashType>(state => state.tanksPage.tanksHash);
+    const organisationHash = useSelector<AppRootStateType,OrganisationHashType>(state => state.tanksPage.organisationHasah)
 
 
 
@@ -129,6 +136,7 @@ const Sales = () => {
                                 callback={getDataFromHeader}
                                 formativeData={filteredTransaction}
                                 hashForForigenKey={{
+                                    organisationHash:organisationHash,
                                     driverHash:driversHash,
                                     stationHash:stationHash,
                                     fuelListHash:fuelListHash,
@@ -136,12 +144,11 @@ const Sales = () => {
                                     tanksHashList: tanksHashList
                                 }}
                                 bindingHashInterfase = {bindingInterface}
+
                             />:
                             <Preloader/>
                     }
                 </div>
-
-
         </div>
     );
 };

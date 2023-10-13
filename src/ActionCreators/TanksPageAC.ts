@@ -269,8 +269,8 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             dispatch(setHashOfTanksAC(tanksHash))
             dispatch(setAutoListHash(autoListHash));
             dispatch(setOrganisationHashAC(organisationHash));
-            dispatch(setOrganisationAC(organisationList))
-
+            dispatch(setOrganisationAC(organisationList));
+            dispatch(setIsFirstLoading(true));
         }catch (e){
             console.log(e);
         }finally {

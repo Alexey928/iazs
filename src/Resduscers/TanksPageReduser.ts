@@ -23,6 +23,8 @@ export const TanksPageReduser =(state:TanksPageStateType = initialTankPageState,
         return {...state,organisationHasah:action.payload}
       case "SET-ORGANISATION-LIST":
           return {...state, organisationList:action.payload}
+      case "SET-FLAG-OF-FIRST-LOAD":
+          return {...state, isFirstloading:action.flag}
       default:
         return state
   }
