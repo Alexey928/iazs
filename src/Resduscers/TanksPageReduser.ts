@@ -21,6 +21,8 @@ export const TanksPageReduser =(state:TanksPageStateType = initialTankPageState,
         return {...state,tanksHash:action.payload}
        case "SET-HASH-ORGANISATION-LIST":
         return {...state,organisationHasah:action.payload}
+      case "SET-ORGANISATION-LIST":
+          return {...state, organisationList:action.payload}
       default:
         return state
   }

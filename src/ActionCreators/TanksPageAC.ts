@@ -173,13 +173,14 @@ type setTankDescriptionActionType = {
     payload:Array<TankDescriptionType>
 }
 type isFirstLoadingActionType = {
-    type:""
+    type:"SET-FLAG-OF-FIRST-LOAD"
+    flag:boolean
 }
 //_______________ActionCreators_________________________________________
-export const setIsFirstLoading = ()=>{
 
+export const setIsFirstLoading = (flag:boolean):isFirstLoadingActionType=>{
+    return {type:"SET-FLAG-OF-FIRST-LOAD",flag}
 }
-
 export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
     return {type:"SET-TANKS-STATE",payload:tanks}
 }
@@ -227,7 +228,8 @@ export type tanksPageActionsType =  setTanksActionType|
                                     setHashFuelListType|
                                     setAutoListHash|
                                     setOrganisationHashType|
-                                    setOrganisationActionType
+                                    setOrganisationActionType|
+                                    isFirstLoadingActionType
 
 // ____________________Thanks as Redux Thunks Concept_________________________________________
 
@@ -245,7 +247,7 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"10000");
             const fuelList = await TanksPageAPI.getFuelList(_token);
             const autoList = await  TanksPageAPI.getAutoList(_token,"10000");
-            const organisationLisst = await TanksPageAPI.getOrganisationList(_token);
+            const organisationList = await TanksPageAPI.getOrganisationList(_token);
 
 
             const tempTanksDescription:TanksDescriptionsTypes = {}
@@ -253,7 +255,7 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             const stationsHash = forArrToHash<StationType>(station);
             const fuelListHash = forArrToHash<fuelListItemType>(fuelList);
             const autoListHash = forArrToHash<AutoListType>(autoList);
-            const organisationHash = forArrToHash<OrganisationItemType>(organisationLisst);
+            const organisationHash = forArrToHash<OrganisationItemType>(organisationList);
 
             tanks.forEach((item)=>{
                 tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
@@ -267,6 +269,7 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
             dispatch(setHashOfTanksAC(tanksHash))
             dispatch(setAutoListHash(autoListHash));
             dispatch(setOrganisationHashAC(organisationHash));
+            dispatch(setOrganisationAC(organisationList))
 
         }catch (e){
             console.log(e);
