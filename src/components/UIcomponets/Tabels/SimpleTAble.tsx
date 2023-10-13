@@ -2,6 +2,7 @@ import React  from 'react';
 import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
 import {filteredTransactionType} from "../../../ActionCreators/SalePageAC";
+import ShowingSpan from "./ShowingSpan";
 
 const NULL_WALUE = "Не задано"
 
@@ -131,7 +132,9 @@ const Table: React.FC<TableProps> = ({
 
                                     })
                                 }}
-                            /></th>:<th key={i}>{el.name}</th>
+                            /></th>:el.totalValue?
+                            <th ><ShowingSpan countingField={el.data} key={i} name={el.name} dataArray={formativeData}/></th>:
+                            <th key={i}>{el.name}</th>
                     )}
                 </tr>
                 </thead>

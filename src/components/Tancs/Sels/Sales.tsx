@@ -59,15 +59,11 @@ const Sales = () => {
     const autoListHash = useSelector<AppRootStateType,autoListHashtype>(state => state.tanksPage.autoHashList);
     const tanksHashList = useSelector<AppRootStateType,tankHashType>(state => state.tanksPage.tanksHash);
 
-    const totalTransactionFuelValue  = useMemo(()=>{
-        console.log("factory")
-        return  filteredTransaction.reduce((acum,el)=>{
-                return acum += Number(el["_volume"])
-    },0)},[filteredTransaction]);
+
 
 
     const dispatch = useAppDispatch();
-    console.log("Selse",totalTransactionFuelValue);
+    console.log("Selse");
     const creteExelFile = ()=>{
         const monts = createDate()
         const year = createYear().getYearMonthes();

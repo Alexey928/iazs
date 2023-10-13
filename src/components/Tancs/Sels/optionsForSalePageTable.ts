@@ -89,7 +89,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             hashDataFieldName:"",
             data:"_volume",
             chooseFromRemaining:false,
-            totalValue:false,
+            totalValue:true,
             changeable:false,
             width:120,
         },

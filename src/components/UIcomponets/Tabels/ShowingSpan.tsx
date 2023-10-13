@@ -1,22 +1,28 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
+import style from "./ShowingSpan.module.css"
 type ShowingPropsType = {
-    value:string|number
+    countingField:string
     name:string
     dataArray:{[p: string]: string | number | null}[]
 }
 
-const ShowingSpan:React.FC<ShowingPropsType> = React.memo(({value,name,dataArray}) => {
+const ShowingSpan:React.FC<ShowingPropsType> = React.memo(({name,dataArray,countingField}) => {
+
     const [active,setActive] = useState(false);
 
-    const totalTransactionFuelValue  = ()=>{
-        console.log("factory")
-        return  dataArray.reduce((acum,el)=>{
-            return acum += Number(el["_volume"]);},0
-        )
-    };
+    const value = useMemo(()=>{
+        console.log("factory");
+        return Math.floor(dataArray.reduce((acum,el)=>{
+            return acum += Number(el[countingField]);},0
+        ));
+    },[dataArray]);
+
+
+
+
 
     return (
-        <span onClick={()=>setActive(!active)}>
+        <span className={style.span} style={{color:active?"#fa0303":""}} onClick={()=>setActive(!active)}>
           {active?value:name}
         </span>
     );

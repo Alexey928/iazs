@@ -24,6 +24,7 @@
 }
 .spanContainer:hover{
     box-shadow: 0 0 10px rgb(253, 240, 1);
+    color: #3bfc07;
 }
 .span{
     display: block;

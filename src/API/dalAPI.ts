@@ -1,7 +1,14 @@
 import axios, {AxiosResponse} from "axios";
 import {usersStateType, userType} from "../ActionCreators/usersAC";
 import {profileDataType} from "../Resduscers/ProfileReducer";
-import {AutoListType, fuelListType, StationType, TankDescriptionType, TankType} from "../ActionCreators/TanksPageAC";
+import {
+    AutoListType,
+    fuelListType,
+    OrganisationListType,
+    StationType,
+    TankDescriptionType,
+    TankType
+} from "../ActionCreators/TanksPageAC";
 import {DriverType, TransactionType} from "../ActionCreators/SalePageAC";
 
 export type LoginResponseType = {
@@ -79,7 +86,7 @@ export const TanksPageAPI = {
     },
     getOrganisationList(_token:string){
         return axios.
-        get<Array<AutoListType>>(corsProxyUrl+encodeURIComponent(`${baseUrl}auto_list&_token=${_token}`)).
+        get<OrganisationListType>(corsProxyUrl+encodeURIComponent(`${baseUrl}auto_list&_token=${_token}`)).
         then(res=>res.data)
     }
 }
@@ -99,8 +106,8 @@ export const TanksPageAPI = {
             encodeURIComponent(`${baseUrl}driver_list&_token=${_token}&_limit=${limit}`)).
         then((res)=> res.data);
     }
-
 }
+
 
 
 export const usersAPI = {
