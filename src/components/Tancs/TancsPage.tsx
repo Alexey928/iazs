@@ -8,6 +8,8 @@ import {UserAuthStateType} from "../../Resduscers/authUserReduser";
 import {setTankPageData, StationType, TanksPageStateType} from "../../ActionCreators/TanksPageAC";
 import Stations from "./Stations";
 import Preloader from "../UIcomponets/generalPreloader/Preloader";
+import {setTransactionInTimeRange} from "../../ActionCreators/SalePageAC";
+import RangeOfDateSelect from "../UIcomponets/SelectOfData/rangeOfDate";
 
 
 
@@ -26,7 +28,12 @@ const TanksPage = () => {
         }
        !flagForLodingStartData &&
        dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
-    },[])
+    },[]);
+
+    const setTanksStateOfTimeRange = (dateToo:string,dateFrom:string)=>{
+        console.log(dateToo,dateFrom)
+        //dispatch(setTransactionInTimeRange(auth.data._token?auth.data._token:"",dateFrom,dateToo));
+    }
 
     return (
         <div className={style.content}>
@@ -34,14 +41,16 @@ const TanksPage = () => {
                 <span>Состояние Резервуаров</span>
                 <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
             </div>
-
-                <div className={style.contentWrapper}>
-                    {auth.isLading?<Preloader/>:tankPageStations && tankPageStations.map((station=><Stations
-                        name={station._name}
-                        key={station._id}
-                        stationId={station._id}
-                    />))}
+            <div className={style.contentWrapper}>
+                <div className={style.station} >
+                    <RangeOfDateSelect setRange={setTanksStateOfTimeRange}/>
                 </div>
+                {auth.isLading?<Preloader/>:tankPageStations && tankPageStations.map((station=><Stations
+                    name={station._name}
+                    key={station._id}
+                    stationId={station._id}
+                />))}
+            </div>
         </div>
     );
 };

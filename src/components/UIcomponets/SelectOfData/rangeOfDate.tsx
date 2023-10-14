@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import CalendarContainer from "../../UIcomponets/SelectOfData/CalendarContainer";
-import  style from "./Sales.module.css"
-import {firstIsSmallerOfSecondDate, formativeDate, isIqualDate} from "../../UIcomponets/SelectOfData/hooks/useCalendar";
+import CalendarContainer from "./CalendarContainer";
+import  style from "./rangeOfDate.module.css"
+import {firstIsSmallerOfSecondDate, formativeDate, isIqualDate} from "./hooks/useCalendar";
 type datePeriodType = Array<Date>
 type DateSelectsContainerType = {
     setRange:(dateFrom:string,dateToo:string)=>void
