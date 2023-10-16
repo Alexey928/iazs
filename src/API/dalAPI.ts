@@ -34,7 +34,7 @@ export type AuthUserDataType = {
     login: string;
     email: string;
 };
-const corsProxyUrl = 'http://cors-proxi.vercel.app';// "http://localhost:3001/proxy/"
+const corsProxyUrl =  'http://cors-proxi.vercel.app/'//"http://localhost:3001/"
 
 const axiosInstanseForSocialNetvork = axios.create({
     baseURL:encodeURIComponent(corsProxyUrl+"http://demo.iazs.com.ua/index.php?r=api2/"),
