@@ -34,7 +34,8 @@ export type AuthUserDataType = {
     login: string;
     email: string;
 };
-const corsProxyUrl = 'http://localhost:3001/proxy/';
+const corsProxyUrl = 'https://cors-proxi.vercel.app/proxy/';// http://localhost:3001/proxy/
+
 const axiosInstanseForSocialNetvork = axios.create({
     baseURL:encodeURIComponent(corsProxyUrl+"http://demo.iazs.com.ua/index.php?r=api2/"),
 })
@@ -58,7 +59,7 @@ export const authUserAPI = {
 }
 
 export const TanksPageAPI = {
-    getTanksDescription(_token: string,_datefrom:string,limit:string){// remember mi is not used yet
+    getTanksDescription(_token: string,_datefrom:string,dateToo:string,limit:string){// remember mi is not used yet
         return axios.
         get<Array<TankDescriptionType>>(corsProxyUrl +
             encodeURIComponent(`${baseUrl}tank_state_list&_token=${_token}&_limit=${limit}&_datefrom${_datefrom}`)).

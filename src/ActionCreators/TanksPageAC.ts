@@ -244,7 +244,7 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
         try {
             const station = await TanksPageAPI.getStations(_token);
             const tanks = await TanksPageAPI.getTanks(_token);
-            const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"10000");
+            const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"","10000");
             const fuelList = await TanksPageAPI.getFuelList(_token);
             const autoList = await  TanksPageAPI.getAutoList(_token,"10000");
             const organisationList = await TanksPageAPI.getOrganisationList(_token);
@@ -279,7 +279,9 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
 
     }
 }
-
+const setTanksStateOfTimeRange = (_token:string,dateFrom:string,dateToo:string):AppThunkType => async (dispatch)=>{
+    const tanksDescription = await TanksPageAPI.getTanksDescription(_token,dateFrom,"","10000");
+}
 
 
 
