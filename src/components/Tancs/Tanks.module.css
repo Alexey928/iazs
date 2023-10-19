@@ -54,12 +54,23 @@
     object-fit: cover; /* Заполнение контейнера видео */
 }
 .station{
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    display: flex;
     color: #010934;
     background-color: #04dc26;;
     margin-bottom: 10px;
     border-radius: 5px;
     height: 30px;
 }
+.sattionMenu{
+    height: 60px;
+    justify-content: flex-start;
+}
+
 .flexWraper{
     display: flex;
     flex-wrap:wrap;

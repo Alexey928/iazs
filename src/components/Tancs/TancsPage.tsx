@@ -42,7 +42,7 @@ const TanksPage = () => {
                 <button  onClick={()=>dispatch(setIsMenuActiveAC())}>menu</button>
             </div>
             <div className={style.contentWrapper}>
-                <div className={style.station} >
+                <div className={`${style.station} ${style.sattionMenu}`} >
                     <RangeOfDateSelect setRange={setTanksStateOfTimeRange}/>
                 </div>
                 {auth.isLading?<Preloader/>:tankPageStations && tankPageStations.map((station=><Stations
