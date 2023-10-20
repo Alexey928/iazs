@@ -5,7 +5,12 @@ import {setIsMenuActiveAC} from "../../ActionCreators/navigationMenuAC";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {UserAuthStateType} from "../../Resduscers/authUserReduser";
-import {setTankPageData, StationType, TanksPageStateType} from "../../ActionCreators/TanksPageAC";
+import {
+    setTankPageData,
+    setTanksStateOfTimeRangeThunc,
+    StationType,
+    TanksPageStateType
+} from "../../ActionCreators/TanksPageAC";
 import Stations from "./Stations";
 import Preloader from "../UIcomponets/generalPreloader/Preloader";
 import {setTransactionInTimeRange} from "../../ActionCreators/SalePageAC";
@@ -27,12 +32,12 @@ const TanksPage = () => {
             navigate("/");
         }
        !flagForLodingStartData &&
-       dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20"));
+       dispatch(setTankPageData(auth.data._token?auth.data._token:"","2020-01-31 02:00:20",""));
     },[]);
 
     const setTanksStateOfTimeRange = (dateToo:string,dateFrom:string)=>{
-        console.log(dateToo,dateFrom)
-        //dispatch(setTransactionInTimeRange(auth.data._token?auth.data._token:"",dateFrom,dateToo));
+        console.log(dateToo,dateFrom);
+        dispatch(setTanksStateOfTimeRangeThunc(auth.data._token?auth.data._token:"",dateFrom,dateToo));
     }
 
     return (

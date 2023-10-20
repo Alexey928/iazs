@@ -1,10 +1,13 @@
 
 //_____________initial Data _________________________________________________________
+
+
 import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
 import {TanksPageAPI} from "../API/dalAPI";
 
 const initDate:Date = new Date()
+const LIMIT = "15000"
 
 export const initialTankPageState:TanksPageStateType = {
     isFirstloading:false,
@@ -238,15 +241,16 @@ const forArrToHash = <T extends {_id: number | null}>(arr:Array<T>):{[key:string
     arr.forEach((e)=>{temp[`${e._id}`]=e})
     return temp
 }
-export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
+export const setTankPageData  = (_token:string, dateFrom:string, dateToo:string):AppThunkType=>{
+
     return async (dispatch)=>{
         dispatch(setIsRequestProcessingStatusAC(true));
         try {
             const station = await TanksPageAPI.getStations(_token);
             const tanks = await TanksPageAPI.getTanks(_token);
-            const tanksDescription = await TanksPageAPI.getTanksDescription(_token,date,"","10000");
+            const tanksDescription = await TanksPageAPI.getTanksDescription(_token,dateFrom,"",LIMIT);
             const fuelList = await TanksPageAPI.getFuelList(_token);
-            const autoList = await  TanksPageAPI.getAutoList(_token,"10000");
+            const autoList = await  TanksPageAPI.getAutoList(_token,LIMIT);
             const organisationList = await TanksPageAPI.getOrganisationList(_token);
 
 
@@ -279,8 +283,25 @@ export const setTankPageData  = (_token:string, date:string):AppThunkType=>{
 
     }
 }
-const setTanksStateOfTimeRange = (_token:string,dateFrom:string,dateToo:string):AppThunkType => async (dispatch)=>{
-    const tanksDescription = await TanksPageAPI.getTanksDescription(_token,dateFrom,"","10000");
+
+export const setTanksStateOfTimeRangeThunc = (_token:string, dateToo:string,dateFrom:string ):AppThunkType => {
+    return  async (dispatch)=>{
+        dispatch(setIsRequestProcessingStatusAC(true));
+        try {
+            const tanks = await TanksPageAPI.getTanks(_token);
+            const tanksDescription = await TanksPageAPI.getTanksDescription(_token,dateFrom,dateToo,LIMIT);
+            const tempTanksDescription:TanksDescriptionsTypes = {};
+            tanks.forEach((item)=>{
+                tempTanksDescription[`${item._id}`] = tanksDescription.filter(i=>i._tank_id===item._id);
+            });
+            dispatch(setDescriptionsForTanksAC(tempTanksDescription));
+        }catch (e){
+            console.log(e)
+        }finally {
+            dispatch(setIsRequestProcessingStatusAC(false));
+        }
+
+    }
 }
 
 

@@ -35,7 +35,6 @@ const Tank = (props:TankPropsType) => {
     const [deviseType, setDeviseType] = useState("")
     const navigate = useNavigate();
 
-
     useEffect(()=>{
         if(isSwithed){
             setTimeout(()=>{

@@ -59,10 +59,11 @@ export const authUserAPI = {
 }
 
 export const TanksPageAPI = {
-    getTanksDescription(_token: string,_datefrom:string,dateToo:string,limit:string){// remember mi is not used yet
+    getTanksDescription(_token: string,_datefrom:string,_datetoo:string,limit:string){
+        console.log(_datefrom,_datetoo,limit);// remember mi is not used yet
         return axios.
         get<Array<TankDescriptionType>>(corsProxyUrl +
-            encodeURIComponent(`${baseUrl}tank_state_list&_token=${_token}&_limit=${limit}&_datefrom${_datefrom}`)).
+            encodeURIComponent(`${baseUrl}tank_state_list&_token=${_token}&_limit=${limit}&_datefrom=${_datefrom}&_dateto=${_datetoo}`)).
         then((res)=> res.data);
     },
     getTanks(_token:string){
