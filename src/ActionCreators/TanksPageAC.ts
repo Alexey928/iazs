@@ -284,7 +284,7 @@ export const setTankPageData  = (_token:string, dateFrom:string, dateToo:string)
     }
 }
 
-export const setTanksStateOfTimeRangeThunc = (_token:string, dateToo:string,dateFrom:string ):AppThunkType => {
+export const setTanksStateOfTimeRangeThunc = (_token:string, dateToo:string,dateFrom:string ):AppThunkType => {// очередность реквизитов заменена так как ее, так формирует компонент даты, это  требует рефакторинга !!!
     return  async (dispatch)=>{
         dispatch(setIsRequestProcessingStatusAC(true));
         try {

@@ -1,7 +1,10 @@
 import React, {KeyboardEvent, ChangeEvent, useState, useEffect} from 'react';
 import style from "./editinebalSpan.module.css";
+import { useDebounce } from './hooc/useDebouns'
+
 
 type EditableSpanPropsType = {
+    widthClue?:boolean
     mutable:boolean
     title: string
     type:"password"|"text"
@@ -46,13 +49,15 @@ export function detectLanguage(string: string):string {
 }
 
 export function RegularEditableSpan(props:EditableSpanPropsType){
-    let [editMode, setEditMode] = useState<boolean>(false);
-    let [title, setTitle] = useState<string>("");
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [title, setTitle] = useState<string>("");
+    const [clue,setClue] = useState<Array<string>>([]);
     let [langError , setLangErr] = useState<string>("");
-    let [isTitle , setIsTitle] = useState<boolean>(false)
+    let [isTitle , setIsTitle] = useState<boolean>(false);
+
+    const debouncedValue = useDebounce<string>(title, 800);
+
     console.log(title+"<---")
-
-
 
     const activateEditMode = () => {
         setEditMode(true);
@@ -72,17 +77,21 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
             setTitle(e.currentTarget.value);
         }
     }
+    useEffect(() => {
+        console.log("debouns")
+    }, [debouncedValue]);
 
     useEffect(()=>{
         let timeaut: NodeJS.Timeout;
         if(langError){
             console.log("juujuu");
-            const t =  setTimeout(()=>{
+            const t: NodeJS.Timeout =  setTimeout(()=>{
                 setLangErr("")
             },2000)
             timeaut = t
         }
-        return ()=>{clearTimeout(timeaut)}
+        return ()=>{clearTimeout(timeaut);
+                 console.log("clerFunc")}
     },[editMode,langError])
 
     return editMode ?

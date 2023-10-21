@@ -58,9 +58,7 @@ const SelectComponent: React.FC<SelectProps> = ({ options, onSelect, name ,}) =>
                 setActive(false); // Закрываем тело селекта, если клик был за его пределами
             }
         };
-
         document.addEventListener('click', handleClickOutside);
-
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };

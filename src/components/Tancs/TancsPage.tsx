@@ -16,9 +16,6 @@ import Preloader from "../UIcomponets/generalPreloader/Preloader";
 import {setTransactionInTimeRange} from "../../ActionCreators/SalePageAC";
 import RangeOfDateSelect from "../UIcomponets/SelectOfData/rangeOfDate";
 
-
-
-
 const TanksPage = () => {
     const dispatch = useAppDispatch()
     console.log(new Date())
