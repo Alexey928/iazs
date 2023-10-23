@@ -1,10 +1,12 @@
 import React, {KeyboardEvent, ChangeEvent, useState, useEffect} from 'react';
 import style from "./editinebalSpan.module.css";
-import { useDebounce } from './hooc/useDebouns'
+import {configurateClue, useDebounce} from './hooc/useDebouns'
 
 
 type EditableSpanPropsType = {
+    hasName?:string
     widthClue?:boolean
+    hash?:{[p: string]: {[p: string]: string | number | null}}
     mutable:boolean
     title: string
     type:"password"|"text"
@@ -55,17 +57,19 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     let [langError , setLangErr] = useState<string>("");
     let [isTitle , setIsTitle] = useState<boolean>(false);
 
-    const debouncedValue = useDebounce<string>(title, 800);
+    const debouncedValue = useDebounce<string>(title, 500);
 
     console.log(title+"<---")
 
     const activateEditMode = () => {
         setEditMode(true);
     }
+
     const activateViewMode = () => {
         setEditMode(false);
         props.handler && title && props.handler(title)
     }
+
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         if(props.lang){
             const lang = detectLanguage(e.currentTarget.value);
@@ -78,7 +82,8 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
         }
     }
     useEffect(() => {
-        console.log("debouns")
+        setClue(configurateClue(title,props.hasName??"",props.hash??{},clue))
+        console.log("debouns");
     }, [debouncedValue]);
 
     useEffect(()=>{
@@ -95,15 +100,18 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     },[editMode,langError])
 
     return editMode ?
-        <input className={style.input} style={langError&&!isTitle?{color:"red",boxShadow: "0 0 10px rgb(253, 240, 1)"}:{}}
-            type={props.type}
-                    placeholder={props.placeholder?props.placeholder:""}
-                    value={title}
-                    onChange={changeTitle}
-                    autoFocus
-                    onBlur={activateViewMode}
-                    onKeyDown={(e:KeyboardEvent<HTMLInputElement>)=>e.key==="Enter"&&activateViewMode()}
-        />:
+        <div style={{position:"relative"}}>
+            {clue.length!==0 && <ul className={style.clue}>{clue.map(e => <li>{e}</li>)}</ul>}
+            <input className={style.input} style={langError&&!isTitle?{color:"red",boxShadow: "0 0 10px rgb(253, 240, 1)"}:{}}
+                type={props.type}
+                        placeholder={props.placeholder?props.placeholder:""}
+                        value={title}
+                        onChange={changeTitle}
+                        autoFocus
+                        onBlur={activateViewMode}
+                        onKeyDown={(e:KeyboardEvent<HTMLInputElement>)=>e.key==="Enter"&&activateViewMode()}
+            />
+        </div>:
         <span className={style.spanContainer}>
             <span className={style.span}
                 onClick={activateEditMode}>

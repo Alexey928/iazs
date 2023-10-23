@@ -39,6 +39,7 @@ export type bindingHashInterfaceItemType =  {
     changeable:boolean,
     totalValue:boolean
     width:number,
+    widhClue?:boolean,
     shortenString?:boolean,
 }
 
@@ -117,6 +118,9 @@ const Table: React.FC<TableProps> = ({
                     {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
                         <th key={i}>
                             <RegularEditableSpan
+                                hasName={el.hashDataFieldName}
+                                widthClue={el.widhClue}//el.widthClue
+                                hash={hashForForigenKey[el.hash]}
                                 key={i}
                                 lang={"ru"}
                                 mutable={false}
@@ -129,7 +133,6 @@ const Table: React.FC<TableProps> = ({
                                         fieldOfHash:el.hashDataFieldName,
                                         fieldOfFormickData:el.data,
                                         chooseFromRemaining:el.chooseFromRemaining
-
                                     })
                                 }}
                             /></th>:el.totalValue?

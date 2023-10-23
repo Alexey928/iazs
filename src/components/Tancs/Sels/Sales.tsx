@@ -108,6 +108,10 @@ const Sales = () => {
     const setTransactionOfTimeRange = (dateToo:string,dateFrom:string)=>{
         console.log(dateToo,dateFrom)
         dispatch(setTransactionInTimeRange(auth.data._token?auth.data._token:"",dateFrom,dateToo));
+
+    }
+    const resetFilteredTransaction = ()=>{
+        dispatch(setFilteredTrasactionAC(transaction,[],[],"",false))
     }
     useEffect(()=>{
         dispatch(setSalesPageData(auth.data._token?auth.data._token:"","2020-01-1 02:00:20"));

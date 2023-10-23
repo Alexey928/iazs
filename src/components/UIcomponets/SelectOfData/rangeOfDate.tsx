@@ -5,6 +5,7 @@ import {firstIsSmallerOfSecondDate, formativeDate, isIqualDate} from "./hooks/us
 type datePeriodType = Array<Date>
 type DateSelectsContainerType = {
     setRange:(dateFrom:string,dateToo:string)=>void
+    resetFilter?:()=>void
 }
 const tempStartDate = new Date(2020,0,1);
 const tempEndDate = new  Date(2020,0,31);
@@ -16,6 +17,9 @@ const RangeOfDateSelect:React.FC<DateSelectsContainerType> = ({setRange}) => {
     }
     const setEnd = (date:Date)=>{
         setDatePeriod([datePeriod[0],date]);
+    }
+    const composeHandlerClick = ()=>{
+        
     }
     return (
         <div className={style.dateSelectContayner}>
