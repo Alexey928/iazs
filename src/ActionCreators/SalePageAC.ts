@@ -126,7 +126,6 @@ export const setSalesPageData = (token:string, dateFrom:string):AppThunkType => 
         drivers.map((d)=>{
             driverMap[`${d._id}`] = d;
         });
-
         driverMap["uknown"] = {_id:"PODONOK",_name:"PODONOK",_note:"PODONOK"};
 
         dispatch(setDriversHashAC(driverMap))

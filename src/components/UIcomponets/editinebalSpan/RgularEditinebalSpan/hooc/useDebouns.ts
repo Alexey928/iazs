@@ -26,7 +26,7 @@ export const  configurateClue = (curentValue:string,
         const currentHashValue =current[hashFieldName]??"";
 
 
-        if(currentHashValue.toString().toLowerCase().startsWith(curentValue)) temp.push(currentHashValue.toString());
+        if(currentHashValue.toString().toLowerCase().startsWith(curentValue.toLowerCase())) temp.push(currentHashValue.toString());
     }
     }
     // if(corentCueArr.length>0){

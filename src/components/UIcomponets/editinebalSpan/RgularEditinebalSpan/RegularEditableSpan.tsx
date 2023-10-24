@@ -1,6 +1,7 @@
 import React, {KeyboardEvent, ChangeEvent, useState, useEffect} from 'react';
 import style from "./editinebalSpan.module.css";
 import {configurateClue, useDebounce} from './hooc/useDebouns'
+import {log} from "util";
 
 
 type EditableSpanPropsType = {
@@ -54,8 +55,10 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     const [editMode, setEditMode] = useState<boolean>(false);
     const [title, setTitle] = useState<string>("");
     const [clue,setClue] = useState<Array<string>>([]);
-    let [langError , setLangErr] = useState<string>("");
-    let [isTitle , setIsTitle] = useState<boolean>(false);
+    const [langError , setLangErr] = useState<string>("");
+    const [isTitle , setIsTitle] = useState<boolean>(false);
+    const [clueChekTriger, setClueCheckTriger] = useState(0);
+
 
     const debouncedValue = useDebounce<string>(title, 500);
 
@@ -67,7 +70,21 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
 
     const activateViewMode = () => {
         setEditMode(false);
-        props.handler && title && props.handler(title)
+    }
+    const onKeyPresHandler = ()=>{
+        setEditMode(false);
+        props.handler && title && props.handler(title.toLowerCase());
+    }
+    const onBlurHandler = ()=>{
+        setClueCheckTriger(clueChekTriger+1)
+    }
+    const onClueItemClickHandler = (e: React.MouseEvent<HTMLLIElement>)=>{
+        const textContent = e.currentTarget.textContent
+        console.log(textContent)
+        if(textContent){
+            props.handler && title && props.handler(textContent.toLowerCase());
+            setTitle("")
+        }
     }
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +98,15 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
             setTitle(e.currentTarget.value);
         }
     }
+    useEffect(()=>{
+        if(clueChekTriger){
+            const timeOut = setTimeout(()=>{
+                activateViewMode()
+            },220);
+            return ()=>clearTimeout(timeOut)
+        }
+    },[clueChekTriger]);
+
     useEffect(() => {
         setClue(configurateClue(title,props.hasName??"",props.hash??{},clue))
         console.log("debouns");
@@ -89,7 +115,7 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     useEffect(()=>{
         let timeaut: NodeJS.Timeout;
         if(langError){
-            console.log("juujuu");
+            console.log("");
             const t: NodeJS.Timeout =  setTimeout(()=>{
                 setLangErr("")
             },2000)
@@ -101,15 +127,20 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
 
     return editMode ?
         <div style={{position:"relative"}}>
-            {clue.length!==0 && <ul className={style.clue}>{clue.map(e => <li>{e}</li>)}</ul>}
-            <input className={style.input} style={langError&&!isTitle?{color:"red",boxShadow: "0 0 10px rgb(253, 240, 1)"}:{}}
-                type={props.type}
-                        placeholder={props.placeholder?props.placeholder:""}
-                        value={title}
-                        onChange={changeTitle}
-                        autoFocus
-                        onBlur={activateViewMode}
-                        onKeyDown={(e:KeyboardEvent<HTMLInputElement>)=>e.key==="Enter"&&activateViewMode()}
+            {clue.length!==0 && <ul className={style.clue}>{clue.map(e => <li onClick={onClueItemClickHandler}
+                                                                              className={style.clueItem}
+                                                                              key={e}>{e}
+                                                                         </li>)}
+                                </ul>}
+            <input className={style.input}
+                   style={langError&&!isTitle?{color:"red",boxShadow: "0 0 10px rgb(253, 240, 1)"}:{}}
+                   type={props.type}
+                   placeholder={props.placeholder?props.placeholder:""}
+                   value={title}
+                   onChange={changeTitle}
+                   autoFocus
+                   onBlur={onBlurHandler}
+                   onKeyDown={(e:KeyboardEvent<HTMLInputElement>)=>e.key==="Enter"&&onKeyPresHandler()}
             />
         </div>:
         <span className={style.spanContainer}>

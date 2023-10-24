@@ -126,7 +126,7 @@ const Sales = () => {
                             position:"absolute",left:0,right:0, top:30,height:60,
                             alignItems:"center",justifyContent:"space-evenly",
                 }}>
-                    <RangeOfDateSelect setRange={setTransactionOfTimeRange}/>
+                    <RangeOfDateSelect resetFilter={resetFilteredTransaction} setRange={setTransactionOfTimeRange}/>
                     <SelectComponent options={productSelectOptions} name={"Продукт"} onSelect={setFilteredTransactionFromProductSelect}/>
                     <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
                     <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute",left:0,top:-30}}>XSLS</button>

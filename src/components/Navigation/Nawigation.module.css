@@ -1,6 +1,6 @@
 
 .navigationWrapper{
-    margin-top: 50px;
+    margin-top: 40px;
 }
 .navigation{
     background-image:linear-gradient(270deg, rgb(21, 208, 0), rgb(1, 2, 68));
@@ -14,7 +14,7 @@
     transition: all 0.1s linear;
 }
 .navigationSelected.navigation{
-    background-image:linear-gradient(270deg, rgba(0, 169, 39, 0.87), rgba(1, 2, 68, 0.84));
+    background-image:linear-gradient(270deg, rgba(0, 169, 39, 0.91), rgba(1, 2, 68, 0.89));
     border-radius: 15px;
     font-size: 20px;
     opacity: 1;
