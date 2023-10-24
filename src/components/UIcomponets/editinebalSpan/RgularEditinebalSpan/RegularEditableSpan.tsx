@@ -61,13 +61,9 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
 
 
     const debouncedValue = useDebounce<string>(title, 500);
-
-    console.log(title+"<---")
-
     const activateEditMode = () => {
         setEditMode(true);
     }
-
     const activateViewMode = () => {
         setEditMode(false);
     }
