@@ -72,9 +72,9 @@ const Sales = () => {
     const dispatch = useAppDispatch();
     console.log("Selse");
     const creteExelFile = ()=>{
-        const monts = createDate()
-        const year = createYear().getYearMonthes();
-        console.log(monts,year);
+        // const monts = createDate()
+        // const year = createYear().getYearMonthes();
+        //console.log(monts,year);
         const ws = XLSX.utils.aoa_to_sheet(createModelForExel(
                                                             filteredTransaction,
                                                             {

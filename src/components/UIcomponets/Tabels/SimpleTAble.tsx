@@ -110,13 +110,14 @@ const Table: React.FC<TableProps> = ({
                                      bindingHashInterfase,
                                      callback
                                      }) => {
+
     return (
         <div className={style.tableContayner}>
             <table className={style.table}>
                 <thead >
                 <tr style={{height:40}} >
                     {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
-                        <th key={i}>
+                        <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>
                             <RegularEditableSpan
                                 hasName={el.hashDataFieldName}
                                 widthClue={el.widhClue}//el.widthClue
@@ -126,7 +127,7 @@ const Table: React.FC<TableProps> = ({
                                 mutable={false}
                                 title={el.name}
                                 type={"text"}
-                                handler={(value:string)=>{
+                                handler={(value:string) => {
                                     callback(hashForForigenKey,{
                                         value:value,
                                         hash:el.hash,
@@ -136,8 +137,8 @@ const Table: React.FC<TableProps> = ({
                                     })
                                 }}
                             /></th>:el.totalValue?
-                            <th ><ShowingSpan countingField={el.data} key={i} name={el.name} dataArray={formativeData}/></th>:
-                            <th key={i}>{el.name}</th>
+                            <th style={{minWidth:el.width,maxWidth:el.width}} ><ShowingSpan countingField={el.data} key={i} name={el.name} dataArray={formativeData}/></th>:
+                            <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>{el.name}</th>
                     )}
                 </tr>
                 </thead>

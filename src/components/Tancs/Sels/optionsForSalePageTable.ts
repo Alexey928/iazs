@@ -21,6 +21,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             totalValue:false,
             changeable:false,
             width:120,
+            widhClue:false,//!!!!
         },
         {
             name:"Организация",
@@ -40,7 +41,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             chooseFromRemaining:true,
             totalValue:false,
             changeable:true,
-            width:120,
+            width:200,
 
         },
         {
