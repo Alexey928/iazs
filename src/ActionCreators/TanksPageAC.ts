@@ -175,10 +175,11 @@ type setTankDescriptionActionType = {
     type:"SET-TANK-DESCRIPTION-SATE"
     payload:Array<TankDescriptionType>
 }
-type isFirstLoadingActionType = {
+ type isFirstLoadingActionType = {
     type:"SET-FLAG-OF-FIRST-LOAD"
     flag:boolean
 }
+
 //_______________ActionCreators_________________________________________
 
 export const setIsFirstLoading = (flag:boolean):isFirstLoadingActionType=>{

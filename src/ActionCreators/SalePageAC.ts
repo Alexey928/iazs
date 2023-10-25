@@ -4,6 +4,7 @@ import {FuelReleasePageApi} from "../API/dalAPI";
 const LIMIT = "10000"
 
 export const salePageInitialState:salePageInitialStateType = {
+    isFirstloading:false,
     filteredTransaction:[],
     transaction: [],
     drivers: [],
@@ -12,6 +13,7 @@ export const salePageInitialState:salePageInitialStateType = {
 
 export type filteredTransactionType = Array<{[key:string]:string|number|null}>
  export type salePageInitialStateType = {
+    isFirstloading:boolean
     transaction:Array<TransactionType>
     filteredTransaction:filteredTransactionType
     drivers:Array<DriverType>
@@ -66,12 +68,18 @@ type setFilteredTransactionActionType = {
     payload:Array<{[key:string]:string|number|null}>
 
 }
+type isFirstLoadingActionType = {
+    type:"SET-FLAG-OF-FIRST-LOAD/Sale/Page"
+    flag:boolean
+}
+
 //___________________________________________________________________________________
 
 export type salePageActionType = setTransactionActionType |
                                 setDriverActionType |
                                 setDriverHashActionType |
-                                setFilteredTransactionActionType
+                                setFilteredTransactionActionType|
+                                isFirstLoadingActionType
 
 //______________Action Creators_____________________________________________________
 
@@ -113,7 +121,9 @@ const setDriversActionAC = (drivers:Array<DriverType>):setDriverActionType=>{
 const setDriversHashAC  = (hash:driverHash):setDriverHashActionType=>{
     return{type:"SET-DRIVER-HASH",payload:hash}
 }
-
+export const setIsFirstLoading = (flag:boolean):isFirstLoadingActionType=>{
+    return {type:"SET-FLAG-OF-FIRST-LOAD/Sale/Page",flag}
+}
 //__________________________________________________________________________________
 //tsanck creators
 
@@ -127,11 +137,11 @@ export const setSalesPageData = (token:string, dateFrom:string):AppThunkType => 
             driverMap[`${d._id}`] = d;
         });
         driverMap["uknown"] = {_id:"PODONOK",_name:"PODONOK",_note:"PODONOK"};
-
         dispatch(setDriversHashAC(driverMap))
         dispatch(setTransactionActionAC(transaction));
         dispatch(setDriversActionAC(drivers));
-        dispatch(setFilteredTrasactionAC(transaction,[],[],"",false))
+        dispatch(setFilteredTrasactionAC(transaction,[],[],"",false));
+        dispatch(setIsFirstLoading(true))
     } catch (e) {
         console.log(e);
     } finally {

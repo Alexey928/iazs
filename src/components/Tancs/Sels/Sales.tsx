@@ -29,6 +29,7 @@ import * as XLSX from 'xlsx';
 import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createDate";
 import {createYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
 import RangeOfDateSelect from "../../UIcomponets/SelectOfData/rangeOfDate";
+import {useNavigate} from "react-router-dom";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [
@@ -64,11 +65,10 @@ const Sales = () => {
     const fuelListHash = useSelector<AppRootStateType,fuelListHashType>(state => state.tanksPage.fuelListHash);
     const autoListHash = useSelector<AppRootStateType,autoListHashtype>(state => state.tanksPage.autoHashList);
     const tanksHashList = useSelector<AppRootStateType,tankHashType>(state => state.tanksPage.tanksHash);
-    const organisationHash = useSelector<AppRootStateType,OrganisationHashType>(state => state.tanksPage.organisationHasah)
+    const organisationHash = useSelector<AppRootStateType,OrganisationHashType>(state => state.tanksPage.organisationHasah);
+    const flagForLodingStartData = useSelector<AppRootStateType,boolean>(state => state.salesPage.isFirstloading);
 
-
-
-
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     console.log("Selse");
     const creteExelFile = ()=>{
@@ -90,13 +90,10 @@ const Sales = () => {
         XLSX.writeFile(wb, 'table.xlsx');
     }
 
-
     const getDataFromHeader = (Data:HashCollectionType, interfase:callbackDataType)=>{
         const [filteredId, fieldOfFormickData,chooseFromRemaining] = tableCallback(Data,interfase)
-        console.log(filteredId);
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
-
     const setFilteredTrasactionFromAzsSelect = (value:string)=>{
         const [filteredId, fieldOfFormickData,chooseFromRemaining] = sellectColbac(stationHash,value,select_AZS_CalbackOptions);
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
@@ -106,14 +103,17 @@ const Sales = () => {
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
     const setTransactionOfTimeRange = (dateToo:string,dateFrom:string)=>{
-        console.log(dateToo,dateFrom)
         dispatch(setTransactionInTimeRange(auth.data._token?auth.data._token:"",dateFrom,dateToo));
-
     }
     const resetFilteredTransaction = ()=>{
         dispatch(setFilteredTrasactionAC(transaction,[],[],"",false))
     }
+
     useEffect(()=>{
+        if(!auth.isAuth) {
+            navigate("/");
+        }
+        !flagForLodingStartData &&
         dispatch(setSalesPageData(auth.data._token?auth.data._token:"","2020-01-1 02:00:20"));
     },[]);
 
