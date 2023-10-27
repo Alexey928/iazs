@@ -8,7 +8,9 @@ import {bindingHashInterface} from "./referensePageOptions";
 
 const Reference:React.FC = () => {
     const dispatch = useAppDispatch()
-    const organisationlist = useSelector<AppRootStateType,Array<OrganisationItemType>>(state => state.tanksPage.organisationList)
+    const organisationlist = useSelector<AppRootStateType,Array<OrganisationItemType>>(state => state.tanksPage.organisationList);
+
+
 
 return (
     <div className={style.content} >

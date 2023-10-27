@@ -5,7 +5,7 @@ import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
 import Table, {
     callbackDataType, createModelForExel,
     HashCollectionType,
-    tableCallback
+    tableCallbackForHashFiltering
 } from "../../UIcomponets/Tabels/SimpleTAble";
 import SelectComponent, {sellectColbac, sellectColbacSetingsType} from "../../UIcomponets/SelectComponent/Select";
 import {
@@ -30,6 +30,7 @@ import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/crea
 import {createYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
 import RangeOfDateSelect from "../../UIcomponets/SelectOfData/rangeOfDate";
 import {useNavigate} from "react-router-dom";
+import Swith from "../../UIcomponets/SimpleSwith/SimpleSwith";
 
 // select configuration_________________________________________________________
 const productSelectOptions = [
@@ -91,7 +92,7 @@ const Sales = () => {
     }
 
     const getDataFromHeader = (Data:HashCollectionType, interfase:callbackDataType)=>{
-        const [filteredId, fieldOfFormickData,chooseFromRemaining] = tableCallback(Data,interfase)
+        const [filteredId, fieldOfFormickData,chooseFromRemaining] = tableCallbackForHashFiltering(Data,interfase)
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
     const setFilteredTrasactionFromAzsSelect = (value:string)=>{
@@ -116,6 +117,11 @@ const Sales = () => {
         !flagForLodingStartData &&
         dispatch(setSalesPageData(auth.data._token?auth.data._token:"","2020-01-1 02:00:20"));
     },[]);
+    //experemental code tu native state  manegment
+    const swithFilteredLogic = ()=>{
+      const interfase = bindingInterface["headers"][3];
+
+    }
 
     return (
         <div className={style.content} >
@@ -129,7 +135,8 @@ const Sales = () => {
                     <RangeOfDateSelect resetFilter={resetFilteredTransaction} setRange={setTransactionOfTimeRange}/>
                     <SelectComponent options={productSelectOptions} name={"Продукт"} onSelect={setFilteredTransactionFromProductSelect}/>
                     <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
-                    <button onClick={creteExelFile} style={{zIndex:1,display:"block",position:"absolute",left:0,top:-30}}>XSLS</button>
+                    <Swith/>
+                    <button onClick={creteExelFile} style={{zIndex:1,position:"absolute",left:0,top:-30}}>XSLS</button>
                 </div>
             </div>
 

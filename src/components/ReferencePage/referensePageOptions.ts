@@ -1,4 +1,6 @@
-export const bindingHashInterface = {
+import {bindingHashInterfaceItemType} from "../UIcomponets/Tabels/SimpleTAble";
+
+export const bindingHashInterface:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
     {
         name:"Организация",// Header of column
@@ -9,6 +11,7 @@ export const bindingHashInterface = {
         totalValue:false,
         changeable:false,// if we don't have a hash, we can not change "tru/false - not worcked!!"- changable input is not working !!  in this area
         width:180,
+        filteringMode:"HASH"
     },
     {
         name:"ИНН",
@@ -19,6 +22,7 @@ export const bindingHashInterface = {
         totalValue:false,
         changeable:false,
         width:120,
+        filteringMode:"HASH"
     },
     {
         name:"Примечание",
@@ -29,6 +33,7 @@ export const bindingHashInterface = {
         totalValue:false,
         changeable:false,
         width:800,
+        filteringMode:"HASH"
     },
 
 ]}

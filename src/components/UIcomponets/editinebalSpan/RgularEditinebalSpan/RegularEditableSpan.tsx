@@ -1,8 +1,6 @@
 import React, {KeyboardEvent, ChangeEvent, useState, useEffect} from 'react';
 import style from "./editinebalSpan.module.css";
 import {configurateClue, useDebounce} from './hooc/useDebouns'
-import {log} from "util";
-
 
 type EditableSpanPropsType = {
     hasName?:string
@@ -61,6 +59,7 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
 
 
     const debouncedValue = useDebounce<string>(title, 500);
+
     const activateEditMode = () => {
         setEditMode(true);
     }

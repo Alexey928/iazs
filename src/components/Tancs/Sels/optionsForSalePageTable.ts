@@ -1,5 +1,6 @@
 import {bindingHashInterfaceItemType} from "../../UIcomponets/Tabels/SimpleTAble";
 
+
 export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>} = {
     headers:[
         {
@@ -9,8 +10,9 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             data:"_date",// we must point this field olvays.
             chooseFromRemaining:false,
             totalValue:false,
-            changeable:true,// if we don't have a hash, we can not change "tru/false - not worcked!!"- changable input is not working !!  in this area
+            changeable:false,// if we don't have a hash, we can not change "tru/false - not worcked!!"- changable input is not working !!  in this area
             width:120,
+            filteringMode:"HASH"
         },
         {
             name:"Путевой лист",
@@ -22,6 +24,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             changeable:false,
             width:120,
             widhClue:false,//!!!!
+            filteringMode:"HASH"
         },
         {
             name:"Организация",
@@ -32,6 +35,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             totalValue:false,
             changeable:true,
             width:120,
+            filteringMode:"HASH"
         },
         {
             name:"Водитель",
@@ -41,7 +45,8 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             chooseFromRemaining:true,
             totalValue:false,
             changeable:true,
-            width:200,
+            width:250,
+            filteringMode:"HASH"
 
         },
         {
@@ -53,16 +58,18 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             totalValue:false,
             changeable:true,
             width:120,
+            filteringMode:"HASH"
         },
         {
             name:"АЗС",
             hash:"stationHash",
             hashDataFieldName:"_name",
             data:"_azs_id",
-            chooseFromRemaining:false,
+            chooseFromRemaining:true,
             totalValue:false,
             changeable:false,
             width:120,
+            filteringMode:"HASH"
         },
         {
             name:"Продукт",
@@ -73,6 +80,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             totalValue:false,
             changeable:false,
             width:120,
+            filteringMode:"HASH"
         },
         {
             name:"Рез-ар",
@@ -83,6 +91,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             totalValue:false,
             changeable:true,
             width:120,
+            filteringMode:"HASH"
         },
         {
             name:"Обьем",
@@ -93,6 +102,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             totalValue:true,
             changeable:false,
             width:120,
+            filteringMode:"HASH"
         },
 
     ],

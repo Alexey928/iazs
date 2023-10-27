@@ -22,7 +22,7 @@ type TableRowProps = {
 export type HashCollectionType = {
     [key:string]:{[key:string]:{[key:string]:string|number|null}}// hash of hashes )
 }
- type formativeDataType =  Array<{[key:string]:string|number|null}>
+type formativeDataType =  Array<{[key:string]:string|number|null}>
 
 type TableProps = {
     callback:(Data:HashCollectionType, data:callbackDataType)=>void
@@ -40,13 +40,9 @@ export type bindingHashInterfaceItemType =  {
     totalValue:boolean
     width:number,
     widhClue?:boolean,
-    shortenString?:boolean,
+    shortenString?:boolean
+    filteringMode:"HASH"|"ARAY"
 }
-
-
-//for integration to another application we need tu change this types, too types of yor application !!
-
-//_____________________________________________________________________________________________________________
 
 const hashValidator = (hash:{[key: string]:HashCollectionType}):boolean =>{
     let trigger = true;
@@ -55,7 +51,6 @@ const hashValidator = (hash:{[key: string]:HashCollectionType}):boolean =>{
     }
     return trigger
 }
-
 
 const  shortenName = (fullName:string|null):string|null=>{
     const n = fullName ? fullName.split(" ").map((item,i)=>{
@@ -86,7 +81,23 @@ export const createModelForExel =  (formativeAray:formativeDataType,
     return exelModel;
 }
 
-export const  tableCallback = (Data:HashCollectionType, data:callbackDataType):[string[], string, boolean] => {
+export const tableCalbackForFormativeDataFiltering = (Data:{[key:string]:string|number|null}[],
+                                                     formativeDataField:string,
+                                                     filtewredValue:string
+                                                    )=>{
+        if(Data){
+            const filteredLinks:{[key:string]:string|number|null}[] = [];
+            Data.forEach((el)=>{
+              const temp =  el[formativeDataField]?el[formativeDataField]?.toString().toLocaleLowerCase().
+                            startsWith(filtewredValue):null;
+              temp && filteredLinks.push(el)
+            })
+            return filteredLinks
+        }
+        return []
+}
+
+export const  tableCallbackForHashFiltering = (Data:HashCollectionType, data:callbackDataType):[string[], string, boolean] => {
     if(data.hash) {
         const id:string[] = []
         const hash = Data[data.hash];
@@ -118,6 +129,7 @@ const Table: React.FC<TableProps> = ({
                 <tr style={{height:40}} >
                     {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
                         <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>
+
                             <RegularEditableSpan
                                 hasName={el.hashDataFieldName}
                                 widthClue={el.widhClue}//el.widthClue
@@ -137,7 +149,10 @@ const Table: React.FC<TableProps> = ({
                                     })
                                 }}
                             /></th>:el.totalValue?
-                            <th style={{minWidth:el.width,maxWidth:el.width}} ><ShowingSpan countingField={el.data} key={i} name={el.name} dataArray={formativeData}/></th>:
+                            <th style={{minWidth:el.width,maxWidth:el.width}}><ShowingSpan countingField={el.data}
+                                                                                            key={i} name={el.name}
+                                                                                            dataArray={formativeData}/>
+                            </th>:
                             <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>{el.name}</th>
                     )}
                 </tr>
