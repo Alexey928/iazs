@@ -26,12 +26,9 @@ import {
 import Preloader from "../../UIcomponets/generalPreloader/Preloader";
 import {bindingInterface} from "./optionsForSalePageTable";
 import * as XLSX from 'xlsx';
-import {createDate} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createDate";
-import {createYear} from "../../UIcomponets/SelectOfData/creatorsOfDateData/createYear";
 import RangeOfDateSelect from "../../UIcomponets/SelectOfData/rangeOfDate";
 import {useNavigate} from "react-router-dom";
 import Swith from "../../UIcomponets/SimpleSwith/SimpleSwith";
-
 // select configuration_________________________________________________________
 const productSelectOptions = [
     { value: 'Дт'},
@@ -135,8 +132,8 @@ const Sales = () => {
                     <RangeOfDateSelect resetFilter={resetFilteredTransaction} setRange={setTransactionOfTimeRange}/>
                     <SelectComponent options={productSelectOptions} name={"Продукт"} onSelect={setFilteredTransactionFromProductSelect}/>
                     <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
-                    <Swith/>
-                    <button onClick={creteExelFile} style={{zIndex:1,position:"absolute",left:0,top:-30}}>XSLS</button>
+                    <button onClick={creteExelFile} style={{display:"block",zIndex:1,position:"absolute",left:0,top:-30}}>XSLS</button>
+                    <Swith bindingIntarfasse={bindingInterface["headers"]}/>
                 </div>
             </div>
 
