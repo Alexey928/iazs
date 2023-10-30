@@ -1,7 +1,7 @@
 import React  from 'react';
 import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
-import {filteredTransactionType} from "../../../ActionCreators/SalePageAC";
+//import {filteredTransactionType} from "../../../ActionCreators/SalePageAC";
 import ShowingSpan from "./ShowingSpan";
 
 const NULL_WALUE = "Не задано"
@@ -25,8 +25,11 @@ export type HashCollectionType = {
 type formativeDataType =  Array<{[key:string]:string|number|null}>
 
 type TableProps = {
+    formativeCallback?:(Data:{[key:string]:string|number|null}[],
+                        formativeDataField:string,
+                        filtewredValue:string)=>void
     callback:(Data:HashCollectionType, data:callbackDataType)=>void
-    formativeData: filteredTransactionType;
+    formativeData: formativeDataType;
     hashForForigenKey: {[key: string]:{[key:string]:{[key:string]:string|number|null}}};
     bindingHashInterfase:{ [key:string]:Array<bindingHashInterfaceItemType>}
 };
@@ -83,13 +86,13 @@ export const createModelForExel =  (formativeAray:formativeDataType,
 
 export const tableCalbackForFormativeDataFiltering = (Data:{[key:string]:string|number|null}[],
                                                      formativeDataField:string,
-                                                     filtewredValue:string
+                                                     filteredValue:string
                                                     )=>{
         if(Data){
             const filteredLinks:{[key:string]:string|number|null}[] = [];
             Data.forEach((el)=>{
               const temp =  el[formativeDataField]?el[formativeDataField]?.toString().toLocaleLowerCase().
-                            startsWith(filtewredValue):null;
+                            startsWith(filteredValue):null;
               temp && filteredLinks.push(el)
             })
             return filteredLinks
@@ -119,9 +122,9 @@ const Table: React.FC<TableProps> = ({
                                      hashForForigenKey,
                                      formativeData,
                                      bindingHashInterfase,
-                                     callback
+                                     callback,
+                                     formativeCallback
                                      }) => {
-
     return (
         <div className={style.tableContayner}>
             <table className={style.table}>
@@ -129,7 +132,6 @@ const Table: React.FC<TableProps> = ({
                 <tr style={{height:40}} >
                     {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
                         <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>
-
                             <RegularEditableSpan
                                 hasName={el.hashDataFieldName}
                                 widthClue={el.widhClue}//el.widthClue
@@ -140,13 +142,16 @@ const Table: React.FC<TableProps> = ({
                                 title={el.name}
                                 type={"text"}
                                 handler={(value:string) => {
-                                    callback(hashForForigenKey,{
+                                    el.filteringMode==="HASH" && callback(hashForForigenKey,{
                                         value:value,
                                         hash:el.hash,
                                         fieldOfHash:el.hashDataFieldName,
                                         fieldOfFormickData:el.data,
                                         chooseFromRemaining:el.chooseFromRemaining
                                     })
+                                    el.filteringMode ==="ARAY"&&
+                                    formativeCallback &&
+                                    formativeCallback(formativeData,el.data,value)
                                 }}
                             /></th>:el.totalValue?
                             <th style={{minWidth:el.width,maxWidth:el.width}}><ShowingSpan countingField={el.data}

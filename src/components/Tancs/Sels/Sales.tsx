@@ -40,11 +40,10 @@ const azsSelectOptions = [
     { value: 'АЗС-1'},
     { value: 'АЗС-2'},
 ]
-
 const select_AZS_CalbackOptions:sellectColbacSetingsType = {
     fieldOfHash:"_name",
     fiedOfFormikcData:"_azs_id",
-    chooseFromRemaining:false,
+    chooseFromRemaining:true,
 }
 const selectProductCalbakOptions:sellectColbacSetingsType = {
     fieldOfHash:"_name",
@@ -52,7 +51,6 @@ const selectProductCalbakOptions:sellectColbacSetingsType = {
     chooseFromRemaining:true,
 }
 //_________________________________________________________________________________
-
 const Sales = () => {
     const auth = useSelector<AppRootStateType,UserAuthStateType>(state => state.userAuth);
     const transaction = useSelector<AppRootStateType,Array<TransactionType>>(state => state.salesPage.transaction);
@@ -134,6 +132,7 @@ const Sales = () => {
                     <SelectComponent options={azsSelectOptions} name={"По АЗС"} onSelect={setFilteredTrasactionFromAzsSelect}/>
                     <button onClick={creteExelFile} style={{display:"block",zIndex:1,position:"absolute",left:0,top:-30}}>XSLS</button>
                     <Swith bindingIntarfasse={bindingInterface["headers"]}/>
+
                 </div>
             </div>
 
