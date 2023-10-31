@@ -87,6 +87,7 @@ const Sales = () => {
     }
 
     const getDataFromHeader = (Data:HashCollectionType, interfase:callbackDataType)=>{
+        debugger
         const [filteredId, fieldOfFormickData,chooseFromRemaining] = tableCallbackForHashFiltering(Data,interfase)
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
@@ -151,6 +152,7 @@ const Sales = () => {
                                     tanksHashList: tanksHashList
                                 }}
                                 bindingHashInterfase = {bindingInterface}
+
 
                             />:
                             <Preloader/>

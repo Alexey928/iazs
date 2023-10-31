@@ -79,6 +79,7 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
         const textContent = e.currentTarget.textContent
         console.log(textContent);
         if(textContent){
+            debugger
             props.handler && title && props.handler(textContent.toLowerCase());
             setTitle("")
         }
@@ -105,8 +106,8 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     },[clueChekTriger]);
 
     useEffect(() => {
-       !props.formative && setClue(configureClue(title,props.hasName??"",props.hash??{},clue));
-        props.formative && setClue(configureClueFormative(props.formative,"",title))
+       !props.formative && setClue(configureClue(title,props.hasName ?? "",props.hash??{}));
+        props.formative && setClue(configureClueFormative(props.formative,props.formativeField ?? "",title));
         console.log("debouns");
     }, [debouncedValue]);
 
@@ -125,10 +126,9 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
 
     return editMode ?
         <div style={{position:"relative"}}>
-            {clue.length!==0 && <ul className={style.clue}>{clue.map(e => <li onClick={onClueItemClickHandler}
+            {clue.length!==0 && <ul className={style.clue} > {clue.map(e => <li onClick={onClueItemClickHandler}
                                                                               className={style.clueItem}
-                                                                              key={e}>{e}
-                                                                         </li>)}
+                                                                              key={e} >{e}</li>)}
                                 </ul>}
             <input className={style.input}
                    style={langError&&!isTitle?{color:"red",boxShadow: "0 0 10px rgb(253, 240, 1)"}:{}}

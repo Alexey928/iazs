@@ -30,6 +30,7 @@ type TableProps = {
                         filtewredValue:string)=>void
     callback:(Data:HashCollectionType, data:callbackDataType)=>void
     formativeData: formativeDataType;
+    baseFormativeData?:formativeDataType
     hashForForigenKey: {[key: string]:{[key:string]:{[key:string]:string|number|null}}};
     bindingHashInterfase:{ [key:string]:Array<bindingHashInterfaceItemType>}
 };
@@ -121,10 +122,13 @@ export const  tableCallbackForHashFiltering = (Data:HashCollectionType, data:cal
 const Table: React.FC<TableProps> = ({
                                      hashForForigenKey,
                                      formativeData,
+                                     baseFormativeData,
                                      bindingHashInterfase,
                                      callback,
-                                     formativeCallback
+                                     formativeCallback,
+
                                      }) => {
+    console.log(formativeData);
     return (
         <div className={style.tableContayner}>
             <table className={style.table}>
@@ -133,7 +137,8 @@ const Table: React.FC<TableProps> = ({
                     {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
                         <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>
                             <RegularEditableSpan
-                                formative={formativeData}
+                                formativeField={el.data}
+                                formative={baseFormativeData}
                                 hasName={el.hashDataFieldName}
                                 widthClue={el.widhClue}//el.widthClue
                                 hash={hashForForigenKey[el.hash]}
@@ -143,6 +148,7 @@ const Table: React.FC<TableProps> = ({
                                 title={el.name}
                                 type={"text"}
                                 handler={(value:string) => {
+                                    debugger
                                     el.filteringMode==="HASH" && callback(hashForForigenKey,{
                                         value:value,
                                         hash:el.hash,
