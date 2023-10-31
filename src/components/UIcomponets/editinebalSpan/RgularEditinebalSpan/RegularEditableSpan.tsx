@@ -1,11 +1,13 @@
 import React, {KeyboardEvent, ChangeEvent, useState, useEffect} from 'react';
 import style from "./editinebalSpan.module.css";
-import {configurateClue, useDebounce} from './hooc/useDebouns'
+import {configureClue, configureClueFormative, useDebounce} from './hooc/useDebouns'
 
 type EditableSpanPropsType = {
+    formativeField?:string
+    formative?:Array<{[key:string]:string|number|null}>
     hasName?:string
-    widthClue?:boolean
     hash?:{[p: string]: {[p: string]: string | number | null}}
+    widthClue?:boolean
     mutable:boolean
     title: string
     type:"password"|"text"
@@ -75,7 +77,7 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     }
     const onClueItemClickHandler = (e: React.MouseEvent<HTMLLIElement>)=>{
         const textContent = e.currentTarget.textContent
-        console.log(textContent)
+        console.log(textContent);
         if(textContent){
             props.handler && title && props.handler(textContent.toLowerCase());
             setTitle("")
@@ -103,7 +105,8 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     },[clueChekTriger]);
 
     useEffect(() => {
-        setClue(configurateClue(title,props.hasName??"",props.hash??{},clue))
+       !props.formative && setClue(configureClue(title,props.hasName??"",props.hash??{},clue));
+        props.formative && setClue(configureClueFormative(props.formative,"",title))
         console.log("debouns");
     }, [debouncedValue]);
 

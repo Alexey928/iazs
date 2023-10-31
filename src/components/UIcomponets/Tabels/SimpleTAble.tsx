@@ -133,6 +133,7 @@ const Table: React.FC<TableProps> = ({
                     {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
                         <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>
                             <RegularEditableSpan
+                                formative={formativeData}
                                 hasName={el.hashDataFieldName}
                                 widthClue={el.widhClue}//el.widthClue
                                 hash={hashForForigenKey[el.hash]}
