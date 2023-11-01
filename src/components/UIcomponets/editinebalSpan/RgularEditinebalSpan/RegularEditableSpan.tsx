@@ -7,6 +7,7 @@ type EditableSpanPropsType = {
     formative?:Array<{[key:string]:string|number|null}>
     hasName?:string
     hash?:{[p: string]: {[p: string]: string | number | null}}
+    clueFilteredParam?:"HASH"|"ARAY"
     widthClue?:boolean
     mutable:boolean
     title: string
@@ -79,7 +80,7 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
         const textContent = e.currentTarget.textContent
         console.log(textContent);
         if(textContent){
-            debugger
+
             props.handler && title && props.handler(textContent.toLowerCase());
             setTitle("")
         }
@@ -106,10 +107,12 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     },[clueChekTriger]);
 
     useEffect(() => {
-       !props.formative && setClue(configureClue(title,props.hasName ?? "",props.hash??{}));
-        props.formative && setClue(configureClueFormative(props.formative,props.formativeField ?? "",title));
-        console.log("debouns");
-    }, [debouncedValue]);
+       if(props.clueFilteredParam==="HASH"|| props.clueFilteredParam===undefined)
+       {setClue(configureClue(title,props.hasName ?? "",props.hash??{}));}
+       props.clueFilteredParam ==="ARAY" &&
+       setClue(configureClueFormative(props.formative ?? [],props.formativeField ?? "",title));
+       console.log("debouns");
+       }, [debouncedValue]);
 
     useEffect(()=>{
         let timeaut: NodeJS.Timeout;
@@ -120,15 +123,14 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
             },2000)
             timeaut = t
         }
-        return ()=>{clearTimeout(timeaut);
-                 console.log("clerFunc")}
+        return ()=>{clearTimeout(timeaut)};
     },[editMode,langError])
 
     return editMode ?
         <div style={{position:"relative"}}>
             {clue.length!==0 && <ul className={style.clue} > {clue.map(e => <li onClick={onClueItemClickHandler}
-                                                                              className={style.clueItem}
-                                                                              key={e} >{e}</li>)}
+                                                                                className={style.clueItem}
+                                                                                key={e}>{e}</li>)}
                                 </ul>}
             <input className={style.input}
                    style={langError&&!isTitle?{color:"red",boxShadow: "0 0 10px rgb(253, 240, 1)"}:{}}

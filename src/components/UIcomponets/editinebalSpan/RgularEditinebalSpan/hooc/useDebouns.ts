@@ -32,7 +32,6 @@ export const  configureClue = (curentValue:string,
                                filteredPool:{[p: string]:{[p: string]: string | number |null}},
 
                                 ):string[]  => {
-
     let temp:string[] = [];
     if(curentValue){
         for(let key in filteredPool){

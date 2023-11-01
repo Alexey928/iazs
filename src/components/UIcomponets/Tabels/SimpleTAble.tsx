@@ -1,13 +1,12 @@
 import React  from 'react';
 import style from "./Tables.module.css"
 import {RegularEditableSpan} from "../editinebalSpan/RgularEditinebalSpan/RegularEditableSpan";
-//import {filteredTransactionType} from "../../../ActionCreators/SalePageAC";
 import ShowingSpan from "./ShowingSpan";
 
 const NULL_WALUE = "Не задано"
 
 export type callbackDataType = {
-    fieldOfFormickData:string
+    fieldOfFormativeData:string
     fieldOfHash:string
     value:string
     hash:string
@@ -16,8 +15,8 @@ export type callbackDataType = {
 
 type TableRowProps = {
     rowData: {[p: string]: string | number | null}
-    hashForForigenKey:{[key: string]:any}
-    bindingHashInterfase:{[key:string]:Array<bindingHashInterfaceItemType>}
+    hashForForeignKey:{[key: string]:any}
+    bindingHashInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
 }
 export type HashCollectionType = {
     [key:string]:{[key:string]:{[key:string]:string|number|null}}// hash of hashes )
@@ -27,7 +26,8 @@ type formativeDataType =  Array<{[key:string]:string|number|null}>
 type TableProps = {
     formativeCallback?:(Data:{[key:string]:string|number|null}[],
                         formativeDataField:string,
-                        filtewredValue:string)=>void
+                        filteredValue:string,
+                        flag:boolean)=>void
     callback:(Data:HashCollectionType, data:callbackDataType)=>void
     formativeData: formativeDataType;
     baseFormativeData?:formativeDataType
@@ -78,7 +78,7 @@ export const createModelForExel =  (formativeAray:formativeDataType,
                                     bindingHashInterfase:Array<bindingHashInterfaceItemType>):string[][] => {
     const exelModel:Array<Array<string>> = [];
     exelModel.push(bindingHashInterfase.map((el) => el.name));
-    formativeAray.forEach((el,i)=>{
+    formativeAray.forEach((el)=>{
         exelModel.push(createRowExelModel(bindingHashInterfase,hashForForigenKey,el));
     });
 
@@ -86,19 +86,21 @@ export const createModelForExel =  (formativeAray:formativeDataType,
 }
 
 export const tableCalbackForFormativeDataFiltering = (Data:{[key:string]:string|number|null}[],
-                                                     formativeDataField:string,
-                                                     filteredValue:string
+                                                       formativeDataField:string,
+                                                       filteredValue:string,
+                                                       flag:boolean,
                                                     )=>{
         if(Data){
             const filteredLinks:{[key:string]:string|number|null}[] = [];
             Data.forEach((el)=>{
               const temp =  el[formativeDataField]?el[formativeDataField]?.toString().toLocaleLowerCase().
-                            startsWith(filteredValue):null;
+                            startsWith(filteredValue):null ;
               temp && filteredLinks.push(el)
             })
-            return filteredLinks
+            return [filteredLinks, flag];
         }
-        return []
+        return [[],flag];
+
 }
 
 export const  tableCallbackForHashFiltering = (Data:HashCollectionType, data:callbackDataType):[string[], string, boolean] => {
@@ -113,9 +115,9 @@ export const  tableCallbackForHashFiltering = (Data:HashCollectionType, data:cal
                 if(flag) id.push(el);
             }
         }
-        return [id, data.fieldOfFormickData,data.chooseFromRemaining];
+        return [id, data.fieldOfFormativeData,data.chooseFromRemaining];
     }
-    return [[],data.fieldOfFormickData,data.chooseFromRemaining];
+    return [[],data.fieldOfFormativeData,data.chooseFromRemaining];
 }
 
 
@@ -137,8 +139,9 @@ const Table: React.FC<TableProps> = ({
                     {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
                         <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>
                             <RegularEditableSpan
+                                clueFilteredParam={el.filteringMode}
                                 formativeField={el.data}
-                                formative={baseFormativeData}
+                                formative={baseFormativeData ?? undefined}
                                 hasName={el.hashDataFieldName}
                                 widthClue={el.widhClue}//el.widthClue
                                 hash={hashForForigenKey[el.hash]}
@@ -148,17 +151,17 @@ const Table: React.FC<TableProps> = ({
                                 title={el.name}
                                 type={"text"}
                                 handler={(value:string) => {
-                                    debugger
+
                                     el.filteringMode==="HASH" && callback(hashForForigenKey,{
                                         value:value,
                                         hash:el.hash,
                                         fieldOfHash:el.hashDataFieldName,
-                                        fieldOfFormickData:el.data,
+                                        fieldOfFormativeData:el.data,
                                         chooseFromRemaining:el.chooseFromRemaining
                                     })
                                     el.filteringMode ==="ARAY"&&
                                     formativeCallback &&
-                                    formativeCallback(formativeData,el.data,value)
+                                    formativeCallback(formativeData,el.data,value,el.chooseFromRemaining)
                                 }}
                             /></th>:el.totalValue?
                             <th style={{minWidth:el.width,maxWidth:el.width}}><ShowingSpan countingField={el.data}
@@ -173,8 +176,8 @@ const Table: React.FC<TableProps> = ({
                 {formativeData.map((rowData, index) => (
                     <TableRow key={index}
                               rowData={rowData}
-                              hashForForigenKey={hashForForigenKey}
-                              bindingHashInterfase={bindingHashInterfase}
+                              hashForForeignKey={hashForForigenKey}
+                              bindingHashInterface={bindingHashInterfase}
                     />
                 ))}
                 </tbody>
@@ -185,12 +188,12 @@ const Table: React.FC<TableProps> = ({
 };
 
 const TableRow: React.FC<TableRowProps> = ({   rowData,
-                                               hashForForigenKey,
-                                               bindingHashInterfase })    => {
+                                               hashForForeignKey,
+                                               bindingHashInterface })    => {
     return (
         <tr className={style.row} tabIndex={0}>
-            {bindingHashInterfase["headers"].map((el,i)=>{
-                const currentHash =  el.hash?hashForForigenKey[el.hash]:null;
+            {bindingHashInterface["headers"].map((el, i)=>{
+                const currentHash =  el.hash?hashForForeignKey[el.hash]:null;
                 const curentHashField = el.hash?currentHash[`${rowData[el.data]}`]:null
                 const curent = el.hash && curentHashField?curentHashField[el.hashDataFieldName]:null
                 return (

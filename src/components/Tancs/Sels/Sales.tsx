@@ -4,7 +4,7 @@ import style from "../Tanks.module.css";
 import {setIsMenuActiveAC} from "../../../ActionCreators/navigationMenuAC";
 import Table, {
     callbackDataType, createModelForExel,
-    HashCollectionType,
+    HashCollectionType, tableCalbackForFormativeDataFiltering,
     tableCallbackForHashFiltering
 } from "../../UIcomponets/Tabels/SimpleTAble";
 import SelectComponent, {sellectColbac, sellectColbacSetingsType} from "../../UIcomponets/SelectComponent/Select";
@@ -62,7 +62,7 @@ const Sales = () => {
     const autoListHash = useSelector<AppRootStateType,autoListHashtype>(state => state.tanksPage.autoHashList);
     const tanksHashList = useSelector<AppRootStateType,tankHashType>(state => state.tanksPage.tanksHash);
     const organisationHash = useSelector<AppRootStateType,OrganisationHashType>(state => state.tanksPage.organisationHasah);
-    const flagForLodingStartData = useSelector<AppRootStateType,boolean>(state => state.salesPage.isFirstloading);
+    const flagForLoadingStartData = useSelector<AppRootStateType,boolean>(state => state.salesPage.isFirstloading);
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -87,10 +87,17 @@ const Sales = () => {
     }
 
     const getDataFromHeader = (Data:HashCollectionType, interfase:callbackDataType)=>{
-        debugger
         const [filteredId, fieldOfFormickData,chooseFromRemaining] = tableCallbackForHashFiltering(Data,interfase)
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
     }
+    const getDataFromHeaderUsArrayMode = (Data:{[key:string]:string|number|null}[],
+                                          formativeDataField:string,
+                                          filteredValue:string,
+                                          flag:boolean)=>{
+        const [filteredLinkcs, filteringDerectionFlag] = tableCalbackForFormativeDataFiltering(Data,formativeDataField, filteredValue,flag);
+
+    }
+
     const setFilteredTrasactionFromAzsSelect = (value:string)=>{
         const [filteredId, fieldOfFormickData,chooseFromRemaining] = sellectColbac(stationHash,value,select_AZS_CalbackOptions);
         dispatch(setFilteredTrasactionAC(transaction,filteredTransaction,filteredId,fieldOfFormickData,chooseFromRemaining));
@@ -110,14 +117,10 @@ const Sales = () => {
         if(!auth.isAuth) {
             navigate("/");
         }
-        !flagForLodingStartData &&
+        !flagForLoadingStartData &&
         dispatch(setSalesPageData(auth.data._token?auth.data._token:"","2020-01-1 02:00:20"));
     },[]);
     //experemental code tu native state  manegment
-    const swithFilteredLogic = ()=>{
-      const interfase = bindingInterface["headers"][3];
-
-    }
 
     return (
         <div className={style.content} >
@@ -161,5 +164,4 @@ const Sales = () => {
         </div>
     );
 };
-
 export default Sales;
