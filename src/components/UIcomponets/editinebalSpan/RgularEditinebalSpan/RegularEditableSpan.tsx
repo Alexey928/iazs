@@ -107,8 +107,8 @@ export function RegularEditableSpan(props:EditableSpanPropsType){
     },[clueChekTriger]);
 
     useEffect(() => {
-       if(props.clueFilteredParam==="HASH"|| props.clueFilteredParam===undefined)
-       {setClue(configureClue(title,props.hasName ?? "",props.hash??{}));}
+       if(props.clueFilteredParam==="HASH")
+       {setClue(configureClue(title,props.hasName ?? "",props.hash ?? {}));}
        props.clueFilteredParam ==="ARAY" &&
        setClue(configureClueFormative(props.formative ?? [],props.formativeField ?? "",title));
        console.log("debouns");

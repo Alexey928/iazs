@@ -12,7 +12,7 @@ export const bindingInterface:{[key:string]:Array<bindingHashInterfaceItemType>}
             totalValue:false,
             changeable:false,// if we don't have a hash, we can not change "tru/false - not worcked!!"- changable input is not working !!  in this area
             width:120,
-            filteringMode:"HASH"
+            filteringMode:"HASH",
         },
         {
             name:"Путевой лист",

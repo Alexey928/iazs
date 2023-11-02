@@ -82,8 +82,11 @@ export type salePageActionType = setTransactionActionType |
                                 isFirstLoadingActionType
 
 //______________Action Creators_____________________________________________________
-export const setFilteredTransactionUsedFilteredMode = ()=>{
-
+export const setFilteredTransactionUsedFilteredMode = (transaction:Array<{[key:string]:string|number|null}>,
+                                                       filteredTransaction:Array<{[key:string]:string|number|null}>,
+                                                       filteredLinks:Array<{[key:string]:string|number|null}>,
+                                                       )=>{
+   return {type:"SET-FILTERED-TRANSACTION",payload:[...filteredLinks]}
 }
 
 export const setFilteredTrasactionAC = (transaction:Array<{[key:string]:string|number|null}>,

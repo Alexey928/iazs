@@ -89,7 +89,7 @@ export const tableCalbackForFormativeDataFiltering = (Data:{[key:string]:string|
                                                        formativeDataField:string,
                                                        filteredValue:string,
                                                        flag:boolean,
-                                                    )=>{
+                                                       ):[{[key:string]:string|number|null}[], boolean]=>{
         if(Data){
             const filteredLinks:{[key:string]:string|number|null}[] = [];
             Data.forEach((el)=>{
@@ -100,7 +100,6 @@ export const tableCalbackForFormativeDataFiltering = (Data:{[key:string]:string|
             return [filteredLinks, flag];
         }
         return [[],flag];
-
 }
 
 export const  tableCallbackForHashFiltering = (Data:HashCollectionType, data:callbackDataType):[string[], string, boolean] => {
@@ -129,6 +128,7 @@ const Table: React.FC<TableProps> = ({
                                      callback,
                                      formativeCallback,
 
+
                                      }) => {
     console.log(formativeData);
     return (
@@ -141,7 +141,7 @@ const Table: React.FC<TableProps> = ({
                             <RegularEditableSpan
                                 clueFilteredParam={el.filteringMode}
                                 formativeField={el.data}
-                                formative={baseFormativeData ?? undefined}
+                                formative={el.chooseFromRemaining ? formativeData:baseFormativeData ?? formativeData}
                                 hasName={el.hashDataFieldName}
                                 widthClue={el.widhClue}//el.widthClue
                                 hash={hashForForigenKey[el.hash]}
@@ -161,7 +161,11 @@ const Table: React.FC<TableProps> = ({
                                     })
                                     el.filteringMode ==="ARAY"&&
                                     formativeCallback &&
-                                    formativeCallback(formativeData,el.data,value,el.chooseFromRemaining)
+                                    formativeCallback(baseFormativeData ? baseFormativeData :
+                                                            formativeData,
+                                                            el.data,
+                                                            value,
+                                                            el.chooseFromRemaining);
                                 }}
                             /></th>:el.totalValue?
                             <th style={{minWidth:el.width,maxWidth:el.width}}><ShowingSpan countingField={el.data}
