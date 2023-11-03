@@ -145,6 +145,7 @@ const Sales = () => {
                         !auth.isLading ?
                             <Table
                                 callback={getDataFromHeader}
+                                formativeCallback={getDataFromHeaderUsArrayMode}
                                 formativeData={filteredTransaction}
                                 hashForForigenKey={{
                                     organisationHash:organisationHash,
@@ -155,8 +156,6 @@ const Sales = () => {
                                     tanksHashList: tanksHashList
                                 }}
                                 bindingHashInterfase = {bindingInterface}
-
-
                             />:
                             <Preloader/>
                     }

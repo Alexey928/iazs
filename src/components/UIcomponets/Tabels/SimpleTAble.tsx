@@ -130,7 +130,7 @@ const Table: React.FC<TableProps> = ({
 
 
                                      }) => {
-    console.log(formativeData);
+
     return (
         <div className={style.tableContayner}>
             <table className={style.table}>
@@ -141,7 +141,7 @@ const Table: React.FC<TableProps> = ({
                             <RegularEditableSpan
                                 clueFilteredParam={el.filteringMode}
                                 formativeField={el.data}
-                                formative={el.chooseFromRemaining ? formativeData:baseFormativeData ?? formativeData}
+                                formative={el.chooseFromRemaining ? formativeData: baseFormativeData ?? formativeData}
                                 hasName={el.hashDataFieldName}
                                 widthClue={el.widhClue}//el.widthClue
                                 hash={hashForForigenKey[el.hash]}
@@ -168,9 +168,10 @@ const Table: React.FC<TableProps> = ({
                                                             el.chooseFromRemaining);
                                 }}
                             /></th>:el.totalValue?
-                            <th style={{minWidth:el.width,maxWidth:el.width}}><ShowingSpan countingField={el.data}
-                                                                                            key={i} name={el.name}
-                                                                                            dataArray={formativeData}/>
+                            <th style={{minWidth:el.width,maxWidth:el.width}}>
+                                <ShowingSpan countingField={el.data}
+                                              key={i} name={el.name}
+                                              dataArray={formativeData}/>
                             </th>:
                             <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>{el.name}</th>
                     )}
