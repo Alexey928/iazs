@@ -89,7 +89,7 @@ export const tableCalbackForFormativeDataFiltering = (Data:{[key:string]:string|
                                                        formativeDataField:string,
                                                        filteredValue:string,
                                                        flag:boolean,
-                                                       ):[{[key:string]:string|number|null}[], boolean]=>{
+                                                       ):[{[key:string]:string|number|null}[],boolean]=>{
         if(Data){
             const filteredLinks:{[key:string]:string|number|null}[] = [];
             Data.forEach((el)=>{

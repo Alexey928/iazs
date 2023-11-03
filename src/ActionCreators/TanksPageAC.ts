@@ -1,10 +1,8 @@
-
-//_____________initial Data _________________________________________________________
-
-
 import {AppThunkType} from "../State/reduxStore";
 import {setIsRequestProcessingStatusAC} from "./authUserAC";
 import {TanksPageAPI} from "../API/dalAPI";
+
+//_____________initial Data _________________________________________________________
 
 const initDate:Date = new Date()
 const LIMIT = "15000"
@@ -18,6 +16,7 @@ export const initialTankPageState:TanksPageStateType = {
     stationHash:{},
     organisationHasah:{},
     organisationList:[],
+    filteredOrganisationList:[],
     fuelList:[],
     fuelListHash:{},
     tanksDescriptions:{},
@@ -97,6 +96,7 @@ export type TanksPageStateType = {
     fuelList:fuelListType
     fuelListHash:{[key:string]:fuelListItemType}
     organisationList:OrganisationListType
+    filteredOrganisationList:{[key:string]:string|number|null}[];
     organisationHasah:OrganisationHashType
     startDate:string
     endDate:string
@@ -154,7 +154,10 @@ type setOrganisationActionType = {
     type:"SET-ORGANISATION-LIST"
     payload:OrganisationListType
 }
-
+type setFilteredOrganisationActionType = {
+    type:"SET-FILTERED-ORGANISATION-LIST"
+    payload:{[key:string]:string|number|null}[]
+}
 type setTanksDescriptionsActionType = {
     type:"SET-TANK-DESCRIPTIONS-STATE",
     payload:TanksDescriptionsTypes,
@@ -163,18 +166,11 @@ type setStartDateActionType = {
     type:"SET-START-DATE"
     date:string
 }
-type setEndDateActionType = {
-    type:"SET-END-DATE"
-    date:string
-}
 type setFuelListActionType = {
     type:"SET-FUEL-LIST",
     fuelList:fuelListType
 }
-type setTankDescriptionActionType = {
-    type:"SET-TANK-DESCRIPTION-SATE"
-    payload:Array<TankDescriptionType>
-}
+
  type isFirstLoadingActionType = {
     type:"SET-FLAG-OF-FIRST-LOAD"
     flag:boolean
@@ -191,6 +187,9 @@ export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
 export const setOrganisationAC = (organisations:OrganisationListType):setOrganisationActionType=>{
     return {type:"SET-ORGANISATION-LIST",payload:organisations}
 }
+export const setFilteredOrganisationAC = (organisations:{[key:string]:string|number|null}[]):setFilteredOrganisationActionType=>{
+    return {type:"SET-FILTERED-ORGANISATION-LIST",payload:organisations}
+}
 export const setDescriptionsForTanksAC = (tanksDescription:TanksDescriptionsTypes):setTanksDescriptionsActionType=>{
     return {type:"SET-TANK-DESCRIPTIONS-STATE",payload:tanksDescription}
 }
@@ -206,21 +205,18 @@ export const setStationHashAC = (station:{[key:string]:StationType}):setHashStat
 export const setFuelListHashAC = (fuilhash:{[key:string]:fuelListItemType}):setHashFuelListType=>{
     return {type:"SET-HASH-FOR-FUEL-LIST",payload:fuilhash}
 }
-const setAutoListHash = (autoHash:{[key:string]:AutoListType}):setAutoListHash=>{
+const setHashOfAutoAC = (autoHash:{[key:string]:AutoListType}):setAutoListHash=>{
     return {type:"SET-HASH-FOR-AUTO-LIST",payload:autoHash}
 }
 const setHashOfTanksAC = (tanksHash:{[key:string]:TankType}):setHashTanksActionType=>{
     return {type:"SET-HASH-FOR-TANKS",payload:tanksHash}
 }
-export const setDescriptionForTank = (description:Array<TankDescriptionType>):setTankDescriptionActionType=>{
-    return {type:"SET-TANK-DESCRIPTION-SATE",payload:description}
-}
-export const setStartDate = (date:string):setStartDateActionType=>{
-    return {type:"SET-START-DATE",date}
-}
 export const setFuelList =(fuelList:fuelListType):setFuelListActionType=>{
     return{type:"SET-FUEL-LIST",fuelList}
 }
+
+
+
 
 export type tanksPageActionsType =  setTanksActionType|
                                     setTanksDescriptionsActionType|
@@ -233,7 +229,8 @@ export type tanksPageActionsType =  setTanksActionType|
                                     setAutoListHash|
                                     setOrganisationHashType|
                                     setOrganisationActionType|
-                                    isFirstLoadingActionType
+                                    isFirstLoadingActionType|
+                                    setFilteredOrganisationActionType
 
 // ____________________Thanks as Redux Thunks Concept_________________________________________
 
@@ -272,9 +269,10 @@ export const setTankPageData  = (_token:string, dateFrom:string, dateToo:string)
             dispatch(setFuelList(fuelList));
             dispatch(setFuelListHashAC(fuelListHash));
             dispatch(setHashOfTanksAC(tanksHash))
-            dispatch(setAutoListHash(autoListHash));
+            dispatch(setHashOfAutoAC(autoListHash));
             dispatch(setOrganisationHashAC(organisationHash));
             dispatch(setOrganisationAC(organisationList));
+            dispatch(setFilteredOrganisationAC(organisationList))
             dispatch(setIsFirstLoading(true));
         }catch (e){
             console.log(e);
@@ -284,7 +282,6 @@ export const setTankPageData  = (_token:string, dateFrom:string, dateToo:string)
 
     }
 }
-
 export const setTanksStateOfTimeRangeThunc = (_token:string, dateToo:string,dateFrom:string ):AppThunkType => {// очередность реквизитов заменена так как ее, так формирует компонент даты, это  требует рефакторинга !!!
     return  async (dispatch)=>{
         dispatch(setIsRequestProcessingStatusAC(true));

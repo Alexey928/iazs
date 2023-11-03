@@ -90,6 +90,12 @@ export const TanksPageAPI = {
         return axios.
         get<OrganisationListType>(corsProxyUrl+encodeURIComponent(`${baseUrl}organization_list&_token=${_token}`)).
         then(res=>res.data)
+    },
+    getDriversList:( _token: string, limit:string)=> {
+        return axios.
+        get<Array<DriverType>>(corsProxyUrl +
+            encodeURIComponent(`${baseUrl}driver_list&_token=${_token}&_limit=${limit}`)).
+        then((res)=> res.data);
     }
 }
 
