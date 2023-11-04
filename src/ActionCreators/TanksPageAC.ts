@@ -187,8 +187,8 @@ export const setTanksAC = (tanks:Array<TankType>):setTanksActionType=>{
 export const setOrganisationAC = (organisations:OrganisationListType):setOrganisationActionType=>{
     return {type:"SET-ORGANISATION-LIST",payload:organisations}
 }
-export const setFilteredOrganisationAC = (organisations:{[key:string]:string|number|null}[]):setFilteredOrganisationActionType=>{
-    return {type:"SET-FILTERED-ORGANISATION-LIST",payload:organisations}
+export const setFilteredOrganisationAC = (filteredOrganisations:{[key:string]:string|number|null}[]):setFilteredOrganisationActionType=>{
+    return {type:"SET-FILTERED-ORGANISATION-LIST",payload:filteredOrganisations}
 }
 export const setDescriptionsForTanksAC = (tanksDescription:TanksDescriptionsTypes):setTanksDescriptionsActionType=>{
     return {type:"SET-TANK-DESCRIPTIONS-STATE",payload:tanksDescription}
@@ -214,9 +214,6 @@ const setHashOfTanksAC = (tanksHash:{[key:string]:TankType}):setHashTanksActionT
 export const setFuelList =(fuelList:fuelListType):setFuelListActionType=>{
     return{type:"SET-FUEL-LIST",fuelList}
 }
-
-
-
 
 export type tanksPageActionsType =  setTanksActionType|
                                     setTanksDescriptionsActionType|

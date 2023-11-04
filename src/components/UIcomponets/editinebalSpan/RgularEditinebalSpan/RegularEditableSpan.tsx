@@ -1,12 +1,12 @@
 import React, {KeyboardEvent, ChangeEvent, useState, useEffect} from 'react';
 import style from "./editinebalSpan.module.css";
-import {configureClue, configureClueFormative, useDebounce} from './hooc/useDebouns'
+import {configureClue, configureClueFormative, useDebounce} from './hook/useDebouns'
 
 type EditableSpanPropsType = {
     formativeField?:string
     formative?:Array<{[key:string]:string|number|null}>
     hasName?:string
-    hash?:{[p: string]: {[p: string]: string | number | null}}
+    hash?:{[p: string]:{[p: string]: string | number | null}}
     clueFilteredParam?:"HASH"|"ARAY"
     widthClue?:boolean
     mutable:boolean

@@ -139,11 +139,11 @@ const Sales = () => {
 
                 </div>
             </div>
-
                 <div className={style.contentWrapper}>
                     {
                         !auth.isLading ?
                             <Table
+                                marginTop={65}
                                 callback={getDataFromHeader}
                                 formativeCallback={getDataFromHeaderUsArrayMode}
                                 formativeData={filteredTransaction}

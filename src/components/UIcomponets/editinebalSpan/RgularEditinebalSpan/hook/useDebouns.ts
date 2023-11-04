@@ -16,11 +16,12 @@ export const configureClueFormative = (formativeData:Array<{[key:string]:string|
                                        field:string,
                                        value:string)=>{
     console.log("formative -->",formativeData,field,value);
+
     const temp:Array<string> = []
     if(value){
-        formativeData && formativeData.forEach((item,i)=>{
+        formativeData && formativeData.forEach((item)=>{
             const currentValue = item[field]  ?? "";
-            if(currentValue.toString().startsWith(value)) temp.push(currentValue.toString())
+            if(currentValue.toString().toLowerCase().startsWith(value.toLowerCase())) temp.push(currentValue.toString())
         })
     }
     console.log(temp);

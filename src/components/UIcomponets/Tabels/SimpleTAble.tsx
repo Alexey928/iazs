@@ -24,6 +24,7 @@ export type HashCollectionType = {
 type formativeDataType =  Array<{[key:string]:string|number|null}>
 
 type TableProps = {
+    marginTop?:number
     formativeCallback?:(Data:{[key:string]:string|number|null}[],
                         formativeDataField:string,
                         filteredValue:string,
@@ -46,22 +47,6 @@ export type bindingHashInterfaceItemType =  {
     widhClue?:boolean,
     shortenString?:boolean
     filteringMode:"HASH"|"ARAY"
-}
-
-const hashValidator = (hash:{[key: string]:HashCollectionType}):boolean =>{
-    let trigger = true;
-    for (let hashKey in hash) {
-        hash[hashKey] ? trigger=false:trigger=true;
-    }
-    return trigger
-}
-
-const  shortenName = (fullName:string|null):string|null=>{
-    const n = fullName ? fullName.split(" ").map((item,i)=>{
-      return   i===0 ? item:item.charAt(0).toUpperCase();
-    }).join(" "):null;
-    console.log(n ,`---> ${fullName}`)
-    return n
 }
 const createRowExelModel = (bindingHashInterfase:Array<bindingHashInterfaceItemType>,
                             hashForForigenKey:HashCollectionType,
@@ -127,16 +112,17 @@ const Table: React.FC<TableProps> = ({
                                      bindingHashInterfase,
                                      callback,
                                      formativeCallback,
+                                     marginTop
 
 
                                      }) => {
 
     return (
-        <div className={style.tableContayner}>
-            <table className={style.table}>
+        <div className={style.tableContayner} >
+            <table className={style.table} style={{marginTop: marginTop ?? 0}}>
                 <thead >
                 <tr style={{height:40}} >
-                    {bindingHashInterfase["headers"].map((el,i)=> el.changeable && el.hash ?
+                    {bindingHashInterfase["headers"].map((el,i)=> el.changeable ?
                         <th style={{minWidth:el.width,maxWidth:el.width}} key={i}>
                             <RegularEditableSpan
                                 clueFilteredParam={el.filteringMode}
