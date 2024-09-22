@@ -39,7 +39,7 @@ const corsProxyUrl =  'https://cors-proxi.vercel.app/'//"http://localhost:3001/"
 const axiosInstanseForSocialNetvork = axios.create({
     baseURL:encodeURIComponent(corsProxyUrl+"http://demo.iazs.com.ua/index.php?r=api2/"),
 })
-const baseUrl = "https://demo.iazs.com.ua/index.php?r=api2/";
+const baseUrl = "http://demo.iazs.com.ua/index.php?r=api2/";
 
 
 
